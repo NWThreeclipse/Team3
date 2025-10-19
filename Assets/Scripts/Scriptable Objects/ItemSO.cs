@@ -1,0 +1,17 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
+public class ItemSO : ScriptableObject
+{
+    //maybe add sprite and flavour text
+    public Rarity Rarity;
+    public string ItemName;
+    public float WeightKG;
+    public float TemperatureC;
+    [Range(0, 100)] public float Organic;
+    [Range(0, 5)] public int Magnetism;
+    public string[] Compounds;
+    public Sorting Sorting;
+    public int Value;
+    
+}
