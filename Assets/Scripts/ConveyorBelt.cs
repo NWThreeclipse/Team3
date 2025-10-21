@@ -8,10 +8,21 @@ public class ConveyorBelt : MonoBehaviour
     private bool isMoving;
     [SerializeField] private List<GameObject> collidingItems = new List<GameObject>();
 
+    [SerializeField] private float scrollSpeed;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] Material movingMaterial;
+    [SerializeField] Material notMovingMaterial;
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+    
     private void FixedUpdate()
     {
-        if(isMoving || collidingItems.Count != 0)
+        //moving belt
+        if (isMoving && collidingItems.Count != 0)
         {
+
             foreach (GameObject item in collidingItems.ToList())
             {
                 if (item == null)
@@ -32,13 +43,14 @@ public class ConveyorBelt : MonoBehaviour
     public void ToggleBelt()
     {
         isMoving = !isMoving;
-        Debug.Log(isMoving);
+        spriteRenderer.material = isMoving ? movingMaterial : notMovingMaterial;
+
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Item") && !collidingItems.Contains(collision.gameObject))
         {
-            Debug.Log("ITEM ENTERED");
             collidingItems.Add(collision.gameObject);
         }
     }
