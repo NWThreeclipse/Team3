@@ -13,5 +13,6 @@ public class ItemSO : ScriptableObject
     public string[] Compounds;
     public Sorting Sorting;
     public int Value;
+    public Sprite Sprite;
     
 }
