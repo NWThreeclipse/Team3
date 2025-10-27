@@ -5,20 +5,33 @@ using UnityEngine;
 public class ConveyorBelt : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    private bool isMoving;
+    [SerializeField] private bool isMoving;
     [SerializeField] private List<GameObject> collidingItems = new List<GameObject>();
 
     [SerializeField] private float scrollSpeed;
+
     private SpriteRenderer spriteRenderer;
-    [SerializeField] Material movingMaterial;
-    [SerializeField] Material notMovingMaterial;
+    private Material movingMaterial;
+    private float scrollOffset;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        movingMaterial = spriteRenderer.material;
     }
-    
+
+    private void Update()
+    {
+        if(isMoving)
+        {
+            scrollOffset += scrollSpeed * Time.deltaTime;
+            scrollOffset = Mathf.Repeat(scrollOffset, 1f);
+        }
+        movingMaterial.SetFloat("_ScrollOffset", scrollOffset);
+    }
     private void FixedUpdate()
     {
+
         //moving belt
         if (isMoving && collidingItems.Count != 0)
         {
@@ -43,8 +56,6 @@ public class ConveyorBelt : MonoBehaviour
     public void ToggleBelt()
     {
         isMoving = !isMoving;
-        spriteRenderer.material = isMoving ? movingMaterial : notMovingMaterial;
-
 
     }
     private void OnTriggerEnter2D(Collider2D collision)

@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float foodStat;
+    [SerializeField] private float organicStat;
     [SerializeField] private float fuelStat;
     [SerializeField] private float scrapStat;
 
     [SerializeField] private float maxStat;
 
-    [SerializeField] private float foodDepleteRate;
+    [SerializeField] private float organicDepleteRate;
     [SerializeField] private float fuelDepleteRate;
     [SerializeField] private float scrapDepleteRate;
 
-    [SerializeField] private Bin foodBin;
+    [SerializeField] private Bin organicBin;
     [SerializeField] private Bin fuelBin;
     [SerializeField] private Bin scrapBin;
 
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        HandleBin(foodBin, ref foodStat);
+        HandleBin(organicBin, ref organicStat);
         HandleBin(fuelBin, ref fuelStat);
         HandleBin(scrapBin, ref scrapStat);
 
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     public float[] GetStats()
     {
-        float[] stats = { foodStat, fuelStat, scrapStat };
+        float[] stats = { organicStat, fuelStat, scrapStat };
         return stats;
     }
 
@@ -87,11 +87,11 @@ public class GameManager : MonoBehaviour
 
     public void PassiveDeplete()
     {
-        foodStat -= foodDepleteRate * Time.deltaTime;
+        organicStat -= organicDepleteRate * Time.deltaTime;
         fuelStat -= fuelDepleteRate * Time.deltaTime;
         scrapStat -= scrapDepleteRate * Time.deltaTime;
 
-        foodStat = Mathf.Max(foodStat, 0);
+        organicStat = Mathf.Max(organicStat, 0);
         fuelStat = Mathf.Max(fuelStat, 0);
         scrapStat = Mathf.Max(scrapStat, 0);
 
@@ -100,9 +100,9 @@ public class GameManager : MonoBehaviour
 
     public void CheckLoss()
     {
-        if (foodStat <= 0)
+        if (organicStat <= 0)
         {
-            // Trigger food loss logic
+            // Trigger organic loss logic
             Debug.Log("Food loss ending");
         }
 

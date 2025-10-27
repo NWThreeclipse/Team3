@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
+  m_Name: GasCanister
+  m_EditorClassIdentifier: 
+  Rarity: 1
+  ItemName: Gas Canister
+  Weight: 3
+  TemperatureC: 75
+  Organic: 0
+  Magnetism: 2
+  Compounds:
+  - Nitrofuelium
+  Sorting: 1
+  Value: 2
+  Sprite: {fileID: 21300000, guid: d531e3ae35b2a1440b1dd618dc1dde99, type: 3}

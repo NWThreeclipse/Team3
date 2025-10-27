@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
+  m_Name: ShipMachineryPart
+  m_EditorClassIdentifier: 
+  Rarity: 1
+  ItemName: Ship Machinery Part
+  Weight: 4
+  TemperatureC: 10
+  Organic: 0
+  Magnetism: 5
+  Compounds:
+  - Titanium
+  Sorting: 0
+  Value: 2
+  Sprite: {fileID: 21300000, guid: 9c60c094ad1b061419cd60c54a48ff6c, type: 3}

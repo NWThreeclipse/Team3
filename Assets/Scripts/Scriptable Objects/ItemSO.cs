@@ -6,7 +6,7 @@ public class ItemSO : ScriptableObject
     //maybe add sprite and flavour text
     public Rarity Rarity;
     public string ItemName;
-    public float WeightKG;
+    public Weight Weight;
     public float TemperatureC;
     [Range(0, 100)] public float Organic;
     [Range(0, 5)] public int Magnetism;
