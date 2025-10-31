@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -20,7 +23,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int dayCounter;
     [SerializeField] private float timer;
     [SerializeField] private bool isCountingDown;
+    [SerializeField] private float itemSpawnrate;
+    private List<ItemSO> gameItems;
+    private List<ItemSO> commonItems;
+    private List<ItemSO> uncommonItems;
 
+    [SerializeField] private GameObject itemPrefab;
+    [SerializeField] private Transform spawnPoint;
+
+    private void Start()
+    {
+        gameItems = Resources.LoadAll<ItemSO>("").ToList();
+        if (gameItems.Count > 0)
+        {
+            commonItems = gameItems.Where(item => item.Rarity == Rarity.Common).ToList();
+            uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
+        }
+        StartCoroutine(SpawnItem());
+    }
     private void Update()
     {
         HandleBin(organicBin, ref organicStat);
@@ -30,6 +50,18 @@ public class GameManager : MonoBehaviour
         PassiveDeplete();
         CountDown();
 
+    }
+
+    private IEnumerator SpawnItem()
+    {
+        while(true)
+        {
+            int randomIndex = Random.Range(0, Random.value <= itemSpawnrate ? commonItems.Count : uncommonItems.Count);
+            GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
+            Item item = itemInstance.GetComponent<Item>();
+            item.SetItemData(Random.value <= itemSpawnrate ? commonItems[randomIndex] : uncommonItems[randomIndex]);
+            yield return new WaitForSeconds(itemSpawnrate);
+        }
     }
 
     private void CountDown()

@@ -8,7 +8,8 @@ public class ItemDespawn : MonoBehaviour
     {
         if (collision.CompareTag("Item"))
         {
-            collision.gameObject.transform.position = spawnPoint.transform.position;
+            //collision.gameObject.transform.position = spawnPoint.transform.position;
+            Destroy(collision.gameObject);
         }
     }
 

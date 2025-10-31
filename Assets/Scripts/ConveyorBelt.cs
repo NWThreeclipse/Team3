@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConveyorBelt : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
-    [SerializeField] private bool isMoving;
+    [SerializeField] private bool isMoving = true;
     [SerializeField] private List<GameObject> collidingItems = new List<GameObject>();
 
     [SerializeField] private float scrollSpeed;

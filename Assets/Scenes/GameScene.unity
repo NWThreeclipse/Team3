@@ -746,8 +746,11 @@ MonoBehaviour:
   fuelBin: {fileID: 963649370}
   scrapBin: {fileID: 529036019}
   dayCounter: 0
-  timer: 300
+  timer: 150
   isCountingDown: 1
+  itemSpawnrate: 8
+  itemPrefab: {fileID: 2113843643}
+  spawnPoint: {fileID: 709049345}
 --- !u!4 &550975239
 Transform:
   m_ObjectHideFlags: 0
@@ -756,7 +759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550975237}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -997,7 +1000,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 374868617}
   m_HandleRect: {fileID: 0}
@@ -1370,7 +1373,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1935594059}
   m_HandleRect: {fileID: 0}
@@ -2085,7 +2088,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1146283966}
   m_HandleRect: {fileID: 0}
@@ -2097,6 +2100,11 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2113843643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 800662319053472940, guid: cba9f28a7b8906c41aa0b7bea342dc79, type: 3}
+  m_PrefabInstance: {fileID: 2773838660218335764}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &115479062495063729
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2339,11 +2347,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 476074977573795318, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Size.x
-      value: 22.551739
+      value: 23.61808
       objectReference: {fileID: 0}
     - target: {fileID: 476074977573795318, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Offset.x
-      value: 1.0424609
+      value: 0.5092912
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650149136412265774, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: isMoving
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650149136412265774, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: moveSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8113348502405141365, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Name
@@ -2408,7 +2424,7 @@ SceneRoots:
   - {fileID: 115479062495063729}
   - {fileID: 4064755738686824027}
   - {fileID: 204753690850083036}
-  - {fileID: 550975239}
   - {fileID: 1661444423}
+  - {fileID: 550975239}
   - {fileID: 709049345}
   - {fileID: 148267080}
