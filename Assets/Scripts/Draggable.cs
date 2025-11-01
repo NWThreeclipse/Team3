@@ -20,7 +20,7 @@ public class Draggable : MonoBehaviour
 
     protected void Update()
     {
-        Debug.Log(held);
+        //Debug.Log(held);
         if(appearing && transform.localScale.x < finalScale)
         {
             transform.localScale += new Vector3(Time.deltaTime * 3.5f, Time.deltaTime * 3.5f, 0);

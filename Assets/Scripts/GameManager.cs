@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -136,18 +137,28 @@ public class GameManager : MonoBehaviour
         {
             // Trigger organic loss logic
             Debug.Log("Food loss ending");
+            LoadScene("LossScene");
         }
 
         if (fuelStat <= 0)
         {
             // Trigger fuel loss logic
             Debug.Log("Fuel loss ending");
+            LoadScene("LossScene");
+
         }
 
         if (scrapStat <= 0)
         {
             // Trigger scrap loss logic
             Debug.Log("Scrap loss ending");
+            LoadScene("LossScene");
+
         }
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
