@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rarity: 1
   ItemName: Alien Plant
-  WeightKG: 0
+  Weight: 0
   TemperatureC: 15
   Organic: 100
   Magnetism: 0
@@ -23,4 +23,4 @@ MonoBehaviour:
   - Carbon
   Sorting: 2
   Value: 2
-  Sprite: {fileID: 21300000, guid: 1c5275c52f69d9441af4108d5ae4895c, type: 3}
+  Sprite: {fileID: 21300000, guid: 8cc8e47bf5479c04998aa30a49ce758c, type: 3}

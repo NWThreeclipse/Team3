@@ -21,4 +21,4 @@ MonoBehaviour:
   Compounds: []
   Sorting: 1
   Value: 5
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 9ba2e0050d325e84a85a58f892940b13, type: 3}
