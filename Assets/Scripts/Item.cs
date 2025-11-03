@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Item : Draggable
@@ -7,6 +8,7 @@ public class Item : Draggable
 
     private bool isShrinking = false;
     private bool isGrowing = false;
+
 
     private void Start()
     {
@@ -19,10 +21,8 @@ public class Item : Draggable
         }
     }
 
-    public ItemSO getItemData()
-    {
-        return itemData;
-    }
+    public ItemSO GetItemData() => itemData;
+
     public void Shrink()
     {
         offset = new Vector3(0, 0, offset.z);
@@ -42,7 +42,7 @@ public class Item : Draggable
         itemData = newItemData;
         if (spriteRenderer != null && itemData != null && itemData.Sprite != null)
         {
-            spriteRenderer.sprite = itemData.Sprite; // Update sprite if applicable
+            spriteRenderer.sprite = itemData.Sprite;
         }
     }
 
@@ -68,5 +68,6 @@ public class Item : Draggable
             isGrowing = false;
         }
     }
+
 
 }

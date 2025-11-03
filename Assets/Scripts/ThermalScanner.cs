@@ -32,7 +32,6 @@ public class ThermalScanner : MonoBehaviour
     private const float TAU = 2 * Mathf.PI;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         MinigameCanvas.SetActive(false);
@@ -43,7 +42,6 @@ public class ThermalScanner : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
 

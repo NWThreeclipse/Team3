@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
 public class ItemSO : ScriptableObject
 {
-    //maybe add sprite and flavour text
     public Rarity Rarity;
     public string ItemName;
     public Weight Weight;

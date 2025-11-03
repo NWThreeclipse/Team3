@@ -17,10 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float fuelDepleteRate;
     [SerializeField] private float scrapDepleteRate;
 
-    [SerializeField] private Bin organicBin;
-    [SerializeField] private Bin fuelBin;
-    [SerializeField] private Bin scrapBin;
-
     [SerializeField] private int dayCounter;
     [SerializeField] private float timer;
     [SerializeField] private bool isCountingDown;
@@ -31,6 +27,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform spawnPoint;
+    [SerializeField] private ConveyorBelt conveyorBelt;
+
+    public float GetTime() => timer;
+
 
     private void Start()
     {
@@ -44,9 +44,6 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        HandleBin(organicBin, ref organicStat);
-        HandleBin(fuelBin, ref fuelStat);
-        HandleBin(scrapBin, ref scrapStat);
 
         PassiveDeplete();
         CountDown();
@@ -61,6 +58,7 @@ public class GameManager : MonoBehaviour
             GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
             Item item = itemInstance.GetComponent<Item>();
             item.SetItemData(Random.value <= itemSpawnrate ? commonItems[randomIndex] : uncommonItems[randomIndex]);
+            conveyorBelt.AddItem(itemInstance);
             yield return new WaitForSeconds(itemSpawnrate);
         }
     }
@@ -73,49 +71,38 @@ public class GameManager : MonoBehaviour
 
             if(timer <= 0f)
             {
-                //timer has hit zero
+                LoadScene("WinScene");
+
             }
         }
     }
 
 
-    private void HandleBin(Bin bin, ref float stat)
+    public void AddStat(Sorting type, float value)
     {
-        if (bin.GetItems().Count != 0)
+        switch (type)
         {
-            foreach (GameObject itemGameObject in bin.GetItems().ToList())
-            {
-                Item item = itemGameObject.GetComponent<Item>();
-                if (!item.GetHeld())
-                {
-                    if (item.getItemData().Sorting == bin.getSortingType())
-                    {
-                        stat += item.getItemData().Value;
-                        stat = Mathf.Min(stat, maxStat);
-                        bin.DeleteItem(itemGameObject);
-                        Destroy(itemGameObject);
-                    }
-                    else
-                    {
-                        stat -= item.getItemData().Value;
-                        bin.DeleteItem(itemGameObject);
-                        Destroy(itemGameObject);
-                        CheckLoss();
-                    }
-                }
-            }
+            case Sorting.Organic: organicStat = Mathf.Min(organicStat + value, maxStat); break;
+            case Sorting.Fuel: fuelStat = Mathf.Min(fuelStat + value, maxStat); break;
+            case Sorting.Scrap: scrapStat = Mathf.Min(scrapStat + value, maxStat); break;
         }
     }
+
+    public void SubtractStat(Sorting type, float value)
+    {
+        switch (type)
+        {
+            case Sorting.Organic: organicStat = Mathf.Max(organicStat - value, 0); break;
+            case Sorting.Fuel: fuelStat = Mathf.Max(fuelStat - value, 0); break;
+            case Sorting.Scrap: scrapStat = Mathf.Max(scrapStat - value, 0); break;
+        }
+    }
+
 
     public float[] GetStats()
     {
         float[] stats = { organicStat, fuelStat, scrapStat };
         return stats;
-    }
-
-    public float GetTime()
-    {
-        return timer;
     }
 
     public void PassiveDeplete()

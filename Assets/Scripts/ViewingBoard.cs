@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,37 +8,39 @@ public class ViewingBoard : MonoBehaviour
 
     [SerializeField] private GameObject enteredItem;
     [SerializeField] private bool isHoldingItem;
+
+    public bool IsHoldingItem() => isHoldingItem;
+    public ItemSO GetItem() => enteredItem.GetComponent<Item>().GetItemData();
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!isHoldingItem)
+
+        if (collision.CompareTag("Item"))
         {
-            if (collision.CompareTag("Item") && !enteredItem.Equals(collision.gameObject))
+            var draggable = collision.GetComponent<Draggable>();
+            if (draggable != null)
             {
-                enteredItem = collision.gameObject;
-                collision.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-                isHoldingItem = true;
+                draggable.OnReleased += HandleItemRelease;
             }
         }
-        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Item"))
         {
-            enteredItem = null;
-            isHoldingItem = false;
+            var draggable = collision.GetComponent<Draggable>();
+            if (draggable != null)
+                draggable.OnReleased -= HandleItemRelease;
         }
-
     }
 
-    public bool IsHoldingItem()
+    private void HandleItemRelease(Draggable draggable)
     {
-        return isHoldingItem;
+        enteredItem = draggable.gameObject;
+        enteredItem.transform.position = transform.position;
+        isHoldingItem = true;
     }
 
-    public ItemSO GetItem()
-    {
-        return enteredItem.GetComponent<Item>().getItemData();
-    }
 }

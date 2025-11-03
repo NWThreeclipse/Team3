@@ -32,7 +32,6 @@ public class ConveyorBelt : MonoBehaviour
     private void FixedUpdate()
     {
 
-        //moving belt
         if (isMoving && collidingItems.Count != 0)
         {
 
@@ -72,5 +71,10 @@ public class ConveyorBelt : MonoBehaviour
         {
             collidingItems.Remove(collision.gameObject);
         }
+    }
+
+    public void AddItem(GameObject item)
+    {
+        collidingItems.Add(item);
     }
 }
