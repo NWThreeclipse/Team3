@@ -1,54 +1,35 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
-public class Bin : MonoBehaviour
+public class Bin : DragZone
 {
     [SerializeField] private Sorting sorting;
-    [SerializeField] private List<GameObject> collidingItems = new List<GameObject>();
     [SerializeField] private GameManager gameManager;
 
-    public void DeleteItem(GameObject gameObject) => collidingItems.Remove(gameObject);
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void HandleItemRelease(Draggable draggable)
     {
-        if (collision.CompareTag("Item"))
-        {
-            GameObject gameObject = collision.gameObject;
-            if (!collidingItems.Contains(gameObject))
-                collidingItems.Add(gameObject);
-
-            var draggable = gameObject.GetComponent<Draggable>();
-            if (draggable != null)
-                draggable.OnReleased += HandleItemRelease;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Item"))
-        {
-            GameObject gameObject = collision.gameObject;
-            collidingItems.Remove(gameObject);
-
-            var draggable = gameObject.GetComponent<Draggable>();
-            if (draggable != null)
-                draggable.OnReleased -= HandleItemRelease;
-        }
-    }
-
-    private void HandleItemRelease(Draggable draggable)
-    {
-        GameObject gameObject = draggable.gameObject;
-        if (!collidingItems.Contains(gameObject))
-        {
-            return;
-        }
+        base.HandleItemRelease(draggable);
+        GameObject itemObject = draggable.gameObject;
+       
         //check if colliding with multiple bins, if so then snap back to safe area
 
-        Item item = gameObject.GetComponent<Item>();
+        Item item = itemObject.GetComponent<Item>();
 
-        if (item.GetItemData().Sorting == sorting)
+        StartCoroutine(PlayEffectWithDelay(item));
+
+        enteredItem = null;
+        Destroy(itemObject);
+    }
+
+    private IEnumerator PlayEffectWithDelay(Item item)
+    {
+        bool isCorrect = item.GetItemData().Sorting == sorting;
+
+        float soundLength = isCorrect ? AudioController.PlayCorrectSound() : AudioController.PlayIncorrectSound();
+
+        yield return new WaitForSeconds(soundLength-1f);
+
+        if (isCorrect)
         {
             gameManager.AddStat(sorting, item.GetItemData().Value);
         }
@@ -56,10 +37,8 @@ public class Bin : MonoBehaviour
         {
             gameManager.SubtractStat(sorting, item.GetItemData().Value);
             gameManager.CheckLoss();
-        }
 
-        DeleteItem(gameObject);
-        Destroy(gameObject);
+        }
     }
 
 }

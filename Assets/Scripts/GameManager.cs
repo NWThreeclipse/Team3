@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private ConveyorBelt conveyorBelt;
 
+    [SerializeField] private float alarmThreshold;
+    public event Action<GameManager> AlarmThreshold;
+    private bool alarmTriggered = false;
+
+
     public float GetTime() => timer;
 
 
@@ -54,10 +59,10 @@ public class GameManager : MonoBehaviour
     {
         while(true)
         {
-            int randomIndex = Random.Range(0, Random.value <= itemSpawnrate ? commonItems.Count : uncommonItems.Count);
+            int randomIndex = UnityEngine.Random.Range(0, UnityEngine.Random.value <= itemSpawnrate ? commonItems.Count : uncommonItems.Count);
             GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
             Item item = itemInstance.GetComponent<Item>();
-            item.SetItemData(Random.value <= itemSpawnrate ? commonItems[randomIndex] : uncommonItems[randomIndex]);
+            item.SetItemData(UnityEngine.Random.value <= itemSpawnrate ? commonItems[randomIndex] : uncommonItems[randomIndex]);
             conveyorBelt.AddItem(itemInstance);
             yield return new WaitForSeconds(itemSpawnrate);
         }
@@ -115,7 +120,24 @@ public class GameManager : MonoBehaviour
         fuelStat = Mathf.Max(fuelStat, 0);
         scrapStat = Mathf.Max(scrapStat, 0);
 
+        CheckThreshold();
         CheckLoss();
+    }
+
+
+    public void CheckThreshold()
+    {
+        if (!alarmTriggered &&
+            (organicStat <= alarmThreshold || scrapStat <= alarmThreshold || fuelStat <= alarmThreshold))
+        {
+            alarmTriggered = true;
+            AlarmThreshold?.Invoke(this);
+        }
+
+        if (organicStat > alarmThreshold && fuelStat > alarmThreshold && scrapStat > alarmThreshold)
+        {
+            alarmTriggered = false;
+        }
     }
 
     public void CheckLoss()

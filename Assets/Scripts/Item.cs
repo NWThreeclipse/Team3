@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Item : Draggable
 {
-    [SerializeField]private ItemSO itemData;
+    [SerializeField] private ItemSO itemData;
     private SpriteRenderer spriteRenderer;
 
     private bool isShrinking = false;
