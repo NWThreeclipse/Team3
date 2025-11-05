@@ -3928,12 +3928,12 @@ GameObject:
   - component: {fileID: 1802652870}
   - component: {fileID: 1802652869}
   m_Layer: 5
-  m_Name: SettingsMenu (1)
+  m_Name: Credits Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1802652868
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4386,7 +4386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5fe9595360c95469438ede3abcc7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsMenu: {fileID: 0}
+  creditsMenu: {fileID: 1802652867}
 --- !u!4 &1970194648
 Transform:
   m_ObjectHideFlags: 0
