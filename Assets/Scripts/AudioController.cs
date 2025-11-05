@@ -19,6 +19,12 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioClip correctClip;
     [SerializeField] private AudioClip incorrectClip;
 
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioClip menuClip;
+    [SerializeField] private AudioClip inGameClip;
+
+
+
 
     private static AudioController instance;
 
@@ -39,6 +45,7 @@ public class AudioController : MonoBehaviour
         sfxSource.loop = false;
         gameManager.AlarmThreshold += OnAlarmTriggered;
         PlayBelt();
+
     }
 
     public void PlayBelt()
