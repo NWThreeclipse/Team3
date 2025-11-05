@@ -43,12 +43,18 @@ public class ConveyorBelt : MonoBehaviour
                     continue;
                 }
 
-                if (!item.GetComponent<Draggable>().GetHeld())
+                Draggable draggableItem = item.GetComponent<Draggable>();
+                Trash trashItem = item.GetComponent<Trash>();
+
+                if (trashItem != null)
                 {
                     item.transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
                 }
 
-
+                else if (draggableItem != null && !draggableItem.GetHeld())
+                {
+                    item.transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
+                }
             }
         }
     }

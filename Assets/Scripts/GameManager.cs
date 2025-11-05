@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     public event Action<GameManager> AlarmThreshold;
     private bool alarmTriggered = false;
 
+    [SerializeField] private List<Sprite> trashSprites;
+    [SerializeField] private GameObject trashPrefab;
+    [SerializeField] private float trashSpawnrate;
+
 
     public float GetTime() => timer;
 
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
         }
         StartCoroutine(SpawnItem());
+        StartCoroutine(SpawnTrash());
     }
     private void Update()
     {
@@ -65,6 +70,20 @@ public class GameManager : MonoBehaviour
             item.SetItemData(UnityEngine.Random.value <= itemSpawnrate ? commonItems[randomIndex] : uncommonItems[randomIndex]);
             conveyorBelt.AddItem(itemInstance);
             yield return new WaitForSeconds(itemSpawnrate);
+        }
+    }
+
+    private IEnumerator SpawnTrash()
+    {
+        yield return new WaitForSeconds(1f);
+        while(true)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, trashSprites.Count);
+            GameObject trashInstance = Instantiate(trashPrefab, spawnPoint.position, Quaternion.identity);
+            Trash trash = trashInstance.GetComponent<Trash>();
+            trash.SetSprite(trashSprites[randomIndex]);
+            conveyorBelt.AddItem(trashInstance);
+            yield return new WaitForSeconds(trashSpawnrate);
         }
     }
 

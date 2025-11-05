@@ -3069,6 +3069,17 @@ MonoBehaviour:
   spawnPoint: {fileID: 709049345}
   conveyorBelt: {fileID: 177915302}
   alarmThreshold: 20
+  trashSprites:
+  - {fileID: 21300000, guid: 2ceab5a768ec46f429de5b692004fb6a, type: 3}
+  - {fileID: 21300000, guid: bc7933c4ad5ac724fa4e100d90565ffe, type: 3}
+  - {fileID: 21300000, guid: c92b9003ad3a63a4d90f27a7c716e48f, type: 3}
+  - {fileID: 21300000, guid: c6046ba8387dba040ac27ae0d07a39b1, type: 3}
+  - {fileID: 21300000, guid: 752f6dd8075dde8469602bf8027c325d, type: 3}
+  - {fileID: 21300000, guid: 920a956faffff734b8ed67c85cfb50d7, type: 3}
+  - {fileID: 21300000, guid: caf786a046a04554fa2611ffddcf5422, type: 3}
+  - {fileID: 21300000, guid: faafabc982c2bec49ab45d966f361a32, type: 3}
+  trashPrefab: {fileID: 5173479532194095059, guid: efad17b957da1994b8ae3b13a0dd2baa, type: 3}
+  trashSpawnrate: 5
 --- !u!4 &550975239
 Transform:
   m_ObjectHideFlags: 0

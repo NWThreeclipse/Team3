@@ -18,6 +18,10 @@ public class Item : Draggable
         if (itemData != null && itemData.Sprite != null)
         {
             spriteRenderer.sprite = itemData.Sprite;
+            Vector2 spriteSize = spriteRenderer.sprite.rect.size / spriteRenderer.sprite.pixelsPerUnit;
+
+            BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
+            boxCollider.size = spriteSize;
         }
     }
 
