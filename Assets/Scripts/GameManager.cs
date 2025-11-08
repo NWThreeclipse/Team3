@@ -20,10 +20,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int dayCounter;
     [SerializeField] private float timer;
     [SerializeField] private bool isCountingDown;
-    [SerializeField] private float itemSpawnrate;
+    [SerializeField] private Vector2 itemSpawnrate;
     private List<ItemSO> gameItems;
     private List<ItemSO> commonItems;
     private List<ItemSO> uncommonItems;
+    private List<ItemSO> anomalousItems;
 
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform spawnPoint;
@@ -35,8 +36,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Sprite> trashSprites;
     [SerializeField] private GameObject trashPrefab;
-    [SerializeField] private float trashSpawnrate;
+    [SerializeField] private Vector2 trashSpawnrate;
 
+    private bool anomalousItemSpawnedToday = false;
+    private int itemsSpawnedToday = 0;
+
+    [SerializeField] private List<DialogueTree> dailyDialogues;
+    [SerializeField] private DialogueManager dialogueManager;
+    private bool isDialogueEnded = false;
 
     public float GetTime() => timer;
 
@@ -48,28 +55,61 @@ public class GameManager : MonoBehaviour
         {
             commonItems = gameItems.Where(item => item.Rarity == Rarity.Common).ToList();
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
+            anomalousItems = gameItems.Where(item => item.Rarity == Rarity.Anomalous).ToList();
         }
-        StartCoroutine(SpawnItem());
-        StartCoroutine(SpawnTrash());
+        dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
+        dialogueManager.OnDialogueEnd += HandleDialogueEnd;
+
     }
     private void Update()
     {
-
-        PassiveDeplete();
-        CountDown();
+        if(isDialogueEnded)
+        {
+            PassiveDeplete();
+            CountDown();
+        }
 
     }
+
+    private void HandleDialogueEnd(DialogueManager dialogueManager)
+    {
+        isDialogueEnded = true;
+        StartCoroutine(SpawnItem());
+        StartCoroutine(SpawnTrash());
+    }
+    
+
+
 
     private IEnumerator SpawnItem()
     {
         while(true)
         {
-            int randomIndex = UnityEngine.Random.Range(0, UnityEngine.Random.value <= itemSpawnrate ? commonItems.Count : uncommonItems.Count);
+            bool itemType = UnityEngine.Random.value <= .8f;
+            bool spawnAnomalousItem = UnityEngine.Random.value <= 0.1f && !anomalousItemSpawnedToday;
+            ItemSO itemData;
+
+            if (spawnAnomalousItem && itemsSpawnedToday > 0)
+            {
+                anomalousItemSpawnedToday = true;
+                itemsSpawnedToday++;
+                int randomIndex = UnityEngine.Random.Range(0, anomalousItems.Count);
+                itemData = anomalousItems[randomIndex];
+                //time slow when item is picked up
+                //music weird when spawn
+
+            }
+            else
+            {
+                int randomIndex = UnityEngine.Random.Range(0, itemType ? commonItems.Count : uncommonItems.Count);
+                itemData = itemType ? commonItems[randomIndex] : uncommonItems[randomIndex];
+            }
+                
             GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
             Item item = itemInstance.GetComponent<Item>();
-            item.SetItemData(UnityEngine.Random.value <= itemSpawnrate ? commonItems[randomIndex] : uncommonItems[randomIndex]);
+            item.SetItemData(itemData);
             conveyorBelt.AddItem(itemInstance);
-            yield return new WaitForSeconds(itemSpawnrate);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
     }
 
@@ -83,7 +123,7 @@ public class GameManager : MonoBehaviour
             Trash trash = trashInstance.GetComponent<Trash>();
             trash.SetSprite(trashSprites[randomIndex]);
             conveyorBelt.AddItem(trashInstance);
-            yield return new WaitForSeconds(trashSpawnrate);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(trashSpawnrate.x, trashSpawnrate.y));
         }
     }
 

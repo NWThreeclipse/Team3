@@ -82,6 +82,8 @@ public class AudioController : MonoBehaviour
 
     public static void PlayPickupSound()
     {
+        //maybe add variation for sound effects for different types
+        //dont forget to add sound variation
         instance?.sfxSource?.PlayOneShot(instance.pickupClip);
     }
 

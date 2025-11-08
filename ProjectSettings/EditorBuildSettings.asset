@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/GameScene.unity
     guid: 875f7ef0e644c3c43b7e9ebd1b44bb00
   - enabled: 1
-    path: Assets/Scenes/WinScene.unity
+    path: Assets/Scenes/BarracksScene.unity
     guid: 43584afc9f5214d45a5d94420681caa9
   - enabled: 1
     path: Assets/Scenes/LossScene.unity

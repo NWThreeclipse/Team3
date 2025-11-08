@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
-  m_Name: AntiMatterTube
+  m_Name: Toy
   m_EditorClassIdentifier: 
-  Rarity: 2
-  ItemName: Anti-Matter Tube
-  Weight: 2
-  TemperatureC: -273
+  Rarity: 3
+  ItemName: Toy
+  Weight: 0
+  TemperatureC: 0
   Organic: 0
-  Magnetism: 1
-  Compounds:
-  - ???
-  Sorting: 1
-  Value: 5
-  Sprite: {fileID: 21300000, guid: 9ba2e0050d325e84a85a58f892940b13, type: 3}
+  Magnetism: 0
+  Compounds: []
+  Sorting: 0
+  Value: 7
+  Sprite: {fileID: 21300000, guid: da012ef2b225cb64a8abeccf803f86ea, type: 3}

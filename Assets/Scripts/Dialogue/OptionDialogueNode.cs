@@ -12,4 +12,6 @@ public class OptionDialogueNode : Node
 	
 	[Output] public Node optionA;
 	[Output] public Node optionB;
+    [Output] public Node optionC;
+    [Output] public Node optionD;
 }

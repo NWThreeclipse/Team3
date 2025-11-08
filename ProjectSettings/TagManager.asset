@@ -42,11 +42,26 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Player
+    uniqueID: 560728885
+    locked: 0
+  - name: Environment
+    uniqueID: 3831953407
+    locked: 0
+  - name: Text
+    uniqueID: 31729669
+    locked: 0
   - name: Item
     uniqueID: 3724158745
     locked: 0
   - name: Trash
     uniqueID: 825388839
+    locked: 0
+  - name: BeltFront
+    uniqueID: 744383765
+    locked: 0
+  - name: Held
+    uniqueID: 797723563
     locked: 0
   m_RenderingLayers:
   - Default

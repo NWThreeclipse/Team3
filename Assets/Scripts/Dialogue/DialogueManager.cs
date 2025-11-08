@@ -1,29 +1,35 @@
+using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using DG.Tweening;
 using XNode;
 
 public class DialogueManager : MonoBehaviour
 {
-    public TMP_Text nameText;
-    public TMP_Text sentenceText;
-    public Button nextButton, optionAButton, optionBButton;
-    public TMP_Text optionAText, optionBText;
-    public Image portrait;
-    public AudioClip panelOpen, panelClose;
-    [Space]
-    public Vector3 showPanelPos = new Vector3(0,-140,0);
-    public Vector3 hidePanelPos = new Vector3(0, -400, 0);
-    public float panelAnimationTime = 1;
-    public float textSpeed = 0.01f;
+    [SerializeField] private GameObject dialogueMenu;
+    [SerializeField] private TMP_Text nameText;
+    [SerializeField] private TMP_Text sentenceText;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button[] optionButtons;
+    [SerializeField] private TMP_Text[] optionButtonsText;
+
+    [SerializeField] private Image portrait;
+    [SerializeField] private AudioClip panelOpen, panelClose;
+    [SerializeField] private Vector3 showPanelPos = new Vector3(0,-140,0);
+    [SerializeField] private Vector3 hidePanelPos = new Vector3(0, -400, 0);
+    [SerializeField] private float panelAnimationTime = 1;
+    [SerializeField] private float textSpeed = 0.01f;
 
     Node curNode;
     Queue<string> sentences = new Queue<string>();
     AudioSource source;
     AudioClip talkingClip;
+
+    public event Action<DialogueManager> OnDialogueEnd;
+
 
     void Start()
     {
@@ -49,12 +55,12 @@ public class DialogueManager : MonoBehaviour
 
             //set buttons
             nextButton.gameObject.SetActive(false);
-            optionAButton.gameObject.SetActive(true);
-            optionBButton.gameObject.SetActive(true);
-            
-            //load responses
-            optionAText.text = options.responses.sentences[0];
-            optionBText.text = options.responses.sentences[1];
+            for (int i = 0; i < options.responses.sentences.Length; i++)
+            {
+                optionButtons[i].gameObject.SetActive(true);
+                optionButtonsText[i].text = options.responses.sentences[i];
+            }
+
 
             sentences.Clear();
             for (int i = 0; i < dialogue.sentences.Length; i++)
@@ -63,7 +69,7 @@ public class DialogueManager : MonoBehaviour
             }
 
             source.PlayOneShot(panelOpen);
-            transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
+            dialogueMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
         }
         //simple node
         else if (curNode.GetType() == typeof(SimpleDialogueNode))
@@ -80,8 +86,10 @@ public class DialogueManager : MonoBehaviour
 
             //set buttons
             nextButton.gameObject.SetActive(true);
-            optionAButton.gameObject.SetActive(false);
-            optionBButton.gameObject.SetActive(false);
+            for (int i = 0; i < optionButtons.Length; i++)
+            {
+                optionButtons[i].gameObject.SetActive(false);
+            }
 
             sentences.Clear();
             for (int i = 0; i < dialogue.sentences.Length; i++)
@@ -89,8 +97,8 @@ public class DialogueManager : MonoBehaviour
                 sentences.Enqueue(dialogue.sentences[i]);
             }
 
-            source.PlayOneShot(panelOpen);
-            transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
+            //source.PlayOneShot(panelOpen); <-- this was giving bug
+            dialogueMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
         }
         //control node;
         else
@@ -115,30 +123,33 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextOption(string option)
     {
+        OptionDialogueNode optionNode = curNode as OptionDialogueNode;
+
+        NodePort port = null;
+
         if (option == "A")
         {
-            OptionDialogueNode optionNode = curNode as OptionDialogueNode;
-            
-            NodePort portA = optionNode.GetOutputPort("optionA").Connection;
-            
-            if (portA != null)
-            {
-                curNode = portA.node;
-            }
+            port = optionNode.GetOutputPort("optionA");
         }
-        else
+        else if (option == "B")
         {
-            OptionDialogueNode optionNode = curNode as OptionDialogueNode;
-            NodePort portB = optionNode.GetOutputPort("optionB").Connection;
-            
-            if (portB != null)
-            {
-                curNode = portB.node;
-            }
+            port = optionNode.GetOutputPort("optionB");
         }
-        
-        StartDialogue(curNode);
+        else if (option == "C")
+        {
+            port = optionNode.GetOutputPort("optionC");
+        }
+        else if (option == "D")
+        {
+            port = optionNode.GetOutputPort("optionD");
+        }
+        if (port != null && port.Connection != null)
+        {
+            curNode = port.Connection.node;
+            StartDialogue(curNode);
+        }
     }
+
 
     public void DisplayNextSimple()
     {
@@ -177,6 +188,8 @@ public class DialogueManager : MonoBehaviour
     {
         StopAllCoroutines();
         source.PlayOneShot(panelClose);
-        transform.DOLocalMove(hidePanelPos, panelAnimationTime);
+        dialogueMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
+        OnDialogueEnd?.Invoke(this);
+
     }
 }

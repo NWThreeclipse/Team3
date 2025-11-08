@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 505153914de717d4db93aa814b8f4bf8, type: 3}
-  m_Name: Dialogue
+  m_Name: Dialogue 5
   m_EditorClassIdentifier: 
-  name: Dylan
-  portrait: {fileID: 21300000, guid: 4b2fde321cbf7014ea51da847798f901, type: 3}
-  talkingClip: {fileID: 8300000, guid: 0b6ada694264c214795f5491cb17518d, type: 3}
+  name: Supervisor
+  portrait: {fileID: 0}
+  talkingClip: {fileID: 0}
   sentences:
-  - hello my name is dylan this is the dialogue system
+  - Begin your task.

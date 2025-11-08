@@ -73,5 +73,17 @@ public class Item : Draggable
         }
     }
 
+    private void OnMouseDown()
+    {
+        base.OnMouseDown();
+        spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
+    }
+
+    private void OnMouseUp()
+    {
+        base.OnMouseUp();
+        spriteRenderer.sortingLayerID = SortingLayer.NameToID("Item");
+    }
+
 
 }
