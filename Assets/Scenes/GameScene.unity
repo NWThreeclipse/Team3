@@ -1318,7 +1318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 164037571}
   - component: {fileID: 164037572}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3464,7 +3464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 544204667}
   - component: {fileID: 544204666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12019,7 +12019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2243741647437159568, guid: d7df772386e04b0488064444b0376be7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.107
+      value: 3.84
       objectReference: {fileID: 0}
     - target: {fileID: 2243741647437159568, guid: d7df772386e04b0488064444b0376be7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12128,7 +12128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1013325743677552731, guid: ad034ad6ba5cec94295502c1a8e90564, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.507
+      value: 9.41
       objectReference: {fileID: 0}
     - target: {fileID: 1013325743677552731, guid: ad034ad6ba5cec94295502c1a8e90564, type: 3}
       propertyPath: m_LocalPosition.y

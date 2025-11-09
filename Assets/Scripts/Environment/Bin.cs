@@ -27,6 +27,8 @@ public class Bin : DragZone
         if (multipleCollision)
         {
             draggable.ResetPosition();
+            //isHoldingItem = false;
+            //enteredItem = null;
             Debug.Log("multi bin collision");
         }
         else
