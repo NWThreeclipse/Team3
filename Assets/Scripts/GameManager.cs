@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
 
             if(timer <= 0f)
             {
+                StatsController.Instance.IncrementDay();
                 LoadScene("WinScene");
 
             }
@@ -146,9 +148,9 @@ public class GameManager : MonoBehaviour
     {
         switch (type)
         {
-            case Sorting.Organic: organicStat = Mathf.Min(organicStat + value, maxStat); break;
-            case Sorting.Fuel: fuelStat = Mathf.Min(fuelStat + value, maxStat); break;
-            case Sorting.Scrap: scrapStat = Mathf.Min(scrapStat + value, maxStat); break;
+            case Sorting.Organic: organicStat = Mathf.Min(organicStat + (value * 50), maxStat); break;
+            case Sorting.Fuel: fuelStat = Mathf.Min(fuelStat + (value * 50), maxStat); break;
+            case Sorting.Scrap: scrapStat = Mathf.Min(scrapStat + (value * 50), maxStat); break;
         }
     }
 

@@ -1,0 +1,20 @@
+using TMPro;
+using UnityEngine;
+
+public class StatsUIController : MonoBehaviour
+{
+    [SerializeField] private TMP_Text totalItems;
+    [SerializeField] private TMP_Text correctItems;
+    [SerializeField] private TMP_Text incorrectItems;
+    [SerializeField] private TMP_Text sortSpeed;
+    [SerializeField] private TMP_Text anomalousItems;
+
+    private void Start()
+    {
+        totalItems.text = StatsController.Instance.GetItems().ToString();
+        correctItems.text = StatsController.Instance.GetCorrectItems().ToString();
+        incorrectItems.text = StatsController.Instance.GetIncorrectItems().ToString();
+        sortSpeed.text = (300 / StatsController.Instance.GetItems()).ToString() + "s";
+        anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
+    }
+}

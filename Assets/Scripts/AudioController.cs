@@ -83,12 +83,16 @@ public class AudioController : MonoBehaviour
     public static void PlayPickupSound()
     {
         //maybe add variation for sound effects for different types
-        //dont forget to add sound variation
+        instance.sfxSource.volume = Random.Range(0.5f, 1.0f);
+        instance.sfxSource.pitch = Random.Range(0.8f, 1.2f);
+
         instance?.sfxSource?.PlayOneShot(instance.pickupClip);
     }
 
     public static void PlayDropSound()
     {
+        instance.sfxSource.volume = Random.Range(0.5f, 1.0f);
+        instance.sfxSource.pitch = Random.Range(0.8f, 1.2f);
         instance?.sfxSource?.PlayOneShot(instance.dropClip);
     }
 

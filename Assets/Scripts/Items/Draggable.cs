@@ -8,6 +8,8 @@ public class Draggable : MonoBehaviour
 
     private Vector3 screenPoint;
     protected Vector3 offset;
+    private Vector3 pickupPosition;
+
 
 
     public event Action<Draggable> OnReleased;
@@ -31,6 +33,8 @@ public class Draggable : MonoBehaviour
         held = true;
         //maybe custom sounds for anomalous items (if itemdata.pickupsound != null) play that, else play pickupsound
         AudioController.PlayPickupSound();
+        pickupPosition = transform.position;
+        Debug.Log($"Item picked up at position: {pickupPosition}");
     }
 
     protected void OnMouseDrag()
@@ -48,8 +52,32 @@ public class Draggable : MonoBehaviour
             OnReleased?.Invoke(this);
             AudioController.PlayDropSound();
         }
+        if (!IsInDragZone())
+        {
+            ResetPosition();
+            Debug.Log("not in drag zone");
+        }
     }
     
     public bool GetHeld() => held;
 
+    public void ResetPosition()
+    {
+        transform.position = pickupPosition;
+    }
+
+    private bool IsInDragZone()
+    {
+        Collider2D hitCollider = Physics2D.OverlapPoint(transform.position);
+        if (hitCollider != null)
+        {
+            DragZone dragZone = hitCollider.GetComponent<DragZone>();
+            if (dragZone != null)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -6,7 +6,8 @@ public class DragZone : MonoBehaviour
     [SerializeField] protected bool isHoldingItem;
 
     public bool IsHoldingItem() => isHoldingItem;
-    public ItemSO GetItem() => enteredItem.GetComponent<Item>().GetItemData();
+    public ItemSO GetItem() => enteredItem != null ? enteredItem.GetComponent<Item>().GetItemData() : null;
+    public GameObject GetEnteredItem() => enteredItem != null ? enteredItem: null;
 
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
