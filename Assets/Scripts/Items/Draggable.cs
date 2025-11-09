@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class Draggable : MonoBehaviour
 {
@@ -63,7 +64,8 @@ public class Draggable : MonoBehaviour
 
     public void ResetPosition()
     {
-        transform.position = pickupPosition;
+        transform.DOLocalMove(pickupPosition, 0.5f);
+
     }
 
     private bool IsInDragZone()
