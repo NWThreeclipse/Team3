@@ -134,10 +134,14 @@ public class GameManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
+            if (timer <= 0f && dayCounter == 6)
+            {
+                LoadScene("WinScene");
+            }
             if(timer <= 0f)
             {
                 StatsController.Instance.IncrementDay();
-                LoadScene("WinScene");
+                LoadScene("BarracksScene");
 
             }
         }
