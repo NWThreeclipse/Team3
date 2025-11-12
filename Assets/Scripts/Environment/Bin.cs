@@ -7,7 +7,6 @@ public class Bin : DragZone
 {
     [SerializeField] private Sorting sorting;
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private List<Bin> otherBins;
 
     protected override void HandleItemRelease(Draggable draggable)
     {

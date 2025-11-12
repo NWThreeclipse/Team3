@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +47,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private DialogueManager dialogueManager;
     private bool isDialogueEnded = false;
 
+
     public float GetTime() => timer;
+    public int GetDay() => dayCounter;
 
 
     private void Start()
@@ -60,8 +63,11 @@ public class GameManager : MonoBehaviour
         }
         dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
-
     }
+
+    
+
+   
     private void Update()
     {
         if(isDialogueEnded)
@@ -152,9 +158,18 @@ public class GameManager : MonoBehaviour
     {
         switch (type)
         {
-            case Sorting.Organic: organicStat = Mathf.Min(organicStat + (value * 50), maxStat); break;
-            case Sorting.Fuel: fuelStat = Mathf.Min(fuelStat + (value * 50), maxStat); break;
-            case Sorting.Scrap: scrapStat = Mathf.Min(scrapStat + (value * 50), maxStat); break;
+            case Sorting.Organic:
+                Debug.Log("Organic:" + Mathf.Min(organicStat + (value * 50), maxStat));
+                organicStat = Mathf.Min(organicStat + (value*50), maxStat); 
+                break;
+            case Sorting.Fuel:
+                Debug.Log("Fuel:" + Mathf.Min(fuelStat + (value * 50), maxStat));
+                fuelStat = Mathf.Min(fuelStat + (value*50), maxStat); 
+                break;
+            case Sorting.Scrap:
+                Debug.Log("Scrap:" + Mathf.Min(scrapStat + (value * 50), maxStat));
+                scrapStat = Mathf.Min(scrapStat + (value*50), maxStat); 
+                break;
         }
     }
 

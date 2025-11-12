@@ -14,7 +14,7 @@ public class StatsUIController : MonoBehaviour
         totalItems.text = StatsController.Instance.GetItems().ToString();
         correctItems.text = StatsController.Instance.GetCorrectItems().ToString();
         incorrectItems.text = StatsController.Instance.GetIncorrectItems().ToString();
-        sortSpeed.text = (300 / StatsController.Instance.GetItems()).ToString() + "s";
+        sortSpeed.text = (150 / StatsController.Instance.GetItems()).ToString();
         anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
     }
 }
