@@ -11,37 +11,36 @@ public class Bin : DragZone
 
     protected override void HandleItemRelease(Draggable draggable)
     {
-        base.HandleItemRelease(draggable);
-        GameObject itemObject = draggable.gameObject;
+        Collider2D[] hits = Physics2D.OverlapPointAll(draggable.transform.position);
+        bool stillInBin = false;
 
-        bool multipleCollision = false;
-        foreach (Bin b in otherBins)
+        foreach (var hit in hits)
         {
-            if(b.IsHoldingItem() && IsHoldingItem())
+            if (hit.gameObject == gameObject)
             {
-                multipleCollision = true;
+                stillInBin = true;
+                break;
             }
         }
-        //check if colliding with multiple bins, if so then snap back to safe area
-
-        if (multipleCollision)
+        if (!stillInBin)
         {
-            draggable.ResetPosition();
-            //isHoldingItem = false;
-            //enteredItem = null;
-            Debug.Log("multi bin collision");
+            return;
         }
-        else
+
+        base.HandleItemRelease(draggable);
+
+        Item item = draggable.GetComponent<Item>();
+        if (item == null)
         {
-            Item item = itemObject.GetComponent<Item>();
-
-            StartCoroutine(PlayEffectWithDelay(item));
-
-            enteredItem = null;
-            Destroy(itemObject);
+            return;
         }
-            
+
+        StartCoroutine(PlayEffectWithDelay(item));
+
+        enteredItem = null;
+        Destroy(draggable.gameObject);
     }
+
 
     private IEnumerator PlayEffectWithDelay(Item item)
     {

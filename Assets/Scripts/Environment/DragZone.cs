@@ -31,6 +31,9 @@ public class DragZone : MonoBehaviour
             {
                 draggable.OnReleased -= HandleItemRelease;
             }
+
+            enteredItem = null;
+            isHoldingItem = false;
         }
     }
 

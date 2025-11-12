@@ -20,7 +20,6 @@ public class Draggable : MonoBehaviour
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
 
     }
-
     protected void Update()
     {
         
@@ -47,39 +46,71 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseUp()
     {
-        if(held)
+        if (!held)
         {
-            held = false;
-            OnReleased?.Invoke(this);
-            AudioController.PlayDropSound();
+            return;
         }
-        if (!IsInDragZone())
-        {
-            ResetPosition();
-            Debug.Log("not in drag zone");
-        }
+        held = false;
+        AudioController.PlayDropSound();
+        CollisionDetection();
+
     }
-    
+
     public bool GetHeld() => held;
 
     public void ResetPosition()
     {
-        transform.DOLocalMove(pickupPosition, 0.5f);
+        transform.DOLocalMove(pickupPosition, 0.5f).SetEase(Ease.OutQuad);
 
     }
 
-    private bool IsInDragZone()
+    private void CollisionDetection()
     {
-        Collider2D hitCollider = Physics2D.OverlapPoint(transform.position);
-        if (hitCollider != null)
+        Collider2D[] hits = Physics2D.OverlapPointAll(transform.position);
+
+        int binCount = 0;
+        bool inValidZone = false;
+        bool onConveyor = false;
+
+        DragZone targetZone = null;
+
+        foreach (Collider2D hit in hits)
         {
-            DragZone dragZone = hitCollider.GetComponent<DragZone>();
-            if (dragZone != null)
+            if (hit.TryGetComponent(out ConveyorBelt belt))
             {
-                return true;
+                onConveyor = true;
+                targetZone = null;
+                break;
+            }
+
+            if (hit.TryGetComponent(out Bin bin))
+            {
+                binCount++;
+                targetZone = bin;
+            }
+            else if (hit.TryGetComponent(out DragZone zone))
+            {
+                inValidZone = true;
+                targetZone = zone;
             }
         }
 
-        return false;
+        // Multi-bin overlap
+        if (binCount > 1)
+        {
+            Debug.Log("Multiple bins detected");
+            ResetPosition();
+            return;
+        }
+
+        // No valid zone or conveyor
+        if (!inValidZone && !onConveyor && binCount == 0)
+        {
+            Debug.Log("Dropped outside drag zone");
+            ResetPosition();
+            return;
+        }
+
+        OnReleased?.Invoke(this);
     }
 }
