@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using System.Linq;
 
 public class Draggable : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class Draggable : MonoBehaviour
         //maybe custom sounds for anomalous items (if itemdata.pickupsound != null) play that, else play pickupsound
         AudioController.PlayPickupSound();
         pickupPosition = transform.position;
-        Debug.Log($"Item picked up at position: {pickupPosition}");
     }
 
     protected void OnMouseDrag()
@@ -67,7 +67,6 @@ public class Draggable : MonoBehaviour
     private void CollisionDetection()
     {
         Collider2D[] hits = Physics2D.OverlapPointAll(transform.position);
-
         int binCount = 0;
         bool inValidZone = false;
         bool onConveyor = false;

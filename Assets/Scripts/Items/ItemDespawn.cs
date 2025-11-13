@@ -9,6 +9,11 @@ public class ItemDespawn : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+
+        if (collision.CompareTag("Trash"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     

@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
-  m_Name: ScienceEquipment
+  m_Name: ModelSpaceship
   m_EditorClassIdentifier: 
-  Rarity: 2
-  ItemName: Science Equipment
-  Weight: 0
-  TemperatureC: 0
+  Rarity: 3
+  ItemName: Model Spaceship
+  Weight: 2
+  TemperatureC: 10
   Organic: 0
-  Magnetism: 0
+  Magnetism: 4
   Compounds: []
   Sorting: 0
-  Value: 5
-  Sprite: {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}
+  Value: 10
+  Sprite:
+  - {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}

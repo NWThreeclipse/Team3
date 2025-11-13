@@ -7,38 +7,53 @@ public class Bin : DragZone
 {
     [SerializeField] private Sorting sorting;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Bin[] otherBins;
 
     protected override void HandleItemRelease(Draggable draggable)
     {
-        Collider2D[] hits = Physics2D.OverlapPointAll(draggable.transform.position);
-        bool stillInBin = false;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
 
-        foreach (var hit in hits)
-        {
-            if (hit.gameObject == gameObject)
-            {
-                stillInBin = true;
-                break;
-            }
-        }
-        if (!stillInBin)
-        {
-            return;
-        }
-
-        base.HandleItemRelease(draggable);
-
+        bool isInsideBin = false;
         Item item = draggable.GetComponent<Item>();
+
         if (item == null)
         {
             return;
         }
 
+        foreach (var hit in hits)
+        {
+            Debug.Log(gameObject.name + ": " + hit.gameObject.name);
+            if (hit.gameObject == draggable.gameObject)
+            {
+                isInsideBin = true;
+                break;
+            }
+        }
+
+        if (!isInsideBin)
+        {
+            draggable.ResetPosition();
+            return;
+        }
+
+        foreach (Bin otherBin in otherBins)
+        {
+            if (otherBin.IsHoldingItem() && otherBin.GetItem() == item.GetItemData())
+            {
+                draggable.ResetPosition();
+                return;
+            }
+        }
+
         StartCoroutine(PlayEffectWithDelay(item));
 
-        enteredItem = null;
+        enteredItem = draggable.gameObject;
+        isHoldingItem = true;
+
         Destroy(draggable.gameObject);
     }
+
 
 
     private IEnumerator PlayEffectWithDelay(Item item)

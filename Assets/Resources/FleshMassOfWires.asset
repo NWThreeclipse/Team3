@@ -24,4 +24,5 @@ MonoBehaviour:
   - Copper
   Sorting: 2
   Value: 5
-  Sprite: {fileID: 21300000, guid: 0547d26fe56d3cb4a992e8dd1921e60c, type: 3}
+  Sprite:
+  - {fileID: 21300000, guid: 0547d26fe56d3cb4a992e8dd1921e60c, type: 3}

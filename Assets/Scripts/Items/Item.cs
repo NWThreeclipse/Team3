@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class Item : Draggable
@@ -14,9 +15,10 @@ public class Item : Draggable
         base.Start();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
-        if (itemData != null && itemData.Sprite != null)
+        if (itemData != null && itemData.Sprite.Count() != 0)
         {
-            spriteRenderer.sprite = itemData.Sprite;
+            SetSprite();
+
             //Vector2 spriteSize = spriteRenderer.sprite.rect.size / spriteRenderer.sprite.pixelsPerUnit;
 
             //BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
@@ -45,7 +47,19 @@ public class Item : Draggable
         itemData = newItemData;
         if (spriteRenderer != null && itemData != null && itemData.Sprite != null)
         {
-            spriteRenderer.sprite = itemData.Sprite;
+            SetSprite();
+        }
+    }
+
+    private void SetSprite()
+    {
+        if (itemData.Sprite.Count() == 1)
+        {
+            spriteRenderer.sprite = itemData.Sprite[0];
+        }
+        else
+        {
+            spriteRenderer.sprite = itemData.Sprite[UnityEngine.Random.Range(0, itemData.Sprite.Count())];
         }
     }
 

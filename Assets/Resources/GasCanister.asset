@@ -22,4 +22,5 @@ MonoBehaviour:
   - Nitrofuelium
   Sorting: 1
   Value: 2
-  Sprite: {fileID: 21300000, guid: a79770a7e3a5dad4a9cd1f1fc2196614, type: 3}
+  Sprite:
+  - {fileID: 21300000, guid: a79770a7e3a5dad4a9cd1f1fc2196614, type: 3}

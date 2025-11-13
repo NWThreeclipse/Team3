@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
-  m_Name: MetalStatueWithEyes
+  m_Name: InfectedSeveredArm
   m_EditorClassIdentifier: 
-  Rarity: 2
-  ItemName: Metal Statue with Eyes
-  Weight: 3
-  TemperatureC: 10
-  Organic: 5
-  Magnetism: 3
-  Compounds:
-  - Brass
-  - Glass
-  - Vitreous Fluid
-  Sorting: 0
-  Value: 5
-  Sprite: {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}
+  Rarity: 3
+  ItemName: Infected Severed Arm
+  Weight: 2
+  TemperatureC: 25
+  Organic: 100
+  Magnetism: 0
+  Compounds: []
+  Sorting: 2
+  Value: 10
+  Sprite:
+  - {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}

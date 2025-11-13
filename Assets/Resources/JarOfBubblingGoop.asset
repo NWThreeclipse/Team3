@@ -23,4 +23,5 @@ MonoBehaviour:
   - Collagen
   Sorting: 2
   Value: 2
-  Sprite: {fileID: 21300000, guid: 47ff09bdf2bd67245a7a9e03283099ca, type: 3}
+  Sprite:
+  - {fileID: 21300000, guid: 47ff09bdf2bd67245a7a9e03283099ca, type: 3}

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Skooge : DragZone
@@ -7,6 +8,7 @@ public class Skooge : DragZone
     [SerializeField] private GameManager gameManager;
     [SerializeField] private QuestInstance currentQuest;
 
+    
     protected override void HandleItemRelease(Draggable draggable)
     {
         Collider2D[] hits = Physics2D.OverlapPointAll(draggable.transform.position);
@@ -46,12 +48,17 @@ public class Skooge : DragZone
     }
     private void Start()
     {
+        int day = gameManager.GetDay();
+        if (day < 4)
+        {
+            gameObject.SetActive(false);
+        }
         StartDailyQuest(gameManager.GetDay());
     }
 
     public void StartDailyQuest(int day)
     {
-        if (day < 3)
+        if (day < 4)
         {
             return;
         }

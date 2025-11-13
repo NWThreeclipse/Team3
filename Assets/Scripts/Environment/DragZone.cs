@@ -20,6 +20,9 @@ public class DragZone : MonoBehaviour
                 draggable.OnReleased += HandleItemRelease;
             }
         }
+
+        enteredItem = collision.gameObject;
+        isHoldingItem = true;
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
