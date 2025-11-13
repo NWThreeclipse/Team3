@@ -9,6 +9,12 @@ public class Bin : DragZone
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Bin[] otherBins;
 
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        enteredItem = collision.gameObject;
+        isHoldingItem = true;
+    }
     protected override void HandleItemRelease(Draggable draggable)
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
@@ -23,7 +29,6 @@ public class Bin : DragZone
 
         foreach (var hit in hits)
         {
-            Debug.Log(gameObject.name + ": " + hit.gameObject.name);
             if (hit.gameObject == draggable.gameObject)
             {
                 isInsideBin = true;
@@ -39,7 +44,7 @@ public class Bin : DragZone
 
         foreach (Bin otherBin in otherBins)
         {
-            if (otherBin.IsHoldingItem() && otherBin.GetItem() == item.GetItemData())
+            if (otherBin.IsHoveringItem() && otherBin.GetItem() == item.GetItemData())
             {
                 draggable.ResetPosition();
                 return;

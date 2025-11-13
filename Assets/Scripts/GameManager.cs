@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float fuelDepleteRate;
     [SerializeField] private float scrapDepleteRate;
 
+    //DAYS ARE FROM 0-5
     [SerializeField] private int dayCounter;
     [SerializeField] private float timer;
     [SerializeField] private bool isCountingDown;
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     private List<ItemSO> gameItems;
     private List<ItemSO> commonItems;
     private List<ItemSO> uncommonItems;
-    private List<ItemSO> anomalousItems;
+    [SerializeField] private List<ItemSO> anomalousItems;
 
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Transform spawnPoint;
@@ -40,12 +41,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject trashPrefab;
     [SerializeField] private Vector2 trashSpawnrate;
 
+    
     private bool anomalousItemSpawnedToday = false;
     private int itemsSpawnedToday = 0;
 
     [SerializeField] private List<DialogueTree> dailyDialogues;
     [SerializeField] private DialogueManager dialogueManager;
     private bool isDialogueEnded = false;
+    
+    [SerializeField] private Skooge skooge;
+    private ItemSO[] mustSpawnItems;
 
 
     public float GetTime() => timer;
@@ -59,7 +64,11 @@ public class GameManager : MonoBehaviour
         {
             commonItems = gameItems.Where(item => item.Rarity == Rarity.Common).ToList();
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
-            anomalousItems = gameItems.Where(item => item.Rarity == Rarity.Anomalous).ToList();
+        }
+        if (dayCounter >= 2)
+        {
+            mustSpawnItems = skooge.GetQuestItems();
+            //quota setup
         }
         dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
@@ -84,41 +93,64 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnItem());
         StartCoroutine(SpawnTrash());
     }
-    
+
 
 
 
     private IEnumerator SpawnItem()
     {
-        while(true)
+        while (true)
         {
-            bool itemType = UnityEngine.Random.value <= .8f;
-            bool spawnAnomalousItem = UnityEngine.Random.value <= 0.1f && !anomalousItemSpawnedToday;
             ItemSO itemData;
 
-            if (spawnAnomalousItem && itemsSpawnedToday > 0)
+            if ( dayCounter > 1)
             {
-                anomalousItemSpawnedToday = true;
-                itemsSpawnedToday++;
-                int randomIndex = UnityEngine.Random.Range(0, anomalousItems.Count);
-                itemData = anomalousItems[randomIndex];
-                //time slow when item is picked up
-                //music weird when spawn
+                // check to spawn a quest item (must spawn item)
+                bool spawnQuestItem = mustSpawnItems.Length > 0 && UnityEngine.Random.value <= 0.2f;
+                if (spawnQuestItem)
+                {
+                    itemData = mustSpawnItems[UnityEngine.Random.Range(0, mustSpawnItems.Length)];
+                }
+                else
+                {
+                    // check to spawn an anomalous item
+                    bool spawnAnomalousItem = UnityEngine.Random.value <= 0.2f && !anomalousItemSpawnedToday && dayCounter >= 2;
 
+                    if (spawnAnomalousItem && itemsSpawnedToday > 0)
+                    {
+                        anomalousItemSpawnedToday = true;
+                        itemData = anomalousItems[dayCounter - 2];
+                        Time.timeScale = 0.7f;
+                        yield return new WaitForSeconds(2f);
+                        Time.timeScale = 1f;
+                    }
+                    else
+                    {
+                        // randomly pick common or uncommon 
+                        bool itemType = UnityEngine.Random.value <= 0.8f;
+                        int randomIndex = UnityEngine.Random.Range(0, itemType ? commonItems.Count : uncommonItems.Count);
+                        itemData = itemType ? commonItems[randomIndex] : uncommonItems[randomIndex];
+                    }
+                }
             }
-            else
+            else 
             {
-                int randomIndex = UnityEngine.Random.Range(0, itemType ? commonItems.Count : uncommonItems.Count);
-                itemData = itemType ? commonItems[randomIndex] : uncommonItems[randomIndex];
+                //day 1 only spawns commons
+                int randomIndex = UnityEngine.Random.Range(0, commonItems.Count);
+                itemData = commonItems[randomIndex];
             }
-                
+            itemsSpawnedToday++;
+
+            // Instantiate the item 
             GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
             Item item = itemInstance.GetComponent<Item>();
             item.SetItemData(itemData);
             conveyorBelt.AddItem(itemInstance);
+
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
     }
+
 
     private IEnumerator SpawnTrash()
     {
@@ -140,7 +172,7 @@ public class GameManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            if (timer <= 0f && dayCounter == 6)
+            if (timer <= 0f && dayCounter == 5)
             {
                 LoadScene("WinScene");
             }
@@ -159,15 +191,12 @@ public class GameManager : MonoBehaviour
         switch (type)
         {
             case Sorting.Organic:
-                Debug.Log("Organic:" + Mathf.Min(organicStat + (value * 50), maxStat));
                 organicStat = Mathf.Min(organicStat + (value*50), maxStat); 
                 break;
             case Sorting.Fuel:
-                Debug.Log("Fuel:" + Mathf.Min(fuelStat + (value * 50), maxStat));
                 fuelStat = Mathf.Min(fuelStat + (value*50), maxStat); 
                 break;
             case Sorting.Scrap:
-                Debug.Log("Scrap:" + Mathf.Min(scrapStat + (value * 50), maxStat));
                 scrapStat = Mathf.Min(scrapStat + (value*50), maxStat); 
                 break;
         }

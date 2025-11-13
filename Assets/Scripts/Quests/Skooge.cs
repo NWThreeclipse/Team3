@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using System;
 using System.Linq;
 using Unity.VisualScripting;
@@ -8,7 +9,9 @@ public class Skooge : DragZone
     [SerializeField] private GameManager gameManager;
     [SerializeField] private QuestInstance currentQuest;
 
-    
+    public ItemSO[] GetQuestItems() => currentQuest.questData.questItems;
+
+
     protected override void HandleItemRelease(Draggable draggable)
     {
         Collider2D[] hits = Physics2D.OverlapPointAll(draggable.transform.position);
@@ -34,7 +37,7 @@ public class Skooge : DragZone
         {
             return;
         }
-        if (currentQuest.isActive && currentQuest.questData.questItems.Contains(item.GetItemData()))
+        if (currentQuest.isActive && currentQuest.questData.questItems.Contains(item.GetItemData()) && !currentQuest.progress[Array.IndexOf(currentQuest.questData.questItems, item.GetItemData())])
         {
             //will autocheck for completion in the QuestInstance
             currentQuest.UpdateProgress(Array.IndexOf(currentQuest.questData.questItems, item.GetItemData()), true);
@@ -49,16 +52,16 @@ public class Skooge : DragZone
     private void Start()
     {
         int day = gameManager.GetDay();
-        if (day < 4)
+        if (day < 3)
         {
             gameObject.SetActive(false);
         }
-        StartDailyQuest(gameManager.GetDay());
+        StartDailyQuest(day);
     }
 
     public void StartDailyQuest(int day)
     {
-        if (day < 4)
+        if (day < 3)
         {
             return;
         }

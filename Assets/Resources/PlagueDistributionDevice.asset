@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
-  m_Name: SpikyWoodenMug
+  m_Name: PlagueDistributionDevice
   m_EditorClassIdentifier: 
-  Rarity: 2
-  ItemName: 
-  Weight: 0
-  TemperatureC: 0
-  Organic: 0
-  Magnetism: 0
+  Rarity: 3
+  ItemName: Plague Distribution Device
+  Weight: 3
+  TemperatureC: 150
+  Organic: 20
+  Magnetism: 3
   Compounds: []
-  Sorting: 2
-  Value: 5
-  Sprite: {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}
+  Sorting: 1
+  Value: 10
+  Sprite:
+  - {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}

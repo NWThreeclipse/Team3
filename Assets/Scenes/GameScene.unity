@@ -3774,6 +3774,12 @@ MonoBehaviour:
   timer: 150
   isCountingDown: 1
   itemSpawnrate: {x: 7, y: 9}
+  anomalousItems:
+  - {fileID: 11400000, guid: 4eff587441ef6444eb0a297344706066, type: 2}
+  - {fileID: 11400000, guid: 7e54668b43b61bb4794f9b5e0bda8988, type: 2}
+  - {fileID: 11400000, guid: 53100d3262f82d142a6fe704dcd7af19, type: 2}
+  - {fileID: 11400000, guid: cad0a1e67bfd06e49a1a36544a716ec8, type: 2}
+  anomalousDay: 0
   itemPrefab: {fileID: 800662319053472940, guid: cba9f28a7b8906c41aa0b7bea342dc79, type: 3}
   spawnPoint: {fileID: 709049345}
   conveyorBelt: {fileID: 177915302}
