@@ -53,6 +53,9 @@ public class GameManager : MonoBehaviour
     private ItemSO[] mustSpawnItems;
 
 
+    private float graceTimer = 0f;
+    private float graceDuration = 10f;
+
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -84,8 +87,13 @@ public class GameManager : MonoBehaviour
     {
         if(isDialogueEnded)
         {
-            PassiveDeplete();
             CountDown();
+
+            graceTimer += Time.deltaTime;
+            if (graceTimer >= graceDuration)
+            {
+                PassiveDeplete();
+            }
         }
 
     }
@@ -185,11 +193,11 @@ public class GameManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            if (timer <= 0f && dayCounter == 5)
+            if (timer <= 0f && dayCounter == 5 && CheckWinThreshold(dayCounter))
             {
                 LoadScene("WinScene");
             }
-            if(timer <= 0f)
+            if(timer <= 0f && CheckWinThreshold(dayCounter))
             {
                 StatsController.Instance.IncrementDay();
                 LoadScene("BarracksScene");
@@ -242,12 +250,12 @@ public class GameManager : MonoBehaviour
         fuelStat = Mathf.Max(fuelStat, 0);
         scrapStat = Mathf.Max(scrapStat, 0);
 
-        CheckThreshold();
+        CheckAlarmThreshold();
         CheckLoss();
     }
 
 
-    public void CheckThreshold()
+    public void CheckAlarmThreshold()
     {
         if (!alarmTriggered &&
             (organicStat <= alarmThreshold || scrapStat <= alarmThreshold || fuelStat <= alarmThreshold))
@@ -260,6 +268,31 @@ public class GameManager : MonoBehaviour
         {
             alarmTriggered = false;
         }
+    }
+
+    public bool CheckWinThreshold(int day)
+    {
+        if (day <= 1)
+        {
+            return true;
+        }
+        else if (day == 2)
+        {
+            return scrapStat >= 40 || fuelStat >= 40 || organicStat >= 40;
+        }
+        else if (day == 3)
+        {
+            return scrapStat >= 50 || fuelStat >= 50 || organicStat >= 50;
+        }
+        else if (day == 4)
+        {
+            return scrapStat >= 60 || fuelStat >= 60 || organicStat >= 60;
+        }
+        else
+        {
+            return scrapStat >= 40 && fuelStat >= 40 && organicStat >= 40;
+        }
+
     }
 
     public void CheckLoss()
