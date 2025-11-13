@@ -55,7 +55,7 @@ public class StatsController : MonoBehaviour
 
     public void LoadStats()
     {
-        dayNumber = PlayerPrefs.GetInt("DayNumber", 1);
+        dayNumber = PlayerPrefs.GetInt("DayNumber", 0);
         itemsSorted = PlayerPrefs.GetInt("ItemsSorted", 0);
         correctSorted = PlayerPrefs.GetInt("CorrectlySorted", 0);
         incorrectSorted = PlayerPrefs.GetInt("IncorrectlySorted", 0);

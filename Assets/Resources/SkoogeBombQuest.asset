@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3a817919467afa409dab3b6b323470f, type: 3}
-  m_Name: SkoogeQuest3
+  m_Name: SkoogeBombQuest
   m_EditorClassIdentifier: 
-  questItems: []
-  statReward: 0
-  day: 5
+  questName: Bomb
+  questItems:
+  - {fileID: 11400000, guid: bce8d6075a01a864d9752401abc645cc, type: 2}
+  - {fileID: 11400000, guid: be23d3b0cdc7a5446b40262a06224b19, type: 2}
+  statReward: 10

@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3a817919467afa409dab3b6b323470f, type: 3}
-  m_Name: SkoogeQuest4
+  m_Name: SkoogeScienceQuest
   m_EditorClassIdentifier: 
-  questName: 
-  questItems: []
-  statReward: 0
-  day: 6
+  questName: Science
+  questItems:
+  - {fileID: 11400000, guid: 481d2733346ccb843a761e7c5f0f8954, type: 2}
+  - {fileID: 11400000, guid: 31b083d672a46f94aac9dbfff8ba36e3, type: 2}
+  - {fileID: 11400000, guid: f20bba7a1f1b0f240a21b240e85e05ea, type: 2}
+  statReward: 10

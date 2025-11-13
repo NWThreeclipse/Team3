@@ -7,7 +7,7 @@ using UnityEngine;
 public class Skooge : DragZone
 {
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private QuestInstance currentQuest;
+    [SerializeField] private QuestInstance currentQuest; 
 
     public ItemSO[] GetQuestItems() => currentQuest.questData.questItems;
 
@@ -65,7 +65,8 @@ public class Skooge : DragZone
         {
             return;
         }
-        SkoogeQuestSO questData = Resources.LoadAll<SkoogeQuestSO>("").FirstOrDefault(quest => quest.day == day);
+        SkoogeQuestSO[] quests = Resources.LoadAll<SkoogeQuestSO>("");
+        SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
 
         if (questData != null)
         {

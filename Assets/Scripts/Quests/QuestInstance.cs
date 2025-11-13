@@ -37,6 +37,7 @@ public class QuestInstance
     public void CompleteQuest()
     {
         isActive = false;
-        Debug.Log("Day " + questData.day.ToString() + " was completed");
+        Debug.Log("Quest " + questData.questName + " was completed");
+        
     }
 }

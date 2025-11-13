@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float scrapDepleteRate;
 
     //DAYS ARE FROM 0-5
-    [SerializeField] private int dayCounter;
+    [Range(0,5)][SerializeField] private int dayCounter;
     [SerializeField] private float timer;
     [SerializeField] private bool isCountingDown;
     [SerializeField] private Vector2 itemSpawnrate;
@@ -67,7 +67,10 @@ public class GameManager : MonoBehaviour
         }
         if (dayCounter >= 2)
         {
-            mustSpawnItems = skooge.GetQuestItems();
+            if (dayCounter != 2)
+            {
+                mustSpawnItems = skooge.GetQuestItems();
+            }
             //quota setup
         }
         dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
@@ -101,12 +104,13 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
+            bool anom = false;
             ItemSO itemData;
 
             if ( dayCounter > 1)
             {
                 // check to spawn a quest item (must spawn item)
-                bool spawnQuestItem = mustSpawnItems.Length > 0 && UnityEngine.Random.value <= 0.2f;
+                bool spawnQuestItem = dayCounter >= 3 && mustSpawnItems.Length > 0 && UnityEngine.Random.value <= 0.2f;
                 if (spawnQuestItem)
                 {
                     itemData = mustSpawnItems[UnityEngine.Random.Range(0, mustSpawnItems.Length)];
@@ -120,9 +124,7 @@ public class GameManager : MonoBehaviour
                     {
                         anomalousItemSpawnedToday = true;
                         itemData = anomalousItems[dayCounter - 2];
-                        Time.timeScale = 0.7f;
-                        yield return new WaitForSeconds(2f);
-                        Time.timeScale = 1f;
+                        anom = true;
                     }
                     else
                     {
@@ -146,9 +148,20 @@ public class GameManager : MonoBehaviour
             Item item = itemInstance.GetComponent<Item>();
             item.SetItemData(itemData);
             conveyorBelt.AddItem(itemInstance);
+            if (anom)
+            {
+                StartCoroutine(SpawnAnomalous());
+            }
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
+    }
+
+    private IEnumerator SpawnAnomalous()
+    {
+        Time.timeScale = 0.7f;
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 1f;
     }
 
 

@@ -16,7 +16,7 @@ public class DragZone : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-
+        
         if (collision.CompareTag("Item"))
         {
             var draggable = collision.GetComponent<Draggable>();
@@ -34,6 +34,7 @@ public class DragZone : MonoBehaviour
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
+        
         if (collision.CompareTag("Item"))
         {
             var draggable = collision.GetComponent<Draggable>();
