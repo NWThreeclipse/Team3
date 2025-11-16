@@ -4744,7 +4744,7 @@ MonoBehaviour:
   organicDepleteRate: 0.5
   fuelDepleteRate: 0.5
   scrapDepleteRate: 0.5
-  dayCounter: 0
+  dayCounter: 5
   timer: 150
   isCountingDown: 1
   itemSpawnrate: {x: 7, y: 9}
@@ -4756,7 +4756,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 800662319053472940, guid: cba9f28a7b8906c41aa0b7bea342dc79, type: 3}
   spawnPoint: {fileID: 709049345}
   conveyorBelt: {fileID: 177915302}
-  alarmThreshold: 10
   trashSprites:
   - {fileID: 21300000, guid: 2ceab5a768ec46f429de5b692004fb6a, type: 3}
   - {fileID: 21300000, guid: bc7933c4ad5ac724fa4e100d90565ffe, type: 3}

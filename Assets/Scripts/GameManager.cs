@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private ConveyorBelt conveyorBelt;
 
-    [SerializeField] private float alarmThreshold;
     public event Action<GameManager> AlarmThreshold;
     private bool alarmTriggered = false;
 
