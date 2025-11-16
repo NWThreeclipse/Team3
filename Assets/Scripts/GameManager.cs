@@ -52,9 +52,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Skooge skooge;
     private ItemSO[] mustSpawnItems;
 
+    private float organicGraceTimer = 0f;
+    private float fuelGraceTimer = 0f;
+    private float scrapGraceTimer = 0f;
 
-    private float graceTimer = 0f;
-    private float graceDuration = 10f;
+    private bool organicInGracePeriod = false;
+    private bool fuelInGracePeriod = false;
+    private bool scrapInGracePeriod = false;
+
+    private const float gracePeriodDuration = 10f;
 
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
@@ -75,7 +81,6 @@ public class GameManager : MonoBehaviour
             {
                 mustSpawnItems = skooge.GetQuestItems();
             }
-            //quota setup
         }
         dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
@@ -89,12 +94,8 @@ public class GameManager : MonoBehaviour
         if(isDialogueEnded)
         {
             CountDown();
-
-            graceTimer += Time.deltaTime;
-            if (graceTimer >= graceDuration)
-            {
-                PassiveDeplete();
-            }
+            PassiveDeplete();
+          
         }
 
     }
@@ -243,33 +244,28 @@ public class GameManager : MonoBehaviour
 
     public void PassiveDeplete()
     {
-        organicStat -= organicDepleteRate * Time.deltaTime;
-        fuelStat -= fuelDepleteRate * Time.deltaTime;
-        scrapStat -= scrapDepleteRate * Time.deltaTime;
+        if (!organicInGracePeriod)
+        {
+            organicStat -= organicDepleteRate * Time.deltaTime;
+        }
+        if (!fuelInGracePeriod)
+        {
+            fuelStat -= fuelDepleteRate * Time.deltaTime;
+        }
+        if (!scrapInGracePeriod)
+        {
+            scrapStat -= scrapDepleteRate * Time.deltaTime;
+        }
 
         organicStat = Mathf.Max(organicStat, 0);
         fuelStat = Mathf.Max(fuelStat, 0);
         scrapStat = Mathf.Max(scrapStat, 0);
 
-        CheckAlarmThreshold();
         CheckLoss();
+
     }
 
 
-    public void CheckAlarmThreshold()
-    {
-        if (!alarmTriggered &&
-            (organicStat <= alarmThreshold || scrapStat <= alarmThreshold || fuelStat <= alarmThreshold))
-        {
-            alarmTriggered = true;
-            AlarmThreshold?.Invoke(this);
-        }
-
-        if (organicStat > alarmThreshold && fuelStat > alarmThreshold && scrapStat > alarmThreshold)
-        {
-            alarmTriggered = false;
-        }
-    }
 
     public bool CheckWinThreshold(int day)
     {
@@ -295,17 +291,39 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    private void HandleGracePeriod(ref float resourceStat, ref bool inGracePeriod, ref float graceTimer)
+    {
+        if (resourceStat <= 0 && !inGracePeriod)
+        {
+            inGracePeriod = true;
+            graceTimer = gracePeriodDuration;
+            if (!alarmTriggered && resourceStat <= 0)
+            {
+                alarmTriggered = true;
+                AlarmThreshold?.Invoke(this);
+            }
+            Debug.Log("Grace period started for resource");
+        }
 
+        if (inGracePeriod)
+        {
+            graceTimer -= Time.deltaTime;
+        }
+    }
     public void CheckLoss()
     {
-        if (organicStat <= 0)
+        HandleGracePeriod(ref organicStat, ref organicInGracePeriod, ref organicGraceTimer);
+        HandleGracePeriod(ref fuelStat, ref fuelInGracePeriod, ref fuelGraceTimer);
+        HandleGracePeriod(ref scrapStat, ref scrapInGracePeriod, ref scrapGraceTimer);
+
+        if (organicStat <= 0 && organicInGracePeriod && organicGraceTimer <= 0)
         {
             // Trigger organic loss logic
             Debug.Log("Food loss ending");
             LoadScene("LossScene");
         }
 
-        if (fuelStat <= 0)
+        if (fuelStat <= 0 && fuelInGracePeriod && fuelGraceTimer <= 0)
         {
             // Trigger fuel loss logic
             Debug.Log("Fuel loss ending");
@@ -313,7 +331,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        if (scrapStat <= 0)
+        if (scrapStat <= 0 && scrapInGracePeriod && scrapGraceTimer <= 0)
         {
             // Trigger scrap loss logic
             Debug.Log("Scrap loss ending");
