@@ -4,6 +4,8 @@ using UnityEngine;
 public class Scale : DragZone
 {
     [SerializeField] private TMP_Text textfield;
+    [SerializeField] private AudioSource minigameSFX;
+
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
@@ -15,6 +17,7 @@ public class Scale : DragZone
         base.HandleItemRelease(draggable);
         Item item = enteredItem.GetComponent<Item>();
         textfield.text = item.GetItemData().Weight.ToString();
+        minigameSFX.Play();
     }
 
     

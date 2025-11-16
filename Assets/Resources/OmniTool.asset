@@ -17,7 +17,7 @@ MonoBehaviour:
   Weight: 1
   TemperatureC: 10
   Organic: 0
-  Magnetism: 2
+  Magnetism: 5
   Compounds:
   - Steel Alloy
   Sorting: 0

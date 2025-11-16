@@ -4,7 +4,7 @@ using UnityEngine;
 public class ThermalScanner : MonoBehaviour
 {
     [SerializeField] private bool isPlaying = false;
-    [SerializeField] private GameObject MinigameCanvas;
+    [SerializeField] private GameObject minigameCanvas;
     [SerializeField] private ViewingBoard viewingBoard;
 
 
@@ -32,13 +32,22 @@ public class ThermalScanner : MonoBehaviour
     private const float TAU = 2 * Mathf.PI;
 
 
+    [SerializeField] private DialController amplitudeDial;
+    [SerializeField] private DialController frequencyDial;
+
+    [SerializeField] private AudioSource minigameSFX;
+    [SerializeField] private AudioSource minigameWinSFX;
+
+
     void Start()
     {
-        MinigameCanvas.SetActive(false);
+        minigameCanvas.SetActive(false);
         goalLine.positionCount = points;
         playerLine.positionCount = points;
         ResetMiniGame();
         temperatureText.text = "";
+        amplitudeDial.InitializeDial(0.2f, 1f, false);
+        frequencyDial.InitializeDial(0.5f, 2.5f, false);
 
     }
 
@@ -50,6 +59,9 @@ public class ThermalScanner : MonoBehaviour
             Draw(goalLine, goalAmplitude, goalFrequency);
             Draw(playerLine, playerAmplitude, playerFrequency);
             CheckWin();
+            playerAmplitude = Mathf.Clamp(amplitudeDial.GetCurrentValue() + 0.1f, 0.2f, 1f);
+            playerFrequency = Mathf.Clamp(frequencyDial.GetCurrentValue() + 0.1f, 0.5f, 2.5f);
+
         }
     }
 
@@ -60,6 +72,10 @@ public class ThermalScanner : MonoBehaviour
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
                 temperatureText.text = "Temperature: " + viewingBoard.GetItem().TemperatureC.ToString() + "°C";
+                amplitudeDial.SetEnabled(false);
+                frequencyDial.SetEnabled(false);
+                minigameSFX.Stop();
+                minigameWinSFX.Play();
             }
         }
     }
@@ -79,10 +95,13 @@ public class ThermalScanner : MonoBehaviour
     {
         if(viewingBoard.IsHoldingItem())
         {
-            MinigameCanvas.SetActive(true);
+            minigameCanvas.SetActive(true);
             isPlaying = true;
             SetGoalValues();
             temperatureText.text = "";
+            amplitudeDial.SetEnabled(true);
+            frequencyDial.SetEnabled(true);
+            minigameSFX.Play();
         }
     }
     public void SetGoalValues()
@@ -93,10 +112,11 @@ public class ThermalScanner : MonoBehaviour
 
     public void DisableMiniGame()
     {
-        MinigameCanvas.SetActive(false);
+        minigameCanvas.SetActive(false);
         isPlaying = false;
         ResetMiniGame();
         temperatureText.text = "";
+        minigameSFX.Stop();
 
     }
 
