@@ -1392,7 +1392,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1970194647}
+      - m_Target: {fileID: 899059167}
         m_TargetAssemblyTypeName: CreditsController, Assembly-CSharp
         m_MethodName: ToggleCanvas
         m_Mode: 6

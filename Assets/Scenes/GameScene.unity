@@ -4744,8 +4744,8 @@ MonoBehaviour:
   organicDepleteRate: 0.5
   fuelDepleteRate: 0.5
   scrapDepleteRate: 0.5
-  dayCounter: 5
-  timer: 150
+  dayCounter: 0
+  timer: 10
   isCountingDown: 1
   itemSpawnrate: {x: 7, y: 9}
   anomalousItems:

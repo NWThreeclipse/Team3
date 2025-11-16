@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        dayCounter = StatsController.Instance.GetDays();
         gameItems = Resources.LoadAll<ItemSO>("").ToList();
         if (gameItems.Count > 0)
         {
