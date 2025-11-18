@@ -43,6 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: SuperBackground
+    uniqueID: 3337620275
+    locked: 0
+  - name: Supervisor
+    uniqueID: 3626057449
+    locked: 0
   - name: Background
     uniqueID: 3581759777
     locked: 0

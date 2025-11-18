@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThermalScanner : MonoBehaviour
 {
@@ -31,9 +32,8 @@ public class ThermalScanner : MonoBehaviour
 
     private const float TAU = 2 * Mathf.PI;
 
-
-    [SerializeField] private DialController amplitudeDial;
-    [SerializeField] private DialController frequencyDial;
+    [SerializeField] private Slider amplitudeSlider;
+    [SerializeField] private Slider frequencySlider;
 
     [SerializeField] private AudioSource minigameSFX;
     [SerializeField] private AudioSource minigameWinSFX;
@@ -46,8 +46,6 @@ public class ThermalScanner : MonoBehaviour
         playerLine.positionCount = points;
         ResetMiniGame();
         temperatureText.text = "";
-        amplitudeDial.InitializeDial(0.2f, 1f, false);
-        frequencyDial.InitializeDial(0.5f, 2.5f, false);
 
     }
 
@@ -59,8 +57,6 @@ public class ThermalScanner : MonoBehaviour
             Draw(goalLine, goalAmplitude, goalFrequency);
             Draw(playerLine, playerAmplitude, playerFrequency);
             CheckWin();
-            playerAmplitude = Mathf.Clamp(amplitudeDial.GetCurrentValue() + 0.1f, 0.2f, 1f);
-            playerFrequency = Mathf.Clamp(frequencyDial.GetCurrentValue() + 0.1f, 0.5f, 2.5f);
 
         }
     }
@@ -72,8 +68,8 @@ public class ThermalScanner : MonoBehaviour
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
                 temperatureText.text = "Temperature: " + viewingBoard.GetItem().TemperatureC.ToString() + "°C";
-                amplitudeDial.SetEnabled(false);
-                frequencyDial.SetEnabled(false);
+                amplitudeSlider.interactable = false;
+                frequencySlider.interactable = false;
                 minigameSFX.Stop();
                 minigameWinSFX.Play();
             }
@@ -99,8 +95,8 @@ public class ThermalScanner : MonoBehaviour
             isPlaying = true;
             SetGoalValues();
             temperatureText.text = "";
-            amplitudeDial.SetEnabled(true);
-            frequencyDial.SetEnabled(true);
+            amplitudeSlider.interactable = true;
+            frequencySlider.interactable = true;
             minigameSFX.Play();
         }
     }
@@ -124,25 +120,18 @@ public class ThermalScanner : MonoBehaviour
     {
         playerAmplitude = 1f;
         playerFrequency = 1f;
+        amplitudeSlider.value = 1f;
+        frequencySlider.value = 1f;
     }
 
-    public void IncreaseAmp()
+    public void ChangeAmplitude(float amp)
     {
-        playerAmplitude = Mathf.Clamp(playerAmplitude + 0.1f, 0.2f, 1f);
+        playerAmplitude = amp;
     }
 
-    public void DecreaseAmp()
+    public void ChangeFrequency(float freq)
     {
-        playerAmplitude = Mathf.Clamp(playerAmplitude - 0.1f, 0.2f, 1f);
+        playerFrequency = freq;
     }
 
-    public void IncreaseFreq()
-    {
-        playerFrequency = Mathf.Clamp(playerFrequency + 0.1f, 0.5f, 2.5f);
-    }
-
-    public void DecreaseFreq()
-    {
-        playerFrequency = Mathf.Clamp(playerFrequency - 0.1f, 0.5f, 2.5f);
-    }
 }

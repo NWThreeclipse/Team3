@@ -14,7 +14,10 @@ public class Bin : DragZone
         base.OnTriggerEnter2D(collision);
         enteredItem = collision.gameObject;
         isHoldingItem = true;
+        //shake bin
     }
+
+    
     protected override void HandleItemRelease(Draggable draggable)
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
@@ -55,7 +58,7 @@ public class Bin : DragZone
 
         enteredItem = draggable.gameObject;
         isHoldingItem = true;
-
+        //shrink item before deletion
         Destroy(draggable.gameObject);
     }
 

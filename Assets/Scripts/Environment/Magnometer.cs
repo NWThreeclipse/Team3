@@ -11,10 +11,9 @@ public class Magnometer : DragZone
     [SerializeField] private GameObject minigameCanvas;
     [SerializeField] private float[] spriteHeights;
 
-    [SerializeField] DialController magnometerDial;
     [SerializeField] GameObject itemSprite;
     [SerializeField] private int itemMagnetism;
-    [SerializeField] private int dialMagnetism;
+    [SerializeField] private int sliderMagnetism;
     private Image spriteImage;
     [SerializeField] private TMP_Text magnetismText;
     private Tween currentTween;
@@ -22,13 +21,14 @@ public class Magnometer : DragZone
     [SerializeField] private float vibrato;
 
     [SerializeField] private AudioSource minigameSFX;
+    [SerializeField] private Slider slider;
 
 
 
     private void Start()
     {
         minigameCanvas.SetActive(false);
-        magnometerDial.InitializeDial(1, 7, true);
+        slider.value = 0;
         spriteImage = itemSprite.GetComponent<Image>();
         magnetismText.text = "";
 
@@ -43,8 +43,8 @@ public class Magnometer : DragZone
         if (isPlaying)
         {
             ItemEffects();
-            dialMagnetism = (int)magnometerDial.GetCurrentValue();
-            magnetismText.text = dialMagnetism.ToString();
+            sliderMagnetism = (int)slider.value;
+            magnetismText.text = sliderMagnetism.ToString();
 
         }
     }
@@ -56,14 +56,14 @@ public class Magnometer : DragZone
         }
         if (itemMagnetism == 4)
         {
-            if (dialMagnetism == 1)
+            if (sliderMagnetism == 1)
             {
                 //strong vib & float
                 MoveItemSprite(1);
 
             }
 
-            if (dialMagnetism >= 2)
+            if (sliderMagnetism >= 2)
             {
                 //pull
                 MoveItemSprite(2);
@@ -72,17 +72,17 @@ public class Magnometer : DragZone
         }
         if (itemMagnetism == 3)
         {
-            if (dialMagnetism == 1)
+            if (sliderMagnetism == 1)
             {
                 //med vib
                 MoveItemSprite(0);
             }
-            if (dialMagnetism == 2)
+            if (sliderMagnetism == 2)
             {
                 //strong vib and float
                 MoveItemSprite(1);
             }
-            if (dialMagnetism >= 3)
+            if (sliderMagnetism >= 3)
             {
                 MoveItemSprite(2);
             }
@@ -90,22 +90,22 @@ public class Magnometer : DragZone
 
         if (itemMagnetism == 2)
         {
-            if (dialMagnetism == 1)
+            if (sliderMagnetism == 1)
             {
                 //low vib
                 MoveItemSprite(0);
             }
-            if (dialMagnetism == 2)
+            if (sliderMagnetism == 2)
             {
                 //med vib
                 MoveItemSprite(0);
             }
-            if (dialMagnetism == 3)
+            if (sliderMagnetism == 3)
             {
                 //strong vib and float
                 MoveItemSprite(1);
             }
-            if (dialMagnetism >= 4)
+            if (sliderMagnetism >= 4)
             {
                 MoveItemSprite(2);
             }
@@ -113,27 +113,27 @@ public class Magnometer : DragZone
 
         if (itemMagnetism == 1)
         {
-            if (dialMagnetism == 1)
+            if (sliderMagnetism == 1)
             {
                 //no vib
                 MoveItemSprite(0);
             }
-            if (dialMagnetism == 2)
+            if (sliderMagnetism == 2)
             {
                 //low vib
                 MoveItemSprite(0);
             }
-            if (dialMagnetism == 3)
+            if (sliderMagnetism == 3)
             {
                 //med vib
                 MoveItemSprite(0);
             }
-            if (dialMagnetism == 4)
+            if (sliderMagnetism == 4)
             {
                 //strong vib and float
                 MoveItemSprite(1);
             }
-            if (dialMagnetism >= 5)
+            if (sliderMagnetism >= 5)
             {
                 MoveItemSprite(2);
             }
@@ -155,7 +155,6 @@ public class Magnometer : DragZone
             minigameCanvas.SetActive(true);
             isPlaying = true;
             SetGoalValues();
-            magnometerDial.SetEnabled(true);
             ResetMiniGame();
 
             SpriteRenderer heldItem = GetEnteredItem().GetComponentInChildren<SpriteRenderer>();
@@ -180,9 +179,11 @@ public class Magnometer : DragZone
 
     public void ResetMiniGame()
     {
-        dialMagnetism = 0;
+        sliderMagnetism = 0;
+        slider.value = 0;
         MoveItemSprite(0);
     }
+
 
     private void MoveItemSprite(int targetIndex)
     {

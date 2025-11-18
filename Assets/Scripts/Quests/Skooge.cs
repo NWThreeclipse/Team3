@@ -51,7 +51,7 @@ public class Skooge : DragZone
     }
     private void Start()
     {
-        int day = gameManager.GetDay();
+        int day = StatsController.Instance.GetDays();
         if (day < 3)
         {
             gameObject.SetActive(false);

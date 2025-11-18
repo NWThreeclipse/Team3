@@ -1,30 +1,39 @@
+using TMPro;
 using UnityEngine;
 
 public class BioScanner : MonoBehaviour
 {
     [SerializeField] private bool isPlaying = false;
-    [SerializeField] private GameObject MinigameCanvas;
     [SerializeField] private ViewingBoard viewingBoard;
+    [SerializeField] private TMP_Text textfield;
+
 
     void Start()
     {
-        MinigameCanvas.SetActive(false);
+        textfield.text = "";
+    }
 
+    private void Update()
+    {
+        if(isPlaying && !viewingBoard.IsHoldingItem())
+        {
+            DisableMiniGame();
+        }
     }
 
     public void EnableMiniGame()
     {
         if (viewingBoard.IsHoldingItem())
         {
-            MinigameCanvas.SetActive(true);
             isPlaying = true;
+            textfield.text = viewingBoard.GetItem().Organic.ToString() + "%";
         }
     }
 
     public void DisableMiniGame()
 
     {
-        MinigameCanvas.SetActive(false);
         isPlaying = false;
+        textfield.text = "";
     }
 }
