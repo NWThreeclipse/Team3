@@ -8,36 +8,42 @@ public class SupervisorController : MonoBehaviour
     [SerializeField] private Transform[] startEndPoints; // 0 = left, 1 = right
     [SerializeField] private Vector2 moveSpeeds;
     [SerializeField] private Vector2 moveCooldown;
+    [SerializeField] private GameManager gameManager;
 
     private bool isWalking = false;
     private bool isOnCooldown = false;
+    private bool isSus = false;
 
     private Vector3 currentTarget;
 
     private void Start()
     {
-        if (StatsController.Instance.GetDays() < 3)
+        if (StatsController.Instance.GetDays() <= 1)
         {
             supervisor.SetActive(false);
             gameObject.SetActive(false);
+            if (StatsController.Instance.GetDays() >= 3)
+            {
+                isSus = true;
+            }
         }
+        currentTarget = startEndPoints[1].position;
+
     }
 
     private void Update()
     {
-        if (!isWalking && !isOnCooldown)
+        if (!isWalking && (gameManager.GetSuspicionStat() == 50 || gameManager.GetSuspicionStat() == 80))
         {
-            if (Mathf.Abs(supervisor.transform.position.x - startEndPoints[0].position.x) < 0.1f)
-            {
-                currentTarget = startEndPoints[1].position;  //at left, go right
-            }
-            else
-            {
-                currentTarget = startEndPoints[0].position;  //at right, go left
-            }
-
-            supervisor.transform.DOMove(currentTarget, Random.Range(moveSpeeds.x, moveSpeeds.y)).SetEase(Ease.InQuad);
-            isWalking = true;
+            Move();
+        }
+        if (!isWalking && !isOnCooldown && !IsAtDestination())
+        {
+            Move();
+        }
+        if (isWalking)
+        {
+            //scan for evil activity
         }
 
         if (isWalking && IsAtDestination())
@@ -47,6 +53,20 @@ public class SupervisorController : MonoBehaviour
         }
     }
 
+    private void Move()
+    {
+        if (Mathf.Abs(supervisor.transform.position.x - startEndPoints[0].position.x) < 0.1f)
+        {
+            currentTarget = startEndPoints[1].position;  //at left, go right
+        }
+        else
+        {
+            currentTarget = startEndPoints[0].position;  //at right, go left
+        }
+
+        supervisor.transform.DOMove(currentTarget, Random.Range(moveSpeeds.x, moveSpeeds.y)).SetEase(Ease.InQuad);
+        isWalking = true;
+    }
     private IEnumerator MovementDelay()
     {
         isOnCooldown = true;

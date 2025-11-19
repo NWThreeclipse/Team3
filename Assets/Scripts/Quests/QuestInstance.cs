@@ -37,6 +37,7 @@ public class QuestInstance
     public void CompleteQuest()
     {
         isActive = false;
+        StatsController.Instance.IncrementRebellionScore();
         Debug.Log("Quest " + questData.questName + " was completed");
         
     }

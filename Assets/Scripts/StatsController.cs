@@ -9,6 +9,7 @@ public class StatsController : MonoBehaviour
     [SerializeField] private int correctSorted;
     [SerializeField] private int incorrectSorted;
     [SerializeField] private int anomalousItemsRecieved;
+    [SerializeField] private int rebellionScore;
 
 
     public int GetDays() => dayNumber;
@@ -16,6 +17,8 @@ public class StatsController : MonoBehaviour
     public int GetCorrectItems() => correctSorted;
     public int GetIncorrectItems() => incorrectSorted;
     public int GetAnomalousItems() => anomalousItemsRecieved;
+
+    public int GetRebellionScore() => rebellionScore;
 
 
     private void Awake()
@@ -44,6 +47,11 @@ public class StatsController : MonoBehaviour
         }
     }
 
+    public void IncrementRebellionScore()
+    {
+        rebellionScore++;
+    }
+
     public void SaveStats()
     {
         PlayerPrefs.SetInt("DayNumber", dayNumber);
@@ -51,6 +59,7 @@ public class StatsController : MonoBehaviour
         PlayerPrefs.SetInt("CorrectlySorted", correctSorted);
         PlayerPrefs.SetInt("IncorrectlySorted", incorrectSorted);
         PlayerPrefs.SetInt("AnomalousItems", anomalousItemsRecieved);
+        PlayerPrefs.SetInt("RebellionScore", rebellionScore);
     }
 
     public void LoadStats()
@@ -60,6 +69,7 @@ public class StatsController : MonoBehaviour
         correctSorted = PlayerPrefs.GetInt("CorrectlySorted", 0);
         incorrectSorted = PlayerPrefs.GetInt("IncorrectlySorted", 0);
         anomalousItemsRecieved = PlayerPrefs.GetInt("AnomalousItems", 0);
+        rebellionScore = PlayerPrefs.GetInt("RebellionScore", 0);
     }
 
     public void IncrementDay()
@@ -72,6 +82,7 @@ public class StatsController : MonoBehaviour
         correctSorted = 0;
         incorrectSorted = 0;
         anomalousItemsRecieved = 0;
+        rebellionScore = 0;
     }
 
 }

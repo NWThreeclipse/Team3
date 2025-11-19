@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float organicStat;
     [SerializeField] private float fuelStat;
     [SerializeField] private float scrapStat;
+    [SerializeField] private float suspicionStat;
 
     [SerializeField] private float maxStat;
 
     [SerializeField] private float organicDepleteRate;
     [SerializeField] private float fuelDepleteRate;
     [SerializeField] private float scrapDepleteRate;
+    [SerializeField] private float suspicionDepleteRate;
 
     //DAYS ARE FROM 0-5
     [Range(0,5)][SerializeField] private int dayCounter;
@@ -63,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
+
+    public float GetSuspicionStat() => suspicionStat;
 
 
     private void Start()
@@ -196,6 +200,10 @@ public class GameManager : MonoBehaviour
 
             if (timer <= 0f && dayCounter == 5 && CheckWinThreshold(dayCounter))
             {
+                if (StatsController.Instance.GetRebellionScore() >= 3)
+                {
+                    //rebellion ending
+                }
                 LoadScene("WinScene");
             }
             if(timer <= 0f && CheckWinThreshold(dayCounter))
@@ -259,6 +267,9 @@ public class GameManager : MonoBehaviour
         organicStat = Mathf.Max(organicStat, 0);
         fuelStat = Mathf.Max(fuelStat, 0);
         scrapStat = Mathf.Max(scrapStat, 0);
+
+        suspicionStat -= suspicionDepleteRate * Time.deltaTime;
+        suspicionStat = MathF.Max(suspicionStat, 0);
 
         CheckLoss();
 

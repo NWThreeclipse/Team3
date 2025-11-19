@@ -7,13 +7,71 @@ using UnityEngine;
 public class Skooge : DragZone
 {
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private QuestInstance currentQuest; 
+    [SerializeField] private QuestInstance currentQuest;
+    [SerializeField] private float holdTime;
+    [SerializeField] private float holdTimeRequired;
+    [SerializeField] private bool itemIsStaying;
+    
 
     public ItemSO[] GetQuestItems() => currentQuest.questData.questItems;
+    public bool GetIsItemStaying() => itemIsStaying;
+    
+    public float[] GetHoldTimeInfo()
+    {
+        float[] stats = { holdTime, holdTimeRequired };
+        return stats;
+    }
 
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
 
+        if (collision.CompareTag("Item"))
+        {
+            var draggable = collision.GetComponent<Draggable>();
+
+            if (draggable != null)
+            {
+                draggable.OnReleased += HandleItemRelease;
+            }
+        }
+
+        isHoveringItem = true;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        holdTime += Time.deltaTime;
+        itemIsStaying = true;
+
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Item"))
+        {
+            var draggable = collision.GetComponent<Draggable>();
+            if (draggable != null)
+            {
+                draggable.OnReleased -= HandleItemRelease;
+            }
+
+            enteredItem = null;
+            isHoldingItem = false;
+            isHoveringItem = false;
+            holdTime = 0;
+            itemIsStaying = false;
+        }
+    }
     protected override void HandleItemRelease(Draggable draggable)
     {
+        itemIsStaying = false;
+        if (holdTime < 5f)
+        {
+            Item i = draggable.GetComponent<Item>();
+            i.ResetPosition();
+            return;
+        }
         Collider2D[] hits = Physics2D.OverlapPointAll(draggable.transform.position);
         bool stillInBin = false;
 
