@@ -232,6 +232,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddSuspicion(float value)
+    {
+        suspicionStat = MathF.Min(suspicionStat + (value * 50), maxStat);
+    }
+
     public void SubtractStat(Sorting type, float value)
     {
         switch (type)

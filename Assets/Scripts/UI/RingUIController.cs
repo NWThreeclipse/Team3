@@ -13,7 +13,7 @@ public class RingUIController : MonoBehaviour
         ring.gameObject.SetActive(false);
         if (StatsController.Instance.GetDays() < 3)
         {
-            gameObject.SetActive(false);
+            ring.gameObject.SetActive(false);
         }
     }
 

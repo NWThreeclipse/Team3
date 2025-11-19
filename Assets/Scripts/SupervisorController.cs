@@ -9,12 +9,15 @@ public class SupervisorController : MonoBehaviour
     [SerializeField] private Vector2 moveSpeeds;
     [SerializeField] private Vector2 moveCooldown;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private Skooge skooge;
+    [SerializeField] private float suspicionDamage;
 
-    private bool isWalking = false;
-    private bool isOnCooldown = false;
-    private bool isSus = false;
-
+    [SerializeField] private bool isWalking;
+    [SerializeField] private bool isOnCooldown;
+    [SerializeField] private bool isSus;
+    [SerializeField] private bool gotCaught;
     private Vector3 currentTarget;
+    private float previousSuspicionValue;
 
     private void Start()
     {
@@ -22,57 +25,85 @@ public class SupervisorController : MonoBehaviour
         {
             supervisor.SetActive(false);
             gameObject.SetActive(false);
-            if (StatsController.Instance.GetDays() >= 3)
-            {
-                isSus = true;
-            }
+            
         }
-        currentTarget = startEndPoints[1].position;
+        else if (StatsController.Instance.GetDays() >= 3)
+        {
+            isSus = true;
+        }
 
+        currentTarget = startEndPoints[1].position;
+        supervisor.transform.position = startEndPoints[0].position;
+        previousSuspicionValue = gameManager.GetSuspicionStat();
     }
 
     private void Update()
     {
-        if (!isWalking && (gameManager.GetSuspicionStat() == 50 || gameManager.GetSuspicionStat() == 80))
+        float currentSuspicion = gameManager.GetSuspicionStat();
+
+        if (currentSuspicion >= 50 && previousSuspicionValue < 50)
+        {
+            StartCoroutine(ImmediateInspection());
+        }
+        else if (currentSuspicion >= 80 && previousSuspicionValue < 80)
+        {
+            StartCoroutine(ImmediateInspection());
+        }
+
+        previousSuspicionValue = currentSuspicion;
+        if (!isWalking && !isOnCooldown)
         {
             Move();
         }
-        if (!isWalking && !isOnCooldown && !IsAtDestination())
+
+        if (isWalking && isSus && !gotCaught)
         {
-            Move();
-        }
-        if (isWalking)
-        {
-            //scan for evil activity
+            if (skooge.GetIsItemStaying())
+            {
+                gameManager.AddSuspicion(suspicionDamage);
+                gotCaught = true;
+            }
         }
 
         if (isWalking && IsAtDestination())
         {
             isWalking = false;
-            StartCoroutine(MovementDelay());
+            StartCoroutine(InspectionCooldown());
         }
+
     }
 
     private void Move()
     {
         if (Mathf.Abs(supervisor.transform.position.x - startEndPoints[0].position.x) < 0.1f)
         {
-            currentTarget = startEndPoints[1].position;  //at left, go right
+            currentTarget = startEndPoints[1].position;  // Move right
         }
         else
         {
-            currentTarget = startEndPoints[0].position;  //at right, go left
+            currentTarget = startEndPoints[0].position;  // Move left
         }
 
         supervisor.transform.DOMove(currentTarget, Random.Range(moveSpeeds.x, moveSpeeds.y)).SetEase(Ease.InQuad);
         isWalking = true;
     }
-    private IEnumerator MovementDelay()
+
+    private IEnumerator InspectionCooldown()
     {
-        isOnCooldown = true;
-        float delayTime = Random.Range(moveCooldown.x, moveCooldown.y);
-        yield return new WaitForSeconds(delayTime);
+        isOnCooldown = true; 
+        float cooldownTime = Random.Range(moveCooldown.x, moveCooldown.y); 
+        yield return new WaitForSeconds(cooldownTime);
         isOnCooldown = false;
+        gotCaught = false;
+    }
+
+    private IEnumerator ImmediateInspection()
+    {
+        isOnCooldown = false;
+        gotCaught = false;
+
+        Move();
+        yield return null;
     }
 
     private bool IsAtDestination()
