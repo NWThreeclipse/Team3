@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ConveyorBelt : MonoBehaviour
 {
@@ -43,8 +44,10 @@ public class ConveyorBelt : MonoBehaviour
                     continue;
                 }
 
-                Draggable draggableItem = item.GetComponent<Draggable>();
+                Item draggableItem = item.GetComponent<Item>();
                 Trash trashItem = item.GetComponent<Trash>();
+                SpriteRenderer itemSP = item.GetComponentInChildren<SpriteRenderer>();
+
 
                 if (trashItem != null)
                 {
@@ -54,6 +57,13 @@ public class ConveyorBelt : MonoBehaviour
                 else if (draggableItem != null && !draggableItem.GetHeld())
                 {
                     item.transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
+                    itemSP.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+
+                }
+                else if (draggableItem != null && draggableItem.GetHeld())
+                {
+                    itemSP.maskInteraction = SpriteMaskInteraction.None;
+
                 }
             }
         }
@@ -76,6 +86,10 @@ public class ConveyorBelt : MonoBehaviour
         if (collision.CompareTag("Item"))
         {
             collidingItems.Remove(collision.gameObject);
+            SpriteRenderer itemSP = collision.gameObject.GetComponentInChildren<SpriteRenderer>();
+            itemSP.maskInteraction = SpriteMaskInteraction.None;
+
+
         }
     }
 

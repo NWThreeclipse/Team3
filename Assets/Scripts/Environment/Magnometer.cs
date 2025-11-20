@@ -17,6 +17,8 @@ public class Magnometer : DragZone
     private Image spriteImage;
     [SerializeField] private TMP_Text magnetismText;
     private Tween currentTween;
+    //private Tween currentShake;
+
     [SerializeField] private float[] vibrateStrengths;
     [SerializeField] private float vibrato;
 
@@ -45,7 +47,6 @@ public class Magnometer : DragZone
             ItemEffects();
             sliderMagnetism = (int)slider.value;
             magnetismText.text = sliderMagnetism.ToString();
-
         }
     }
     private void ItemEffects()
@@ -59,6 +60,7 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 1)
             {
                 //strong vib & float
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
                 MoveItemSprite(1);
 
             }
@@ -75,11 +77,13 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 1)
             {
                 //med vib
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[1]);
                 MoveItemSprite(0);
             }
             if (sliderMagnetism == 2)
             {
                 //strong vib and float
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
                 MoveItemSprite(1);
             }
             if (sliderMagnetism >= 3)
@@ -93,16 +97,19 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 1)
             {
                 //low vib
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[0]);
                 MoveItemSprite(0);
             }
             if (sliderMagnetism == 2)
             {
                 //med vib
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[1]);
                 MoveItemSprite(0);
             }
             if (sliderMagnetism == 3)
             {
                 //strong vib and float
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
                 MoveItemSprite(1);
             }
             if (sliderMagnetism >= 4)
@@ -121,16 +128,20 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 2)
             {
                 //low vib
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[0]);
                 MoveItemSprite(0);
             }
             if (sliderMagnetism == 3)
             {
                 //med vib
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[1]);
                 MoveItemSprite(0);
             }
             if (sliderMagnetism == 4)
             {
                 //strong vib and float
+                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
+
                 MoveItemSprite(1);
             }
             if (sliderMagnetism >= 5)

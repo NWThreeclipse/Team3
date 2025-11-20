@@ -99,8 +99,30 @@ public class Bin : MonoBehaviour
         }
 
         StartCoroutine(PlayEffect(item));
-        Destroy(draggable.gameObject);
+        StartCoroutine(ShrinkItem(draggable.gameObject));
     }
+    private IEnumerator ShrinkItem(GameObject item)
+    {
+        float shrinkDuration = 0.1f;
+        float startScale = 1f;
+        float targetScale = 0.2f;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < shrinkDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            float newScale = Mathf.Lerp(startScale, targetScale, timeElapsed / shrinkDuration);
+            item.transform.localScale = new Vector3(newScale, newScale, newScale);
+
+            yield return null;
+        }
+
+        item.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+
+        Destroy(item);
+    }
+
+
 
     private IEnumerator PlayEffect(Item item)
     {
