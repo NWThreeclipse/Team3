@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
                     {
                         anomalousItemSpawnedToday = true;
                         itemData = anomalousItems[dayCounter - 2];
+                        //anom = true
                     }
                     else
                     {
@@ -155,6 +156,8 @@ public class GameManager : MonoBehaviour
                 itemData = commonItems[randomIndex];
             }
             itemsSpawnedToday++;
+
+            //check if anom, play sound
 
             // Instantiate the item 
             GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
@@ -225,7 +228,7 @@ public class GameManager : MonoBehaviour
 
     public void AddSuspicion(float value)
     {
-        suspicionStat = MathF.Min(suspicionStat + (value), maxStat);
+        suspicionStat = MathF.Min(suspicionStat + value, maxStat);
     }
 
     public void SubtractStat(Sorting type, float value)

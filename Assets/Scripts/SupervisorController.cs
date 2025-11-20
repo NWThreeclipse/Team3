@@ -1,114 +1,140 @@
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SupervisorController : MonoBehaviour
 {
+    [Header("Spawn Settings")]
+    [SerializeField] private int[] dailyAppearances;
+    [SerializeField] private float dayDuration = 150f;
+
+    [Header("References")]
     [SerializeField] private GameObject supervisor;
-    [SerializeField] private Transform[] startEndPoints; // 0 = left, 1 = middle, 2 = right
-    [SerializeField] private Vector2 moveSpeeds;
-    [SerializeField] private Vector2 moveCooldown;
+    [SerializeField] private AudioSource footstepAudio;
+    [SerializeField] private Transform[] startEndPoints;
+    [SerializeField] private Transform[] idlePoints;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Skooge skooge;
-    [SerializeField] private float suspicionDamage;
+    [SerializeField] private ViewingBoard viewingBoard;
 
-    [SerializeField] private bool isWalking;
-    [SerializeField] private bool isOnCooldown;
-    [SerializeField] private bool isSus;
-    [SerializeField] private bool gotCaught;
-    private Vector3 currentTarget;
-    private float previousSuspicionValue;
+    [Header("Behavior Settings")]
+    [SerializeField] private Vector2 walkSpeeds;
+    [SerializeField] private Vector2 inspectionTimes;
+    [SerializeField] private float suspicionDamage; 
+    [SerializeField] private float viewingBoardDamage;
 
-    private void Start()
+
+    private List<float> spawnTimes = new List<float>();
+    private bool isRunningRoutine = false;
+    private int currentDay;
+
+    void Start()
     {
-        if (StatsController.Instance.GetDays() <= 1)
+        currentDay = StatsController.Instance.GetDays();
+
+        if (currentDay <= 1)
         {
             supervisor.SetActive(false);
             gameObject.SetActive(false);
-            
-        }
-        else if (StatsController.Instance.GetDays() >= 3)
-        {
-            isSus = true;
+            return;
         }
 
-        currentTarget = startEndPoints[1].position;
-        supervisor.transform.position = startEndPoints[0].position;
-        previousSuspicionValue = gameManager.GetSuspicionStat();
+        GenerateSpawnTimes(currentDay);
+        StartCoroutine(DailySpawnLoop());
     }
 
-    private void Update()
+    private void GenerateSpawnTimes(int day)
     {
-        float currentSuspicion = gameManager.GetSuspicionStat();
+        spawnTimes.Clear();
 
-        if (currentSuspicion >= 50 && previousSuspicionValue < 50)
-        {
-            StartCoroutine(ImmediateInspection());
-        }
-        else if (currentSuspicion >= 80 && previousSuspicionValue < 80)
-        {
-            StartCoroutine(ImmediateInspection());
-        }
+        int appearances = dailyAppearances[Mathf.Clamp(day, 0, dailyAppearances.Length - 1)];
+        float interval = dayDuration / appearances;
 
-        previousSuspicionValue = currentSuspicion;
-        if (!isWalking && !isOnCooldown)
+        for (int i = 0; i < appearances; i++)
         {
-            Move();
+            float randomTime = (i * interval) + Random.Range(0f, interval);
+            spawnTimes.Add(randomTime);
         }
 
-        if (isWalking && isSus && !gotCaught)
+        spawnTimes.Sort();
+        Debug.Log("Spawn Times: " + string.Join(", ", spawnTimes));
+    }
+
+    private IEnumerator DailySpawnLoop()
+    {
+        float timer = 0f;
+        int index = 0;
+
+        while (index < spawnTimes.Count)
         {
-            if (skooge.GetIsItemStaying())
+            timer += Time.deltaTime;
+
+            if (timer >= spawnTimes[index] && !isRunningRoutine)
             {
-                gameManager.AddSuspicion(suspicionDamage);
-                gotCaught = true;
+                StartCoroutine(SupervisorRoutine());
+                index++;
             }
-        }
 
-        if (isWalking && IsAtDestination())
+            yield return null;
+        }
+    }
+
+    private IEnumerator SupervisorRoutine()
+    {
+        isRunningRoutine = true;
+
+        // Play footsteps
+        footstepAudio.Play();
+        yield return new WaitForSeconds(2.5f);
+        footstepAudio.Stop();
+
+        // Walk to idle point
+        Transform idle = idlePoints[Random.Range(0, idlePoints.Length)];
+        float walkTime = Random.Range(walkSpeeds.x, walkSpeeds.y);
+
+        yield return supervisor.transform
+            .DOMove(idle.position, walkTime)
+            .SetEase(Ease.InQuad)
+            .WaitForCompletion();
+
+
+        // Inspection phase
+        float inspectDuration = Random.Range(inspectionTimes.x, inspectionTimes.y);
+        float t = 0f;
+
+        bool isDangerousDay = currentDay >= 3;
+
+        while (t < inspectDuration)
         {
-            isWalking = false;
-            StartCoroutine(InspectionCooldown());
+            t += Time.deltaTime;
+
+            if (isDangerousDay && skooge.GetIsItemStaying())
+            {
+                gameManager.AddSuspicion(suspicionDamage * Time.deltaTime);
+            }
+           
+            //if (isDangerousDay && viewingBoard.GetItem().Rarity == Rarity.Anomalous)
+            //{
+            //    gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
+
+            //}
+
+            yield return null;
         }
 
-    }
 
-    private void Move()
-    {
-        if (Mathf.Abs(supervisor.transform.position.x - startEndPoints[0].position.x) < 0.1f)
-        {
-            currentTarget = startEndPoints[1].position;  // Move right
-        }
-        else
-        {
-            currentTarget = startEndPoints[0].position;  // Move left
-        }
 
-        supervisor.transform.DOMove(currentTarget, Random.Range(moveSpeeds.x, moveSpeeds.y)).SetEase(Ease.InQuad);
-        isWalking = true;
-    }
+        // Exit screen 
+        Transform exit = startEndPoints[Random.Range(0, startEndPoints.Length)];
+        walkTime = Random.Range(walkSpeeds.x, walkSpeeds.y);
 
-    private IEnumerator InspectionCooldown()
-    {
-        isOnCooldown = true; 
-        float cooldownTime = Random.Range(moveCooldown.x, moveCooldown.y); 
-        yield return new WaitForSeconds(cooldownTime);
-        isOnCooldown = false;
-        gotCaught = false;
-    }
+        yield return supervisor.transform
+            .DOMove(exit.position, walkTime)
+            .SetEase(Ease.InQuad)
+            .WaitForCompletion();
 
-    private IEnumerator ImmediateInspection()
-    {
-        isOnCooldown = false;
-        gotCaught = false;
 
-        Move();
-        yield return null;
-    }
-
-    private bool IsAtDestination()
-    {
-        float tolerance = 0.1f;
-        return Mathf.Abs(supervisor.transform.position.x - currentTarget.x) < tolerance;
+        isRunningRoutine = false;
     }
 }

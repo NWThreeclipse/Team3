@@ -103,7 +103,7 @@ public class Item : Draggable
         if (itemData.Rarity == Rarity.Anomalous && !spawnedAnom)
         {
             spawnedAnom = true;
-            StartCoroutine(SpawnAnomalous());
+            //play quip
             StartCoroutine(FadeInVignette());
         }
         
@@ -116,32 +116,34 @@ public class Item : Draggable
         float startIntensity = vignette.intensity.value;
         float timeElapsed = 0f;
 
+        float targetTimeScale = 0.7f;
+        float startTimeScale = Time.timeScale;
         while (timeElapsed < fadeDuration)
         {
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, timeElapsed / fadeDuration);
+            Time.timeScale = Mathf.Lerp(startTimeScale, targetTimeScale, timeElapsed / fadeDuration);
             yield return null;
         }
 
         vignette.intensity.value = targetIntensity;
+        Time.timeScale = targetTimeScale;
         
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
 
         timeElapsed = 0f;
         while (timeElapsed < fadeDuration)
         {
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, timeElapsed / fadeDuration);
+            Time.timeScale = Mathf.Lerp(targetTimeScale, 1.0f, timeElapsed / fadeDuration);
+
             yield return null;
         }
+        Time.timeScale = 1f;
+
     }
 
-    private IEnumerator SpawnAnomalous()
-    {
-        Time.timeScale = 0.7f;
-        yield return new WaitForSeconds(2f);
-        Time.timeScale = 1f;
-    }
     private void OnMouseUp()
     {
         base.OnMouseUp();

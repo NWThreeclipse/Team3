@@ -17,6 +17,10 @@ public class ConveyorBelt : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        if(spriteRenderer == null)
+        {
+            Debug.Log("nll");
+        }
         movingMaterial = spriteRenderer.material;
     }
 
