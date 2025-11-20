@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider[] statBars;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text dayText;
     [SerializeField] private Slider suspicionSlider;
     private bool sus = true;
 
@@ -15,11 +16,13 @@ public class UIController : MonoBehaviour
     {
         UpdateBars();
         UpdateTimer();
-        if (StatsController.Instance.GetDays() < 3)
+        int day = StatsController.Instance.GetDays();
+        if (day < 3)
         {
             suspicionSlider.gameObject.SetActive(false);
             sus = false;
         }
+        dayText.text = day.ToString();
     }
 
     private void FixedUpdate()

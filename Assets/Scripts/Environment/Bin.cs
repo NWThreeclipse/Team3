@@ -1,88 +1,131 @@
+using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Bin : DragZone
+public class Bin : MonoBehaviour
 {
     [SerializeField] private Sorting sorting;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Bin[] otherBins;
 
-    protected override void OnTriggerEnter2D(Collider2D collision)
+    [Header("Visuals")]
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite defaultSprite;
+    [SerializeField] private Sprite hoverSprite;
+    [SerializeField] private Sprite correctSprite;
+    [SerializeField] private Sprite incorrectSprite;
+    [SerializeField] private float shakeStrength = 0.05f;
+
+    private Vector3 originalPosition;
+
+    private void Start()
     {
-        base.OnTriggerEnter2D(collision);
-        enteredItem = collision.gameObject;
-        isHoldingItem = true;
-        //shake bin
+        originalPosition = transform.position;
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
     }
 
-    
-    protected override void HandleItemRelease(Draggable draggable)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Collider2D[] hits = Physics2D.OverlapBoxAll(transform.position, GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
-
-        bool isInsideBin = false;
-        Item item = draggable.GetComponent<Item>();
-
-        if (item == null)
+        if (!collision.CompareTag("Item"))
         {
             return;
         }
 
-        foreach (var hit in hits)
+        var draggable = collision.GetComponent<Draggable>();
+        if (draggable == null)
         {
-            if (hit.gameObject == draggable.gameObject)
-            {
-                isInsideBin = true;
-                break;
-            }
+            return;
         }
 
-        if (!isInsideBin)
+        draggable.OnReleased += HandleItemRelease;
+
+        spriteRenderer.sprite = hoverSprite;
+
+        if (!DOTween.IsTweening(gameObject))
+        {
+            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Item"))
+        {
+            return;
+        }
+
+        var draggable = collision.GetComponent<Draggable>();
+        if (draggable != null)
+        {
+            draggable.OnReleased -= HandleItemRelease;
+        }
+
+        spriteRenderer.sprite = defaultSprite;
+
+        if (!DOTween.IsTweening(gameObject))
+        {
+            transform.DOShakePosition(shakeStrength, 0.1f);
+        }
+    }
+
+    private void HandleItemRelease(Draggable draggable)
+    {
+        Collider2D hit = Physics2D.OverlapBox(transform.position, GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
+
+        if (hit == null || hit.gameObject != draggable.gameObject)
         {
             draggable.ResetPosition();
             return;
         }
 
-        foreach (Bin otherBin in otherBins)
+        Item item = draggable.GetComponent<Item>();
+        if (item == null)
         {
-            if (otherBin.IsHoveringItem() && otherBin.GetItem() == item.GetItemData())
+            return;
+        }
+
+        foreach (var other in otherBins)
+        {
+            Collider2D overlap = Physics2D.OverlapBox(other.transform.position, other.GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
+
+            if (overlap != null && overlap.gameObject == draggable.gameObject)
             {
                 draggable.ResetPosition();
                 return;
             }
         }
 
-        StartCoroutine(PlayEffectWithDelay(item));
-
-        enteredItem = draggable.gameObject;
-        isHoldingItem = true;
-        //shrink item before deletion
+        StartCoroutine(PlayEffect(item));
         Destroy(draggable.gameObject);
     }
 
-
-
-    private IEnumerator PlayEffectWithDelay(Item item)
+    private IEnumerator PlayEffect(Item item)
     {
-        bool isCorrect = item.GetItemData().Sorting == sorting;
+        bool correct = item.GetItemData().Sorting == sorting;
 
-        float soundLength = isCorrect ? AudioController.PlayCorrectSound() : AudioController.PlayIncorrectSound();
+        float delay = correct ? AudioController.PlayCorrectSound()
+                              : AudioController.PlayIncorrectSound();
 
-        yield return new WaitForSeconds(soundLength);
+        yield return new WaitForSeconds(delay);
 
-        if (isCorrect)
+        if (correct)
         {
             gameManager.AddStat(sorting, item.GetItemData().Value);
+            spriteRenderer.sprite = correctSprite;
         }
         else
         {
             gameManager.SubtractStat(sorting, item.GetItemData().Value);
             gameManager.CheckLoss();
+            spriteRenderer.sprite = incorrectSprite;
         }
 
-        StatsController.Instance.IncrementItem(isCorrect);
-    }
+        StatsController.Instance.IncrementItem(correct);
 
+        yield return new WaitForSeconds(2f);
+        spriteRenderer.sprite = defaultSprite;
+    }
 }

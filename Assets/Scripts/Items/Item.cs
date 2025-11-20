@@ -65,8 +65,6 @@ public class Item : Draggable
 
     void Update()
     {
-        base.Update();
-
         if (isShrinking && transform.localScale.x > .2f)
         {
             transform.localScale -= new Vector3(5f, 5f, 0) * Time.deltaTime;

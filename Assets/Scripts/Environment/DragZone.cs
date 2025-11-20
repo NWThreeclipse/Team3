@@ -27,36 +27,60 @@ public class DragZone : MonoBehaviour
             }
         }
 
-        //enteredItem = collision.gameObject;
-        //isHoldingItem = true;
         isHoveringItem = true;
     }
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        
-        if (collision.CompareTag("Item"))
+        if (!collision.CompareTag("Item"))
         {
-            var draggable = collision.GetComponent<Draggable>();
-            if (draggable != null)
+            return;
+        }
+
+        var draggable = collision.GetComponent<Draggable>();
+
+        if (draggable != null)
+            isHoveringItem = false;
+
+        if (collision.gameObject == enteredItem)
+        {
+            if (!draggable.IsResetting)
             {
                 draggable.OnReleased -= HandleItemRelease;
+                enteredItem = null;
+                isHoldingItem = false;
             }
-
-            enteredItem = null;
-            isHoldingItem = false;
-            isHoveringItem = false;
+            return;
         }
+
+        if (draggable != null)
+            draggable.OnReleased -= HandleItemRelease;
     }
+
+
 
     protected virtual void HandleItemRelease(Draggable draggable)
     {
-        if (isHoveringItem && isHoldingItem)
+        if (isHoldingItem && draggable.gameObject != enteredItem)
         {
             draggable.ResetPosition();
+            return;
+        }
+
+        if (!isHoveringItem)
+        {
+            return;
         }
         enteredItem = draggable.gameObject;
         enteredItem.transform.position = transform.position;
         isHoldingItem = true;
     }
+
+
+    public void ForceHandleItem(Draggable draggable)
+    {
+        HandleItemRelease(draggable);
+    }
+
+
 }
