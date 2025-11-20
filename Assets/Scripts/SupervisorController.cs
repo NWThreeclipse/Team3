@@ -5,7 +5,7 @@ using UnityEngine;
 public class SupervisorController : MonoBehaviour
 {
     [SerializeField] private GameObject supervisor;
-    [SerializeField] private Transform[] startEndPoints; // 0 = left, 1 = right
+    [SerializeField] private Transform[] startEndPoints; // 0 = left, 1 = middle, 2 = right
     [SerializeField] private Vector2 moveSpeeds;
     [SerializeField] private Vector2 moveCooldown;
     [SerializeField] private GameManager gameManager;

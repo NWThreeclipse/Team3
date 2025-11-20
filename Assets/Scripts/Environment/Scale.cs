@@ -7,10 +7,12 @@ public class Scale : DragZone
     [SerializeField] private AudioSource minigameSFX;
 
 
+
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
         textfield.text = "";
+
     }
     protected override void HandleItemRelease(Draggable draggable)
     {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
 
     private const float gracePeriodDuration = 10f;
 
+
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -117,7 +119,6 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            bool anom = false;
             ItemSO itemData;
 
             if ( dayCounter > 1)
@@ -137,7 +138,6 @@ public class GameManager : MonoBehaviour
                     {
                         anomalousItemSpawnedToday = true;
                         itemData = anomalousItems[dayCounter - 2];
-                        anom = true;
                     }
                     else
                     {
@@ -161,21 +161,12 @@ public class GameManager : MonoBehaviour
             Item item = itemInstance.GetComponent<Item>();
             item.SetItemData(itemData);
             conveyorBelt.AddItem(itemInstance);
-            if (anom)
-            {
-                StartCoroutine(SpawnAnomalous());
-            }
+            
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
     }
 
-    private IEnumerator SpawnAnomalous()
-    {
-        Time.timeScale = 0.7f;
-        yield return new WaitForSeconds(2f);
-        Time.timeScale = 1f;
-    }
 
 
     private IEnumerator SpawnTrash()

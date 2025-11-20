@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class DragZone : MonoBehaviour
@@ -72,7 +73,7 @@ public class DragZone : MonoBehaviour
             return;
         }
         enteredItem = draggable.gameObject;
-        enteredItem.transform.position = transform.position;
+        enteredItem.transform.DOMove(transform.position, 0.1f);
         isHoldingItem = true;
     }
 

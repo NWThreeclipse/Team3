@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Item : Draggable
 {
@@ -9,16 +12,25 @@ public class Item : Draggable
 
     private bool isShrinking = false;
     private bool isGrowing = false;
+    [SerializeField] private Volume postprocessingVolume;
+    private Vignette vignette;
+    private bool spawnedAnom = false;
+
 
     private void Start()
     {
         base.Start();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
+        
+        postprocessingVolume = FindAnyObjectByType<Volume>();
+        if (postprocessingVolume.profile.TryGet<Vignette>(out vignette))
+        {
+            vignette.intensity.value = 0f;
+        }
         if (itemData != null && itemData.Sprite.Count() != 0)
         {
             SetSprite();
-
             //Vector2 spriteSize = spriteRenderer.sprite.rect.size / spriteRenderer.sprite.pixelsPerUnit;
 
             //BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
@@ -88,10 +100,48 @@ public class Item : Draggable
     {
         base.OnMouseDown();
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
+        if (itemData.Rarity == Rarity.Anomalous && !spawnedAnom)
+        {
+            spawnedAnom = true;
+            StartCoroutine(SpawnAnomalous());
+            StartCoroutine(FadeInVignette());
+        }
         
 
     }
+    private IEnumerator FadeInVignette()
+    {
+        float targetIntensity = 0.6f;
+        float fadeDuration = 1f;
+        float startIntensity = vignette.intensity.value;
+        float timeElapsed = 0f;
 
+        while (timeElapsed < fadeDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, timeElapsed / fadeDuration);
+            yield return null;
+        }
+
+        vignette.intensity.value = targetIntensity;
+        
+        yield return new WaitForSeconds(1.5f);
+
+        timeElapsed = 0f;
+        while (timeElapsed < fadeDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            vignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, timeElapsed / fadeDuration);
+            yield return null;
+        }
+    }
+
+    private IEnumerator SpawnAnomalous()
+    {
+        Time.timeScale = 0.7f;
+        yield return new WaitForSeconds(2f);
+        Time.timeScale = 1f;
+    }
     private void OnMouseUp()
     {
         base.OnMouseUp();
