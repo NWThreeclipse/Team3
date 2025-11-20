@@ -113,13 +113,14 @@ public class SupervisorController : MonoBehaviour
             {
                 gameManager.AddSuspicion(suspicionDamage * Time.deltaTime);
             }
-           
-            //if (isDangerousDay && viewingBoard.GetItem().Rarity == Rarity.Anomalous)
-            //{
-            //    gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
+            if (isDangerousDay && viewingBoard.IsHoldingItem())
+            {
+                if (viewingBoard.GetItem().Rarity == Rarity.Anomalous)
+                {
+                    gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
 
-            //}
-
+                }
+            }
             yield return null;
         }
 

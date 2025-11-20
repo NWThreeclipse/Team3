@@ -15,6 +15,8 @@ public class Item : Draggable
     [SerializeField] private Volume postprocessingVolume;
     private Vignette vignette;
     private bool spawnedAnom = false;
+    private Material itemMaterial;
+
 
 
     private void Start()
@@ -22,12 +24,13 @@ public class Item : Draggable
         base.Start();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 
+
         
         postprocessingVolume = FindAnyObjectByType<Volume>();
-        if (postprocessingVolume.profile.TryGet<Vignette>(out vignette))
-        {
-            vignette.intensity.value = 0f;
-        }
+        postprocessingVolume.profile.TryGet<Vignette>(out vignette);
+        itemMaterial = spriteRenderer.material;
+
+
         if (itemData != null && itemData.Sprite.Count() != 0)
         {
             SetSprite();
@@ -68,11 +71,21 @@ public class Item : Draggable
         if (itemData.Sprite.Count() == 1)
         {
             spriteRenderer.sprite = itemData.Sprite[0];
+            itemMaterial.SetTexture("_Texture", itemData.Sprite[0].texture);
         }
         else
         {
-            spriteRenderer.sprite = itemData.Sprite[UnityEngine.Random.Range(0, itemData.Sprite.Count())];
+            int randInt = UnityEngine.Random.Range(0, itemData.Sprite.Count());
+            spriteRenderer.sprite = itemData.Sprite[randInt];
+            itemMaterial.SetTexture("_Texture", itemData.Sprite[randInt].texture);
         }
+
+        itemMaterial.SetFloat("_IsEnabled", itemData.Rarity == Rarity.Common ? 0f : 1f);
+        itemMaterial.SetFloat("_IsAnomalous", itemData.Rarity == Rarity.Anomalous ? 1f : 0f);
+
+
+
+
     }
 
     void Update()
