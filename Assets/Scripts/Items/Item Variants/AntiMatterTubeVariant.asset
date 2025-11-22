@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc014373035c0e94aa39bfc9967ed20a, type: 3}
-  m_Name: LeatherWalletWithTeeth
+  m_Name: AntiMatterTubeVariant
   m_EditorClassIdentifier: 
   Rarity: 2
-  ItemName: Leather Wallet with Teeth
-  Weight: 1
-  TemperatureC: 37
-  Organic: 90
-  Magnetism: 0
-  Compounds:
-  - Collagen
-  - Calcium
-  Sorting: 2
+  ItemName: Anti-Matter Tube
+  Weight: 2
+  TemperatureC: 0
+  Organic: 0
+  Magnetism: 4
+  Compounds: []
+  Sorting: 0
   Value: 5
   Sprite:
-  - {fileID: 21300000, guid: 3c61fa37f320eb9449d0fd240d3bb7be, type: 3}
+  - {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}

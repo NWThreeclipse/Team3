@@ -4833,6 +4833,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   dialogueManager: {fileID: 594326581}
   skooge: {fileID: 546576821}
+  itemVariants:
+  - {fileID: 11400000, guid: db33442845893554f8b9165a8b956785, type: 2}
+  - {fileID: 11400000, guid: 3a1b56744daaf6640b79d252538616d0, type: 2}
+  - {fileID: 11400000, guid: 0b461f6c4783d5c469a122916cc9546c, type: 2}
+  - {fileID: 11400000, guid: f1ca6e7be7dac9440a199ab4c38156f7, type: 2}
+  - {fileID: 11400000, guid: 5eac5c98d4750a442a6e1254dd8fefda, type: 2}
+  - {fileID: 11400000, guid: 66e6d34542ce23842ae16175a1cb4ffd, type: 2}
+  - {fileID: 11400000, guid: 540be0fdd3fd8974195a974ec137f955, type: 2}
+  - {fileID: 11400000, guid: 47c81d216c8eefc49a459665b5ab6b14, type: 2}
+  - {fileID: 11400000, guid: a6632a0807995e544b52ba18cbbd026a, type: 2}
 --- !u!4 &550975239
 Transform:
   m_ObjectHideFlags: 0

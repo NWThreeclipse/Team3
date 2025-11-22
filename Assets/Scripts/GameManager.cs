@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
 
     private const float gracePeriodDuration = 10f;
 
-
+    [SerializeField] private ItemSO[] itemVariants;
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
