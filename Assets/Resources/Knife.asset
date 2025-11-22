@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemName: Knife
   Weight: 1
   TemperatureC: 10
-  Organic: 0
+  Organic: 15
   Magnetism: 4
   Compounds:
   - 'Carbon steel '
