@@ -17,4 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 481d2733346ccb843a761e7c5f0f8954, type: 2}
   - {fileID: 11400000, guid: 31b083d672a46f94aac9dbfff8ba36e3, type: 2}
   - {fileID: 11400000, guid: f20bba7a1f1b0f240a21b240e85e05ea, type: 2}
-  statReward: 10
+  day: 3

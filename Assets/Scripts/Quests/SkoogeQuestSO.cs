@@ -5,4 +5,5 @@ public class SkoogeQuestSO : ScriptableObject
 {
     public string questName;
     public ItemSO[] questItems;
+    public int day;
 }

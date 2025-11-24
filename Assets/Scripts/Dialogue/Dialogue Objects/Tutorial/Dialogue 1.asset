@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dialogue 1
   m_EditorClassIdentifier: 
   name: Supervisor
-  portrait: {fileID: 0}
-  talkingClip: {fileID: 0}
+  portrait: {fileID: 21300000, guid: 9c418ac197af73844aa2c7361fe49bca, type: 3}
+  talkingClip: {fileID: 8300000, guid: 0d7af42db5e4dfb44a6b7fb201fdc075, type: 3}
   sentences:
   - There are bins for fuel, scrap, and organics.

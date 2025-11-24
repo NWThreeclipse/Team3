@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     public event Action<GameManager> AlarmThreshold;
     private bool alarmTriggered = false;
 
+    public event Action<GameManager> QuotaAlarmThreshold;
+    private bool quotaAlarmTriggered = false;
+
+
     [SerializeField] private List<Sprite> trashSprites;
     [SerializeField] private GameObject trashPrefab;
     [SerializeField] private Vector2 trashSpawnrate;
@@ -215,13 +219,13 @@ public class GameManager : MonoBehaviour
         switch (type)
         {
             case Sorting.Organic:
-                organicStat = Mathf.Min(organicStat + (value*50), maxStat); 
+                organicStat = Mathf.Min(organicStat + value, maxStat); 
                 break;
             case Sorting.Fuel:
-                fuelStat = Mathf.Min(fuelStat + (value*50), maxStat); 
+                fuelStat = Mathf.Min(fuelStat + value, maxStat); 
                 break;
             case Sorting.Scrap:
-                scrapStat = Mathf.Min(scrapStat + (value*50), maxStat); 
+                scrapStat = Mathf.Min(scrapStat + value, maxStat); 
                 break;
         }
     }

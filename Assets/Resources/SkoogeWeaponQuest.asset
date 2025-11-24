@@ -16,4 +16,4 @@ MonoBehaviour:
   questItems:
   - {fileID: 11400000, guid: 8b70f43abdbb9a84ab714c8bc4b34db9, type: 2}
   - {fileID: 11400000, guid: e3ed35aefa2e3ce4a913b23d596d3e99, type: 2}
-  statReward: 10
+  day: 5

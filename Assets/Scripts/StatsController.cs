@@ -85,4 +85,9 @@ public class StatsController : MonoBehaviour
         rebellionScore = 0;
     }
 
+    public void SetDay(float day)
+    {
+        dayNumber = (int)day;
+    }
+
 }

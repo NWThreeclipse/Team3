@@ -179,7 +179,12 @@ public class DialogueManager : MonoBehaviour
         {
             sentenceText.text += letters[i];
             if(i % 4 == 0)
+            {
+                source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
+                source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
                 source.PlayOneShot(talkingClip);
+            }
+            
             yield return new WaitForSeconds(textSpeed);
         }
     }
