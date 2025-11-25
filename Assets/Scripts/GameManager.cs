@@ -217,6 +217,7 @@ public class GameManager : MonoBehaviour
                 if (StatsController.Instance.GetRebellionScore() >= 3)
                 {
                     //rebellion ending
+                    LoadScene("NarrativeWinScene");
                 }
                 LoadScene("WinScene");
             }
