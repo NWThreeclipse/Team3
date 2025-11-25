@@ -68,6 +68,13 @@ public class GameManager : MonoBehaviour
 
     private const float gracePeriodDuration = 10f;
 
+    [SerializeField] private float organicWeight;
+    [SerializeField] private float scrapWeight;
+    [SerializeField] private float fuelWeight;
+
+    private const float weightShift = 0.05f;
+
+
     [SerializeField] private ItemSO[] itemVariants;
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
@@ -93,6 +100,7 @@ public class GameManager : MonoBehaviour
         }
         dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
+        ResetItemTypeWeights();
     }
 
     
@@ -146,10 +154,18 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        // randomly pick common or uncommon 
-                        bool itemType = UnityEngine.Random.value <= 0.8f;
-                        int randomIndex = UnityEngine.Random.Range(0, itemType ? commonItems.Count : uncommonItems.Count);
-                        itemData = itemType ? commonItems[randomIndex] : uncommonItems[randomIndex];
+                        // choose rarity first
+                        bool isCommon = UnityEngine.Random.value <= 0.8f;
+                        List<ItemSO> pool = isCommon ? commonItems : uncommonItems;
+
+                        Sorting chosenType = GetWeightedItemType();
+
+                        List<ItemSO> filtered = pool.Where(i => i.Sorting == chosenType).ToList();
+
+                        itemData = filtered[UnityEngine.Random.Range(0, filtered.Count)];
+
+                        AdjustWeights(chosenType);
+
                     }
                 }
             }
@@ -352,6 +368,62 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    private void ResetItemTypeWeights()
+    {
+        organicWeight = 0.33f;
+        scrapWeight = 0.33f;
+        fuelWeight = 0.33f;
+    }
+
+    private Sorting GetWeightedItemType()
+    {
+        float total = organicWeight + scrapWeight + fuelWeight;
+        float roll = UnityEngine.Random.value * total;
+
+        if (roll < organicWeight)
+            return Sorting.Organic;
+
+        roll -= organicWeight;
+        if (roll < scrapWeight)
+            return Sorting.Scrap;
+
+        return Sorting.Fuel;
+    }
+
+    private void AdjustWeights(Sorting chosenType)
+    {
+        
+
+        switch (chosenType)
+        {
+            case Sorting.Organic:
+                organicWeight -= weightShift;
+                scrapWeight += weightShift;
+                fuelWeight += weightShift;
+                break;
+
+            case Sorting.Scrap:
+                scrapWeight -= weightShift;
+                organicWeight += weightShift;
+                fuelWeight += weightShift;
+                break;
+
+            case Sorting.Fuel:
+                fuelWeight -= weightShift;
+                organicWeight += weightShift;
+                scrapWeight += weightShift;
+                break;
+        }
+
+        // Clamp to prevent negatives
+        organicWeight = Mathf.Max(0.01f, organicWeight);
+        scrapWeight = Mathf.Max(0.01f, scrapWeight);
+        fuelWeight = Mathf.Max(0.01f, fuelWeight);
+    }
+
+
+
 
     public void LoadScene(string sceneName)
     {

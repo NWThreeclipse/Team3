@@ -15,5 +15,5 @@ MonoBehaviour:
   questName: Medicine
   questItems:
   - {fileID: 11400000, guid: 7fab367a76b2ac44f9f77276a44e5b02, type: 2}
-  - {fileID: 11400000, guid: 8b70f43abdbb9a84ab714c8bc4b34db9, type: 2}
+  - {fileID: 11400000, guid: a6632a0807995e544b52ba18cbbd026a, type: 2}
   day: 4

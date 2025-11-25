@@ -4590,6 +4590,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   dialogueManager: {fileID: 594326581}
   skooge: {fileID: 546576821}
+  organicWeight: 0
+  scrapWeight: 0
+  fuelWeight: 0
   itemVariants:
   - {fileID: 11400000, guid: db33442845893554f8b9165a8b956785, type: 2}
   - {fileID: 11400000, guid: 3a1b56744daaf6640b79d252538616d0, type: 2}

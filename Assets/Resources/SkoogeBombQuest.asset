@@ -15,5 +15,5 @@ MonoBehaviour:
   questName: Bomb
   questItems:
   - {fileID: 11400000, guid: bce8d6075a01a864d9752401abc645cc, type: 2}
-  - {fileID: 11400000, guid: be23d3b0cdc7a5446b40262a06224b19, type: 2}
+  - {fileID: 11400000, guid: f20bba7a1f1b0f240a21b240e85e05ea, type: 2}
   day: 5
