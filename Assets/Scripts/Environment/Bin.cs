@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Bin : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Bin : MonoBehaviour
     [SerializeField] private float shakeStrength = 0.05f;
 
     private Vector3 originalPosition;
+    private Vignette vin;
 
     private void Start()
     {
@@ -102,7 +104,18 @@ public class Bin : MonoBehaviour
                 return;
             }
         }
+        if(item.GetItemData().Rarity == Rarity.Anomalous)
+        {
+            vin = item.GetVignette();
 
+            if (vin.intensity.value != 0)
+            {
+                float vinIntensity = vin.intensity.value;
+                StopCoroutine(item.GetVignetteCoroutine());
+                StartCoroutine(FadeOutVignette(vinIntensity));
+            }
+        }
+        
         StartCoroutine(PlayEffect(item));
         StartCoroutine(ShrinkItem(draggable.gameObject));
     }
@@ -128,6 +141,22 @@ public class Bin : MonoBehaviour
     }
 
 
+    private IEnumerator FadeOutVignette(float intensity)
+    {
+        float targetIntensity = 0.6f;
+        float fadeDuration = 1f;
+        float startIntensity = intensity;
+        float timeElapsed = 0f;
+        
+        while (timeElapsed < fadeDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            vin.intensity.value = Mathf.Lerp(targetIntensity, 0f, timeElapsed / fadeDuration);
+
+            yield return null;
+        }
+
+    }
 
     private IEnumerator PlayEffect(Item item)
     {

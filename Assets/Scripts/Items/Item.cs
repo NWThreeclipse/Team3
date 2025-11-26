@@ -15,9 +15,13 @@ public class Item : Draggable
     private bool spawnedAnom = false;
     private Material itemMaterial;
     private bool isSortable = true;
+    private Coroutine vignetteRoutine;
 
     public ItemSO GetItemData() => itemData;
     public bool GetSortable() => isSortable;
+    public Vignette GetVignette() => vignette;
+    public Coroutine GetVignetteCoroutine() => vignetteRoutine;
+
 
     public void SetInteractive(bool toggle)
     {
@@ -95,7 +99,7 @@ public class Item : Draggable
         {
             spawnedAnom = true;
             //play quip
-            StartCoroutine(FadeInVignette());
+            vignetteRoutine = StartCoroutine(FadeInVignette());
         }
         
 
@@ -107,18 +111,18 @@ public class Item : Draggable
         float startIntensity = vignette.intensity.value;
         float timeElapsed = 0f;
 
-        float targetTimeScale = 0.7f;
-        float startTimeScale = Time.timeScale;
+        //float targetTimeScale = 0.7f;
+        //float startTimeScale = Time.timeScale;
         while (timeElapsed < fadeDuration)
         {
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, timeElapsed / fadeDuration);
-            Time.timeScale = Mathf.Lerp(startTimeScale, targetTimeScale, timeElapsed / fadeDuration);
+            //Time.timeScale = Mathf.Lerp(startTimeScale, targetTimeScale, timeElapsed / fadeDuration);
             yield return null;
         }
 
         vignette.intensity.value = targetIntensity;
-        Time.timeScale = targetTimeScale;
+        //Time.timeScale = targetTimeScale;
         
         yield return new WaitForSeconds(2f);
 
@@ -127,11 +131,13 @@ public class Item : Draggable
         {
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, timeElapsed / fadeDuration);
-            Time.timeScale = Mathf.Lerp(targetTimeScale, 1.0f, timeElapsed / fadeDuration);
+            //Time.timeScale = Mathf.Lerp(targetTimeScale, 1.0f, timeElapsed / fadeDuration);
 
             yield return null;
         }
-        Time.timeScale = 1f;
+        vignette.intensity.value = 0f;
+
+        //Time.timeScale = 1f;
 
     }
 
