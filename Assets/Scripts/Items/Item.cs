@@ -10,8 +10,6 @@ public class Item : Draggable
     [SerializeField] private ItemSO itemData;
     private SpriteRenderer spriteRenderer;
 
-    private bool isShrinking = false;
-    private bool isGrowing = false;
     [SerializeField] private Volume postprocessingVolume;
     private Vignette vignette;
     private bool spawnedAnom = false;
@@ -21,7 +19,10 @@ public class Item : Draggable
     public ItemSO GetItemData() => itemData;
     public bool GetSortable() => isSortable;
 
-
+    public void SetInteractive(bool toggle)
+    {
+        isInteractible = toggle;
+    }
     private void Start()
     {
         base.Start();
@@ -47,21 +48,6 @@ public class Item : Draggable
         {
             isSortable = false;
         }
-    }
-
-
-    public void Shrink()
-    {
-        offset = new Vector3(0, 0, offset.z);
-
-        if (!isShrinking && !isGrowing)
-            isShrinking = true;
-    }
-
-    public void Grow()
-    {
-        if (!isShrinking && !isGrowing)
-            isGrowing = true;
     }
 
     public void SetItemData(ItemSO newItemData)
@@ -95,29 +81,14 @@ public class Item : Draggable
 
     }
 
-    void Update()
-    {
-        if (isShrinking && transform.localScale.x > .2f)
-        {
-            transform.localScale -= new Vector3(5f, 5f, 0) * Time.deltaTime;
-        }
-        else if (isShrinking)
-        {
-            isShrinking = false;
-        }
-
-        if (isGrowing && transform.localScale.x < 1f)
-        {
-            transform.localScale += new Vector3(5f, 5f, 0) * Time.deltaTime;
-        }
-        else if (isGrowing)
-        {
-            isGrowing = false;
-        }
-    }
+    
 
     private void OnMouseDown()
     {
+        if (!isInteractible)
+        {
+            return;
+        }
         base.OnMouseDown();
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
         if (itemData.Rarity == Rarity.Anomalous && !spawnedAnom)

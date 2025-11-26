@@ -1,3 +1,4 @@
+using Steamworks;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -6,6 +7,7 @@ public class SettingsMenuController : MonoBehaviour
 {
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private GameObject settingsMenu;
+    [SerializeField] private GameObject blocker;
 
     private void Awake()
     {
@@ -19,7 +21,18 @@ public class SettingsMenuController : MonoBehaviour
     public void ToggleCanvas(bool toggle)
     {
         settingsMenu.SetActive(toggle);
+        blocker.SetActive(toggle);
+        ToggleItemInteractivity(!toggle);
         Time.timeScale = toggle ? 0f : 1f;
+    }
+
+    private void ToggleItemInteractivity(bool toggle)
+    {
+        Item[] items = FindObjectsByType<Item>(FindObjectsSortMode.None);
+        foreach (Item i in items)
+        {
+            i.SetInteractive(toggle);
+        }
     }
 
     public void SetMaster(float volume)

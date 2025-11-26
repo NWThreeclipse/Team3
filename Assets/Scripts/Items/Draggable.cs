@@ -11,7 +11,7 @@ public class Draggable : MonoBehaviour
     private Vector3 screenPoint;
     protected Vector3 offset;
     private Vector3 pickupPosition;
-    private bool isInteractible = true;
+    protected bool isInteractible = true;
     public bool IsResetting { get; private set; } = false;
 
 
@@ -27,6 +27,7 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseDown()
     {
+       
         if (!isInteractible)
         {
             return;
