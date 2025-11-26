@@ -16,7 +16,10 @@ public class Item : Draggable
     private Vignette vignette;
     private bool spawnedAnom = false;
     private Material itemMaterial;
+    private bool isSortable = true;
 
+    public ItemSO GetItemData() => itemData;
+    public bool GetSortable() => isSortable;
 
 
     private void Start()
@@ -39,9 +42,13 @@ public class Item : Draggable
             //BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
             //boxCollider.size = spriteSize;
         }
+
+        if (itemData.Rarity == Rarity.Anomalous)
+        {
+            isSortable = false;
+        }
     }
 
-    public ItemSO GetItemData() => itemData;
 
     public void Shrink()
     {
@@ -163,5 +170,9 @@ public class Item : Draggable
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Item");
     }
 
+    public void EnableSorting()
+    {
+        isSortable = true;
+    }
     
 }

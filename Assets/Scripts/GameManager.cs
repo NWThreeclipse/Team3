@@ -217,8 +217,11 @@ public class GameManager : MonoBehaviour
                 if (StatsController.Instance.GetRebellionScore() >= 3)
                 {
                     //rebellion ending
+                    AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
                     LoadScene("NarrativeWinScene");
+                    return;
                 }
+                AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
                 LoadScene("WinScene");
             }
             if(timer <= 0f && CheckWinThreshold(dayCounter))

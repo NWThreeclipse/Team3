@@ -86,6 +86,11 @@ public class Bin : MonoBehaviour
         {
             return;
         }
+        if (!item.GetSortable())
+        {
+            draggable.ResetPosition();
+            return;
+        }
 
         foreach (var other in otherBins)
         {
