@@ -22,6 +22,6 @@ MonoBehaviour:
   - Lithium
   - Aluminum
   Sorting: 1
-  Value: 2
+  Value: 5
   Sprite:
   - {fileID: 21300000, guid: f4c4bf54164f4c5439d65df48a62601c, type: 3}

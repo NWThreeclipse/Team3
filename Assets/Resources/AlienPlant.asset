@@ -22,7 +22,7 @@ MonoBehaviour:
   - Water
   - Carbon
   Sorting: 2
-  Value: 2
+  Value: 5
   Sprite:
   - {fileID: 21300000, guid: 8cc8e47bf5479c04998aa30a49ce758c, type: 3}
   - {fileID: 21300000, guid: e332f92ca0b4ee64da5e4c12f2a3845c, type: 3}

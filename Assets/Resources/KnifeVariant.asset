@@ -20,6 +20,6 @@ MonoBehaviour:
   Magnetism: 1
   Compounds: []
   Sorting: 2
-  Value: 5
+  Value: 10
   Sprite:
   - {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}

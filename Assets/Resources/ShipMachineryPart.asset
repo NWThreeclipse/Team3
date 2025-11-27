@@ -21,6 +21,6 @@ MonoBehaviour:
   Compounds:
   - Titanium
   Sorting: 0
-  Value: 2
+  Value: 5
   Sprite:
   - {fileID: 21300000, guid: 3aca37cdc8d7cf040b81afa8a9e351a3, type: 3}

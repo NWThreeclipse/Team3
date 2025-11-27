@@ -1,15 +1,13 @@
-using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private SceneFader scenefader;
     [SerializeField] private float organicStat;
     [SerializeField] private float fuelStat;
     [SerializeField] private float scrapStat;
@@ -218,16 +216,16 @@ public class GameManager : MonoBehaviour
                 {
                     //rebellion ending
                     AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
-                    LoadScene("NarrativeWinScene");
+                    scenefader.FadeToScene("NarrativeWinScene");
                     return;
                 }
                 AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
-                LoadScene("WinScene");
+                scenefader.FadeToScene("WinScene");
             }
-            if(timer <= 0f && CheckWinThreshold(dayCounter))
+            if (timer <= 0f && CheckWinThreshold(dayCounter))
             {
                 StatsController.Instance.IncrementDay();
-                LoadScene("BarracksScene");
+                scenefader.FadeToScene("BarracksScene");
 
             }
         }
@@ -353,14 +351,14 @@ public class GameManager : MonoBehaviour
         {
             // Trigger organic loss logic
             Debug.Log("Food loss ending");
-            LoadScene("LossScene");
+            scenefader.FadeToScene("LossScene");
         }
 
         if (fuelStat <= 0 && fuelInGracePeriod && fuelGraceTimer <= 0)
         {
             // Trigger fuel loss logic
             Debug.Log("Fuel loss ending");
-            LoadScene("LossScene");
+            scenefader.FadeToScene("LossScene");
 
         }
 
@@ -368,7 +366,7 @@ public class GameManager : MonoBehaviour
         {
             // Trigger scrap loss logic
             Debug.Log("Scrap loss ending");
-            LoadScene("LossScene");
+            scenefader.FadeToScene("LossScene");
 
         }
     }

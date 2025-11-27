@@ -21,7 +21,7 @@ MonoBehaviour:
   Compounds:
   - Aluminum
   Sorting: 0
-  Value: 2
+  Value: 5
   Sprite:
   - {fileID: 21300000, guid: 6d738c4188e9a414587152a0de7ed53a, type: 3}
   - {fileID: 21300000, guid: a29165cb85af9ef46a398e2ccb35c8f8, type: 3}
