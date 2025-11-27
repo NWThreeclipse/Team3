@@ -189,6 +189,10 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void ResetAnomalous()
+    {
+        anomalousItemSpawnedToday = false;
+    }
 
     private IEnumerator SpawnTrash()
     {
@@ -351,6 +355,8 @@ public class GameManager : MonoBehaviour
         {
             // Trigger organic loss logic
             Debug.Log("Food loss ending");
+            AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+
             scenefader.FadeToScene("LossScene");
         }
 
@@ -358,6 +364,8 @@ public class GameManager : MonoBehaviour
         {
             // Trigger fuel loss logic
             Debug.Log("Fuel loss ending");
+            AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+
             scenefader.FadeToScene("LossScene");
 
         }
@@ -366,6 +374,8 @@ public class GameManager : MonoBehaviour
         {
             // Trigger scrap loss logic
             Debug.Log("Scrap loss ending");
+            AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+
             scenefader.FadeToScene("LossScene");
 
         }

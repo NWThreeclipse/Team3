@@ -116,6 +116,7 @@ public class ThermalScanner : MonoBehaviour
 
     }
 
+
     public void ResetMiniGame()
     {
         playerAmplitude = 1f;

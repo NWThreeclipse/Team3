@@ -1,6 +1,7 @@
-using UnityEngine;
-using Steamworks;
 using JetBrains.Annotations;
+using Steamworks;
+using System;
+using UnityEngine;
 
 public class AchievementManager : MonoBehaviour
 {
@@ -25,12 +26,31 @@ public class AchievementManager : MonoBehaviour
             Debug.LogError("Steam not initialized!");
             return;
         }
+        Debug.Log(SteamFriends.GetPersonaName());
     }
 
     public void UnlockAchievement(string achievementID)
     {
-        SteamUserStats.SetAchievement(achievementID);
 
-        SteamUserStats.StoreStats();
+        bool isAchieved = false;
+
+        bool success = SteamUserStats.GetAchievement(achievementID, out isAchieved);
+
+        if (success && !isAchieved)
+        {
+            SteamUserStats.SetAchievement(achievementID);
+            SteamUserStats.StoreStats();
+        }
+        else
+        {
+            if (isAchieved)
+            {
+                Debug.Log("Achievement has already been unlocked.");
+            }
+            else
+            {
+                Debug.Log("Failed to check achievement status.");
+            }
+        }
     }
 }
