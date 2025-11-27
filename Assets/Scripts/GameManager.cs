@@ -371,12 +371,18 @@ public class GameManager : MonoBehaviour
 
             scenefader.FadeToScene("LossScene");
         }
-        if (suspicionStat >= 100)
+        if (suspicionStat >= 99.5)
         {
             AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
 
             scenefader.FadeToScene("LossScene");
         }
+    }
+
+    public void SuspicionLoss()
+    {
+        AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+        scenefader.FadeToScene("LossScene");
     }
 
     private void ResetItemTypeWeights()

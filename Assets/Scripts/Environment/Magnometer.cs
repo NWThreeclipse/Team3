@@ -17,7 +17,7 @@ public class Magnometer : DragZone
     private Image spriteImage;
     [SerializeField] private TMP_Text magnetismText;
     private Tween currentTween;
-    //private Tween currentShake;
+    private Tween currentShake;
 
     [SerializeField] private float[] vibrateStrengths;
     [SerializeField] private float vibrato;
@@ -51,7 +51,7 @@ public class Magnometer : DragZone
     }
     private void ItemEffects()
     {
-        if (itemMagnetism == 5)
+        if (itemMagnetism == 5 && sliderMagnetism != 0)
         {
             MoveItemSprite(2);
         }

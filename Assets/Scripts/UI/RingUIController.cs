@@ -11,16 +11,17 @@ public class RingUIController : MonoBehaviour
     {
         ring.fillAmount = 0;
         ring.gameObject.SetActive(false);
-        if (StatsController.Instance.GetDays() < 3)
-        {
-            ring.gameObject.SetActive(false);
-        }
+       
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (skooge.GetIsItemStaying())
         {
+            if (skooge.GetCurrentQuest().IsComplete())
+            {
+                return;
+            }
             ring.gameObject.SetActive(true);
             float[] data = skooge.GetHoldTimeInfo();
             if (data[0] > data[1])
@@ -29,7 +30,8 @@ public class RingUIController : MonoBehaviour
             }
             ring.fillAmount = data[0] / data[1];
             ring.gameObject.transform.position = Input.mousePosition;
-        } 
+
+        }
         else
         {
             ring.gameObject.SetActive(false);

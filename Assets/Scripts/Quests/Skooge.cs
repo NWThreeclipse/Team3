@@ -4,6 +4,7 @@ using System.Collections;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Skooge : DragZone
 {
@@ -15,9 +16,15 @@ public class Skooge : DragZone
     [SerializeField] private float shakeStrength = 0.05f;
     private SpriteRenderer spriteRenderer;
     private Vector3 originalPosition;
+    [SerializeField] private GameObject questCanvas;
+    [SerializeField] private GameObject questItemPrefab;
+    private GameObject[] questItemsIcons;
 
 
-
+    public QuestInstance GetCurrentQuest()
+    {
+        return currentQuest;
+    }
 
     public ItemSO[] GetQuestItems() => currentQuest.questData.questItems;
     public bool GetIsItemStaying() => itemIsStaying;
@@ -30,6 +37,10 @@ public class Skooge : DragZone
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if (currentQuest.IsComplete())
+        {
+            return;
+        }
 
         if (collision.CompareTag("Item"))
         {
@@ -40,7 +51,6 @@ public class Skooge : DragZone
                 draggable.OnReleased += HandleItemRelease;
             }
         }
-
         spriteRenderer.enabled = true;
         if (!DOTween.IsTweening(gameObject))
         {
@@ -52,6 +62,7 @@ public class Skooge : DragZone
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        
         holdTime += Time.deltaTime;
         itemIsStaying = true;
 
@@ -59,7 +70,17 @@ public class Skooge : DragZone
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
+        if (currentQuest.IsComplete())
+        {
+            if (collision.CompareTag("Item"))
+            {
+                Item i = collision.gameObject.GetComponent<Item>();
+                i.ResetPosition();
+                return;
 
+            }
+
+        }
         if (collision.CompareTag("Item"))
         {
             var draggable = collision.GetComponent<Draggable>();
@@ -69,6 +90,10 @@ public class Skooge : DragZone
             }
 
             spriteRenderer.enabled = false;
+            if (!DOTween.IsTweening(gameObject))
+            {
+                transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+            }
 
             enteredItem = null;
             isHoldingItem = false;
@@ -112,9 +137,28 @@ public class Skooge : DragZone
         if (currentQuest.isActive && currentQuest.questData.questItems.Contains(item.GetItemData()) && !currentQuest.progress[Array.IndexOf(currentQuest.questData.questItems, item.GetItemData())])
         {
             //will autocheck for completion in the QuestInstance
-            currentQuest.UpdateProgress(Array.IndexOf(currentQuest.questData.questItems, item.GetItemData()), true);
+            int index = Array.IndexOf(currentQuest.questData.questItems, item.GetItemData());
+
+            currentQuest.UpdateProgress(index, true);
+
+            if (questItemsIcons[index] != null)
+            {
+                Destroy(questItemsIcons[index]);
+                questItemsIcons[index] = null;
+            }
+            if(currentQuest.IsComplete())
+            {
+                questCanvas.SetActive(false);
+                spriteRenderer.enabled = false;
+                if (!DOTween.IsTweening(gameObject))
+                {
+                    transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+                }
+            }
+
             enteredItem = null;
             StartCoroutine(ShrinkItem(draggable.gameObject));
+
         }
         else
         {
@@ -129,11 +173,15 @@ public class Skooge : DragZone
         float targetScale = 0.2f;
         float timeElapsed = 0f;
 
+        Vector3 originalPosition = item.transform.localPosition;
+
         while (timeElapsed < shrinkDuration)
         {
             timeElapsed += Time.deltaTime;
             float newScale = Mathf.Lerp(startScale, targetScale, timeElapsed / shrinkDuration);
             item.transform.localScale = new Vector3(newScale, newScale, newScale);
+
+            item.transform.localPosition = originalPosition;
 
             yield return null;
         }
@@ -143,12 +191,14 @@ public class Skooge : DragZone
         Destroy(item);
     }
 
+
     private void Start()
     {
         int day = StatsController.Instance.GetDays();
         if (day < 3)
         {
             gameObject.SetActive(false);
+            questCanvas.SetActive(false);
         }
         StartDailyQuest(day);
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -166,7 +216,16 @@ public class Skooge : DragZone
         }
         SkoogeQuestSO[] quests = Resources.LoadAll<SkoogeQuestSO>("").Where(quests => quests.day == day).ToArray();
         SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
-
+        questItemsIcons = new GameObject[questData.questItems.Length];
+        for (int i = 0; i < questData.questItems.Length; i++)
+        {
+            GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);
+            itemInstance.transform.SetParent(questCanvas.transform);
+            Image image = itemInstance.GetComponent<Image>();
+            image.sprite = questData.questItems[i].Sprite[0];
+            questItemsIcons[i] = itemInstance;
+        }
+        
         if (questData != null)
         {
             currentQuest = new QuestInstance(questData);
@@ -179,11 +238,4 @@ public class Skooge : DragZone
 
     }
 
-    public void UpdateQuestProgress(int itemIndex, bool isCompleted)
-    {
-        if (currentQuest != null)
-        {
-            currentQuest.UpdateProgress(itemIndex, isCompleted);
-        }
-    }
 }

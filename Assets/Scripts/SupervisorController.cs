@@ -28,6 +28,7 @@ public class SupervisorController : MonoBehaviour
     private List<float> spawnTimes = new List<float>();
     private bool isRunningRoutine = false;
     private int currentDay;
+    private bool isDangerousDay;
 
     void Start()
     {
@@ -42,6 +43,26 @@ public class SupervisorController : MonoBehaviour
 
         GenerateSpawnTimes(currentDay);
         StartCoroutine(DailySpawnLoop());
+        isDangerousDay = currentDay >= 3;
+
+    }
+    private void Update()
+    {
+        if (isDangerousDay && skooge.GetIsItemStaying())
+        {
+            if (!skooge.GetCurrentQuest().IsComplete())
+            {
+                gameManager.AddSuspicion(suspicionDamage * Time.deltaTime);
+            }
+        }
+        if (isDangerousDay && viewingBoard.IsHoldingItem())
+        {
+            if (viewingBoard.GetItem().Rarity == Rarity.Anomalous)
+            {
+                gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
+
+            }
+        }
     }
 
     private void GenerateSpawnTimes(int day)
@@ -103,7 +124,6 @@ public class SupervisorController : MonoBehaviour
         float inspectDuration = Random.Range(inspectionTimes.x, inspectionTimes.y);
         float t = 0f;
 
-        bool isDangerousDay = currentDay >= 3;
 
         while (t < inspectDuration)
         {
@@ -111,15 +131,7 @@ public class SupervisorController : MonoBehaviour
 
             if (isDangerousDay && skooge.GetIsItemStaying())
             {
-                gameManager.AddSuspicion(suspicionDamage * Time.deltaTime);
-            }
-            if (isDangerousDay && viewingBoard.IsHoldingItem())
-            {
-                if (viewingBoard.GetItem().Rarity == Rarity.Anomalous)
-                {
-                    gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
-
-                }
+                gameManager.SuspicionLoss();
             }
             yield return null;
         }
