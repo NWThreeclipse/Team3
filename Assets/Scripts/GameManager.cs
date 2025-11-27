@@ -187,13 +187,6 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
     }
-
-
-    public void ResetAnomalous()
-    {
-        anomalousItemSpawnedToday = false;
-    }
-
     private IEnumerator SpawnTrash()
     {
         yield return new WaitForSeconds(1f);
@@ -377,7 +370,12 @@ public class GameManager : MonoBehaviour
             AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
 
             scenefader.FadeToScene("LossScene");
+        }
+        if (suspicionStat >= 100)
+        {
+            AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
 
+            scenefader.FadeToScene("LossScene");
         }
     }
 
