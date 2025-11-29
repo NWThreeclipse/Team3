@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using Steamworks;
 using System;
 using UnityEngine;
@@ -35,7 +34,6 @@ public class AchievementManager : MonoBehaviour
         bool isAchieved = false;
 
         bool success = SteamUserStats.GetAchievement(achievementID, out isAchieved);
-
         if (success && !isAchieved)
         {
             SteamUserStats.SetAchievement(achievementID);

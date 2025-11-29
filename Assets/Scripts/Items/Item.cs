@@ -13,9 +13,13 @@ public class Item : Draggable
     [SerializeField] private Volume postprocessingVolume;
     private Vignette vignette;
     private bool spawnedAnom = false;
+    private bool spawnedAnomHovered = false;
+
     private Material itemMaterial;
     private bool isSortable = true;
     private Coroutine vignetteRoutine;
+
+    private BarkManager barkManager;
 
     public ItemSO GetItemData() => itemData;
     public bool GetSortable() => isSortable;
@@ -34,8 +38,7 @@ public class Item : Draggable
 
 
         
-        postprocessingVolume = FindAnyObjectByType<Volume>();
-        postprocessingVolume.profile.TryGet<Vignette>(out vignette);
+        
         itemMaterial = spriteRenderer.material;
 
 
@@ -51,6 +54,10 @@ public class Item : Draggable
         if (itemData.Rarity == Rarity.Anomalous)
         {
             isSortable = false;
+            barkManager = FindAnyObjectByType<BarkManager>();
+            postprocessingVolume = FindAnyObjectByType<Volume>();
+            postprocessingVolume.profile.TryGet<Vignette>(out vignette);
+
         }
     }
 
@@ -85,7 +92,15 @@ public class Item : Draggable
 
     }
 
-    
+    private void OnMouseEnter()
+    {
+        if (itemData.Rarity == Rarity.Anomalous && !spawnedAnomHovered)
+        {
+            spawnedAnomHovered = true;
+            barkManager.StartPlayerBark();
+        }
+    }
+
 
     private void OnMouseDown()
     {
@@ -98,10 +113,10 @@ public class Item : Draggable
         if (itemData.Rarity == Rarity.Anomalous && !spawnedAnom)
         {
             spawnedAnom = true;
-            //play quip
             vignetteRoutine = StartCoroutine(FadeInVignette());
+
         }
-        
+
 
     }
     private IEnumerator FadeInVignette()

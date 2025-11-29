@@ -19,6 +19,7 @@ public class Skooge : DragZone
     [SerializeField] private GameObject questCanvas;
     [SerializeField] private GameObject questItemPrefab;
     private GameObject[] questItemsIcons;
+    [SerializeField] private BarkManager barkManager;
 
 
     public QuestInstance GetCurrentQuest()
@@ -149,11 +150,7 @@ public class Skooge : DragZone
             if(currentQuest.IsComplete())
             {
                 questCanvas.SetActive(false);
-                spriteRenderer.enabled = false;
-                if (!DOTween.IsTweening(gameObject))
-                {
-                    transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
-                }
+                StartCoroutine(SkoogeBark());
             }
 
             enteredItem = null;
@@ -165,7 +162,16 @@ public class Skooge : DragZone
             item.ResetPosition();
         }
     }
-
+    private IEnumerator SkoogeBark()
+    {
+        barkManager.StartSkoogeBark();
+        yield return new WaitForSeconds(2f);
+        spriteRenderer.enabled = false;
+        if (!DOTween.IsTweening(gameObject))
+        {
+            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+        }
+    }
     private IEnumerator ShrinkItem(GameObject item)
     {
         float shrinkDuration = 0.1f;

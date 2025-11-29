@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 505153914de717d4db93aa814b8f4bf8, type: 3}
-  m_Name: D_Bioscope
+  m_Name: Skooge_Barks
   m_EditorClassIdentifier: 
-  name: Xanthon
+  name: Skooge
   portrait: {fileID: 0}
-  talkingClip: {fileID: 0}
+  talkingClip: {fileID: 8300000, guid: 05711e14e9aa33b4397d04a1d59e7fc5, type: 3}
   sentences:
-  - Hmm... A Mark 24 Bioscope.  Why do I know that?
+  - Thank you thank you!
+  - Good good good!
+  - These will help help!
