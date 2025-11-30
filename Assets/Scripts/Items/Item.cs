@@ -106,6 +106,7 @@ public class Item : Draggable
         if (itemData.Rarity == Rarity.Anomalous && !spawnedAnomHovered)
         {
             barkManager.HidePlayerBark();
+            StopAllCoroutines();
         }
 
     }

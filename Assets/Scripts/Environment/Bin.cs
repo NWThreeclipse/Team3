@@ -189,8 +189,12 @@ public class Bin : MonoBehaviour
         {
             barkManager.StartSupervisorBark(stats[0], correct);
         }
-
-            StatsController.Instance.IncrementItem(correct);
+        
+        StatsController.Instance.IncrementItem(correct);
+        if (item.GetItemData().Rarity == Rarity.Anomalous)
+        {
+            StatsController.Instance.IncrementAnomalousItem(item.GetItemData().ItemName);
+        }
 
         yield return new WaitForSeconds(2f);
         spriteRenderer.sprite = defaultSprite;

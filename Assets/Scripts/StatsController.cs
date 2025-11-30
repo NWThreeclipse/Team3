@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StatsController : MonoBehaviour
@@ -11,6 +12,8 @@ public class StatsController : MonoBehaviour
     [SerializeField] private int anomalousItemsRecieved;
     [SerializeField] private int rebellionScore;
 
+    [SerializeField] private List<string> anomalousItems = new List<string>();
+
 
     public int GetDays() => dayNumber;
     public int GetItems() => itemsSorted;
@@ -20,6 +23,7 @@ public class StatsController : MonoBehaviour
 
     public int GetRebellionScore() => rebellionScore;
 
+    public List<string> GetAnomalousItemNames() => anomalousItems;
 
     private void Awake()
     {
@@ -33,6 +37,7 @@ public class StatsController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 
     public void IncrementItem(bool correct)
     {
@@ -52,6 +57,12 @@ public class StatsController : MonoBehaviour
         rebellionScore++;
     }
 
+    public void IncrementAnomalousItem(string anomName)
+    {
+        anomalousItemsRecieved++;
+        anomalousItems.Add(anomName);
+    }
+
     public void SaveStats()
     {
         PlayerPrefs.SetInt("DayNumber", dayNumber);
@@ -60,6 +71,11 @@ public class StatsController : MonoBehaviour
         PlayerPrefs.SetInt("IncorrectlySorted", incorrectSorted);
         PlayerPrefs.SetInt("AnomalousItems", anomalousItemsRecieved);
         PlayerPrefs.SetInt("RebellionScore", rebellionScore);
+
+        for (int i = 0; i < anomalousItems.Count; i++)
+        {
+            PlayerPrefs.SetString("AnomalousItem_" + i, anomalousItems[i]);
+        }
     }
 
     public void LoadStats()
@@ -70,6 +86,12 @@ public class StatsController : MonoBehaviour
         incorrectSorted = PlayerPrefs.GetInt("IncorrectlySorted", 0);
         anomalousItemsRecieved = PlayerPrefs.GetInt("AnomalousItems", 0);
         rebellionScore = PlayerPrefs.GetInt("RebellionScore", 0);
+
+        anomalousItems.Clear();
+        for (int i = 0; i < anomalousItemsRecieved; i++)
+        {
+            anomalousItems.Add(PlayerPrefs.GetString("AnomalousItem_" + i));
+        }
     }
 
     public void IncrementDay()
@@ -83,6 +105,8 @@ public class StatsController : MonoBehaviour
         incorrectSorted = 0;
         anomalousItemsRecieved = 0;
         rebellionScore = 0;
+        anomalousItems.Clear();
+
     }
 
     public void SetDay(float day)

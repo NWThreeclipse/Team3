@@ -19,11 +19,13 @@ public class SceneFader : MonoBehaviour
 
     public void FadeToScene(string sceneName)
     {
+        StopAllCoroutines();
         StartCoroutine(FadeOut(sceneName));
     }
 
     public void FadeToQuit()
     {
+        StopAllCoroutines();
         StartCoroutine(FadeOutAndQuit());
     }
 
