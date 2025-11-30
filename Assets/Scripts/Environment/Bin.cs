@@ -17,6 +17,10 @@ public class Bin : MonoBehaviour
     [SerializeField] private Sprite incorrectSprite;
     [SerializeField] private float shakeStrength = 0.05f;
 
+    [SerializeField] private BarkManager barkManager;
+    [SerializeField] private SupervisorController supervisor;
+
+
     private Vector3 originalPosition;
     private Vignette vin;
 
@@ -171,6 +175,7 @@ public class Bin : MonoBehaviour
         {
             gameManager.AddStat(sorting, item.GetItemData().Value);
             spriteRenderer.sprite = correctSprite;
+            
         }
         else
         {
@@ -178,8 +183,14 @@ public class Bin : MonoBehaviour
             gameManager.CheckLoss();
             spriteRenderer.sprite = incorrectSprite;
         }
+        bool[] stats = supervisor.GetInspecting();
 
-        StatsController.Instance.IncrementItem(correct);
+        if (stats[1])
+        {
+            barkManager.StartSupervisorBark(stats[0], correct);
+        }
+
+            StatsController.Instance.IncrementItem(correct);
 
         yield return new WaitForSeconds(2f);
         spriteRenderer.sprite = defaultSprite;

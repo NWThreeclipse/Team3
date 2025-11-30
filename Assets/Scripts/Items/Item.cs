@@ -101,6 +101,15 @@ public class Item : Draggable
         }
     }
 
+    private void OnDestroy()
+    {
+        if (itemData.Rarity == Rarity.Anomalous && !spawnedAnomHovered)
+        {
+            barkManager.HidePlayerBark();
+        }
+
+    }
+
 
     private void OnMouseDown()
     {

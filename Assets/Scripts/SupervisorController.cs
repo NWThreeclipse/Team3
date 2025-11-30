@@ -1,15 +1,14 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SupervisorController : MonoBehaviour
 {
-    [Header("Spawn Settings")]
     [SerializeField] private int[] dailyAppearances;
     [SerializeField] private float dayDuration = 150f;
 
-    [Header("References")]
     [SerializeField] private GameObject supervisor;
     [SerializeField] private AudioSource footstepAudio;
     [SerializeField] private Transform[] startEndPoints;
@@ -18,11 +17,11 @@ public class SupervisorController : MonoBehaviour
     [SerializeField] private Skooge skooge;
     [SerializeField] private ViewingBoard viewingBoard;
 
-    [Header("Behavior Settings")]
     [SerializeField] private Vector2 walkSpeeds;
     [SerializeField] private Vector2 inspectionTimes;
     [SerializeField] private float suspicionDamage; 
     [SerializeField] private float viewingBoardDamage;
+
 
 
     private List<float> spawnTimes = new List<float>();
@@ -30,6 +29,7 @@ public class SupervisorController : MonoBehaviour
     private int currentDay;
     private bool isDangerousDay;
 
+    private bool inspecting = false;
     void Start()
     {
         currentDay = StatsController.Instance.GetDays();
@@ -124,7 +124,8 @@ public class SupervisorController : MonoBehaviour
         float inspectDuration = Random.Range(inspectionTimes.x, inspectionTimes.y);
         float t = 0f;
 
-
+        //inspecting
+        inspecting = true;
         while (t < inspectDuration)
         {
             t += Time.deltaTime;
@@ -135,6 +136,7 @@ public class SupervisorController : MonoBehaviour
             }
             yield return null;
         }
+        inspecting = false;
 
 
 
@@ -149,5 +151,12 @@ public class SupervisorController : MonoBehaviour
 
 
         isRunningRoutine = false;
+    }
+
+    public bool[] GetInspecting()
+    {
+        bool isLeft = Vector3.Distance(supervisor.transform.position, idlePoints[0].position) < 0.1f;
+        bool[] stats = { isLeft, inspecting };
+        return stats;
     }
 }

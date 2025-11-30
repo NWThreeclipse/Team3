@@ -1,9 +1,6 @@
-using JetBrains.Annotations;
 using System.Collections;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 public class BarkManager : MonoBehaviour
 {
@@ -16,6 +13,16 @@ public class BarkManager : MonoBehaviour
     [SerializeField] private TMP_Text playerText;
     [SerializeField] private Dialogue playerDialogue;
 
+    [SerializeField] private GameObject leftSupervisorCanvas;
+    [SerializeField] private GameObject rightSupervisorCanvas;
+    [SerializeField] private TMP_Text leftSupervisorText;
+    [SerializeField] private TMP_Text rightSupervisorText;
+    [SerializeField] private Dialogue supervisorDialogue;
+
+
+    private bool isSupervisorBarking = false;
+
+
 
     private AudioSource source;
 
@@ -24,13 +31,15 @@ public class BarkManager : MonoBehaviour
         source = GetComponent<AudioSource>();
         skoogeBarkCanvas.SetActive(false);
         playerBarkCanvas.SetActive(false);
+        leftSupervisorCanvas.SetActive(false);
+        rightSupervisorCanvas.SetActive(false);
     }
 
     public void StartSkoogeBark()
     {
         string chosenText = skoogeDialogue.sentences[Random.Range(0, skoogeDialogue.sentences.Length)];
         skoogeText.text = "";
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(RenderSentence(chosenText, skoogeText, skoogeDialogue.talkingClip, true, skoogeBarkCanvas));
         skoogeBarkCanvas.SetActive(true);
     }
@@ -38,11 +47,29 @@ public class BarkManager : MonoBehaviour
     public void StartPlayerBark()
     {
         string chosenText = playerDialogue.sentences[StatsController.Instance.GetDays() - 2];
-        Debug.Log(chosenText);
         playerText.text = "";
-        StopAllCoroutines();
+        //StopAllCoroutines();
         StartCoroutine(RenderSentence(chosenText, playerText, playerDialogue.talkingClip, false, playerBarkCanvas));
         playerBarkCanvas.SetActive(true);
+    }
+
+    public void StartSupervisorBark(bool leftSide, bool sortOutcome)
+    {
+        if (isSupervisorBarking)
+        {
+            return;
+        }
+        isSupervisorBarking = true;
+        leftSupervisorCanvas.SetActive(leftSide);
+        rightSupervisorCanvas.SetActive(!leftSide);
+
+        leftSupervisorText.text = "";
+        rightSupervisorText.text = "";
+        //StopAllCoroutines();
+
+        string chosenText = sortOutcome ? supervisorDialogue.sentences[0] : supervisorDialogue.sentences[1];
+
+        StartCoroutine(RenderSentence(chosenText, leftSide ? leftSupervisorText : rightSupervisorText, supervisorDialogue.talkingClip, true, leftSide ? leftSupervisorCanvas : rightSupervisorCanvas));
     }
 
     public void HidePlayerBark()
@@ -75,5 +102,6 @@ public class BarkManager : MonoBehaviour
             canvas.SetActive(false);
 
         }
+        isSupervisorBarking = false;
     }
 }
