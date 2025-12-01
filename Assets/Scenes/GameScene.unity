@@ -5134,7 +5134,7 @@ MonoBehaviour:
   dayCounter: 0
   timer: 150
   isCountingDown: 1
-  itemSpawnrate: {x: 6, y: 8}
+  itemSpawnrate: {x: 4, y: 8}
   anomalousItems:
   - {fileID: 11400000, guid: 4eff587441ef6444eb0a297344706066, type: 2}
   - {fileID: 11400000, guid: 7e54668b43b61bb4794f9b5e0bda8988, type: 2}
@@ -5153,7 +5153,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: caf786a046a04554fa2611ffddcf5422, type: 3}
   - {fileID: 21300000, guid: faafabc982c2bec49ab45d966f361a32, type: 3}
   trashPrefab: {fileID: 5173479532194095059, guid: efad17b957da1994b8ae3b13a0dd2baa, type: 3}
-  trashSpawnrate: {x: 1, y: 3}
+  trashSpawnrate: {x: 0.2, y: 3}
   dailyDialogues:
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
@@ -12633,6 +12633,7 @@ MonoBehaviour:
   incorrectSorted: 0
   anomalousItemsRecieved: 0
   rebellionScore: 0
+  anomalousItems: []
 --- !u!4 &1351908952
 Transform:
   m_ObjectHideFlags: 0
@@ -15168,7 +15169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 30.8, y: 236.9}
+  m_AnchoredPosition: {x: 30.800049, y: 236.9}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1719976180
@@ -18971,7 +18972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127326452474988479, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.31
+      value: 0.53
       objectReference: {fileID: 0}
     - target: {fileID: 6791643517418675144, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: gameManager
