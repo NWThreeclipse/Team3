@@ -161,8 +161,8 @@ MonoBehaviour:
   textSpeed: 0.01
   barkCanvas: {fileID: 1805685726}
   barkText: {fileID: 1644227677}
-  nextButton: {fileID: 0}
-  nextDayButton: {fileID: 0}
+  nextButton: {fileID: 158624820}
+  nextDayButton: {fileID: 1338978466}
 --- !u!4 &141304783
 Transform:
   m_ObjectHideFlags: 0
@@ -4682,15 +4682,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dayNumber: 0
-  itemsSorted: 5
-  correctSorted: 5
+  itemsSorted: 0
+  correctSorted: 0
   incorrectSorted: 0
-  anomalousItemsRecieved: 1
+  anomalousItemsRecieved: 0
   rebellionScore: 0
-  anomalousItems:
-  - Bloodied Microscope
-  - Model Spaceship
-  - Plague Distribution Device
+  anomalousItems: []
 --- !u!4 &1394290819
 Transform:
   m_ObjectHideFlags: 0
