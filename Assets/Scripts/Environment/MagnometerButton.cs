@@ -5,7 +5,6 @@ public class MagnometerButton : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Magnometer magnometer;
-    [SerializeField] private HelpMenuButton helpButton;
     [SerializeField] private float shakeStrength = 0.05f;
     private Vector3 originalPosition;
 
@@ -17,7 +16,6 @@ public class MagnometerButton : MonoBehaviour
         if (gameManager.GetDay() < 2)
         {
             magnometer.gameObject.SetActive(false);
-            helpButton.gameObject.SetActive(false);
             gameObject.SetActive(false);
             return;
         }

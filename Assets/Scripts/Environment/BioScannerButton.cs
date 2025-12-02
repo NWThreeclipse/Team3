@@ -5,7 +5,6 @@ public class BioScannerButton : MonoBehaviour
 {
     [SerializeField] private BioScanner bioScanner;
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private HelpMenuButton helpButton;
     [SerializeField] private float shakeStrength = 0.05f;
     private Vector3 originalPosition;
 
@@ -13,7 +12,6 @@ public class BioScannerButton : MonoBehaviour
     {
         if (gameManager.GetDay() < 3)
         {
-            helpButton.gameObject.SetActive(false);
             bioScanner.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
