@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skooge : DragZone
+public class Skooge : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
     [SerializeField] private QuestInstance currentQuest;
@@ -21,6 +21,9 @@ public class Skooge : DragZone
     private GameObject[] questItemsIcons;
     [SerializeField] private BarkManager barkManager;
 
+    [SerializeField] protected GameObject enteredItem;
+    [SerializeField] protected bool isHoldingItem;
+    [SerializeField] protected bool isHoveringItem;
 
     public QuestInstance GetCurrentQuest()
     {
@@ -63,11 +66,24 @@ public class Skooge : DragZone
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
-        holdTime += Time.deltaTime;
+        holdTime += Time.deltaTime;  // Accumulate the hold time
         itemIsStaying = true;
 
+        // Check if the hold time has exceeded the 5 seconds threshold
+        if (holdTime >= 5f)
+        {
+            // Find the draggable object attached to the collision
+            var draggable = collision.GetComponent<Draggable>();
+
+            // Ensure the draggable is valid
+            if (draggable != null)
+            {
+                // Automatically handle the item release
+                HandleItemRelease(draggable);
+            }
+        }
     }
+
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
@@ -103,7 +119,7 @@ public class Skooge : DragZone
             itemIsStaying = false;
         }
     }
-    protected override void HandleItemRelease(Draggable draggable)
+    public void HandleItemRelease(Draggable draggable)
     {
         itemIsStaying = false;
         if (holdTime < 5f)
@@ -128,7 +144,18 @@ public class Skooge : DragZone
             return;
         }
 
-        base.HandleItemRelease(draggable);
+        if (isHoldingItem && draggable.gameObject != enteredItem)
+        {
+            draggable.ResetPosition();
+            return;
+        }
+
+        if (!isHoveringItem)
+        {
+            return;
+        }
+        enteredItem = draggable.gameObject;
+        isHoldingItem = true;
 
         Item item = draggable.GetComponent<Item>();
         if (item == null)
@@ -243,5 +270,7 @@ public class Skooge : DragZone
         }
 
     }
+
+  
 
 }

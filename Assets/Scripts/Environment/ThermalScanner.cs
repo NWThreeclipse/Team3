@@ -2,11 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ThermalScanner : MonoBehaviour
+public class ThermalScanner : DragZone
 {
     [SerializeField] private bool isPlaying = false;
     [SerializeField] private GameObject minigameCanvas;
-    [SerializeField] private ViewingBoard viewingBoard;
 
 
     [SerializeField] private LineRenderer goalLine;
@@ -28,7 +27,7 @@ public class ThermalScanner : MonoBehaviour
 
     [SerializeField] private float amplitudeWinThreshold;
     [SerializeField] private float frequencyWinThreshold;
-    [SerializeField] private TMP_Text temperatureText;
+    [SerializeField] private Slider temperatureSlider;
 
     private const float TAU = 2 * Mathf.PI;
 
@@ -38,20 +37,43 @@ public class ThermalScanner : MonoBehaviour
     [SerializeField] private AudioSource minigameSFX;
     [SerializeField] private AudioSource minigameWinSFX;
 
+    [SerializeField] private GameObject helpCanvas;
 
+
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
+        DisableMiniGame();
+    }
     void Start()
     {
         minigameCanvas.SetActive(false);
         goalLine.positionCount = points;
         playerLine.positionCount = points;
         ResetMiniGame();
-        temperatureText.text = "";
+        temperatureSlider.value = -273;
+        helpCanvas.SetActive(false);
 
     }
 
     void Update()
     {
+        if (GetEnteredItem() != null)
+        {
+            Item item = GetEnteredItem().GetComponent<Item>();
+            if (isPlaying)
+            {
+                item.SetInteractive(false);
 
+            } 
+            else
+            {
+                item.SetInteractive(true);
+
+            }
+
+        }
         if (isPlaying)
         {
             Draw(goalLine, goalAmplitude, goalFrequency);
@@ -59,15 +81,16 @@ public class ThermalScanner : MonoBehaviour
             CheckWin();
 
         }
+        
     }
 
     public void CheckWin()
     {
-        if(viewingBoard.IsHoldingItem())
+        if(IsHoldingItem())
         {
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
-                temperatureText.text = "Temperature: " + viewingBoard.GetItem().TemperatureC.ToString() + "°C";
+                temperatureSlider.value = Mathf.Lerp(temperatureSlider.value, GetItem().TemperatureC, .1f);
                 amplitudeSlider.interactable = false;
                 frequencySlider.interactable = false;
                 minigameSFX.Stop();
@@ -89,12 +112,12 @@ public class ThermalScanner : MonoBehaviour
 
     public void EnableMiniGame()
     {
-        if(viewingBoard.IsHoldingItem())
+        if(IsHoldingItem())
         {
             minigameCanvas.SetActive(true);
             isPlaying = true;
             SetGoalValues();
-            temperatureText.text = "";
+            temperatureSlider.value = -273;
             amplitudeSlider.interactable = true;
             frequencySlider.interactable = true;
             minigameSFX.Play();
@@ -111,18 +134,28 @@ public class ThermalScanner : MonoBehaviour
         minigameCanvas.SetActive(false);
         isPlaying = false;
         ResetMiniGame();
-        temperatureText.text = "";
+        temperatureSlider.value = -273;
         minigameSFX.Stop();
+        helpCanvas.SetActive(false);
+
 
     }
 
-
+    public void ToggleHelpCanvas()
+    {
+        helpCanvas.SetActive(!helpCanvas.activeSelf);
+    }
     public void ResetMiniGame()
     {
         playerAmplitude = 1f;
         playerFrequency = 1f;
         amplitudeSlider.value = 1f;
         frequencySlider.value = 1f;
+        temperatureSlider.value = -273f;
+        amplitudeSlider.interactable = true;
+        frequencySlider.interactable = true;
+        SetGoalValues();
+
     }
 
     public void ChangeAmplitude(float amp)
