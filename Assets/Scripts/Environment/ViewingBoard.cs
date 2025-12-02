@@ -9,17 +9,18 @@ public class ViewingBoard : DragZone
     [SerializeField] private AudioSource minigameSFX;
 
 
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
 
+        base.OnTriggerEnter2D(collision);
+    }
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
         textfield.text = "";
 
     }
-    private void OnTriggerExit(Collider other)
-    {
-        
-    }
+    
     protected override void HandleItemRelease(Draggable draggable)
     {
         base.HandleItemRelease(draggable);

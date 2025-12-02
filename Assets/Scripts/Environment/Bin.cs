@@ -73,7 +73,7 @@ public class Bin : MonoBehaviour
 
         if (!DOTween.IsTweening(gameObject))
         {
-            transform.DOShakePosition(shakeStrength, 0.1f);
+            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
         }
     }
 

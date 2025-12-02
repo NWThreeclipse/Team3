@@ -2,11 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ThermalScanner : MonoBehaviour
+public class ThermalScanner : DragZone
 {
     [SerializeField] private bool isPlaying = false;
     [SerializeField] private GameObject minigameCanvas;
-    [SerializeField] private ViewingBoard viewingBoard;
+    //[SerializeField] private ViewingBoard viewingBoard;
 
 
     [SerializeField] private LineRenderer goalLine;
@@ -39,6 +39,12 @@ public class ThermalScanner : MonoBehaviour
     [SerializeField] private AudioSource minigameWinSFX;
 
 
+
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
+        DisableMiniGame();
+    }
     void Start()
     {
         minigameCanvas.SetActive(false);
@@ -63,11 +69,11 @@ public class ThermalScanner : MonoBehaviour
 
     public void CheckWin()
     {
-        if(viewingBoard.IsHoldingItem())
+        if(IsHoldingItem())
         {
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
-                temperatureText.text = "Temperature: " + viewingBoard.GetItem().TemperatureC.ToString() + "°C";
+                temperatureText.text = "Temperature: " + GetItem().TemperatureC.ToString() + "°C";
                 amplitudeSlider.interactable = false;
                 frequencySlider.interactable = false;
                 minigameSFX.Stop();
@@ -89,7 +95,7 @@ public class ThermalScanner : MonoBehaviour
 
     public void EnableMiniGame()
     {
-        if(viewingBoard.IsHoldingItem())
+        if(IsHoldingItem())
         {
             minigameCanvas.SetActive(true);
             isPlaying = true;

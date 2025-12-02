@@ -6,7 +6,12 @@ public class Scale : DragZone
     [SerializeField] private TMP_Text textfield;
     [SerializeField] private AudioSource minigameSFX;
 
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("scale");
 
+        base.OnTriggerEnter2D(collision);
+    }
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {

@@ -26,6 +26,11 @@ public class Magnometer : DragZone
     [SerializeField] private Slider slider;
 
 
+    protected override void OnTriggerExit2D(Collider2D collision)
+    {
+        base.OnTriggerExit2D(collision);
+        DisableMiniGame();
+    }
 
     private void Start()
     {

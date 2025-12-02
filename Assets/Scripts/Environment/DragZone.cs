@@ -6,6 +6,7 @@ public class DragZone : MonoBehaviour
     [SerializeField] protected GameObject enteredItem;
     [SerializeField] protected bool isHoldingItem;
     [SerializeField] protected bool isHoveringItem;
+    [SerializeField] protected GameObject snapPoint;
 
 
     public bool IsHoldingItem() => isHoldingItem;
@@ -17,7 +18,6 @@ public class DragZone : MonoBehaviour
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        
         if (collision.CompareTag("Item"))
         {
             var draggable = collision.GetComponent<Draggable>();
@@ -73,7 +73,7 @@ public class DragZone : MonoBehaviour
             return;
         }
         enteredItem = draggable.gameObject;
-        enteredItem.transform.DOMove(transform.position, 0.1f);
+        enteredItem.transform.DOMove(snapPoint.transform.position, 0.1f);
         isHoldingItem = true;
     }
 
