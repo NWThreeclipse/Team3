@@ -4285,11 +4285,11 @@ MonoBehaviour:
   scrapStat: 50
   suspicionStat: 0
   maxStat: 100
-  organicDepleteRate: 0.5
-  fuelDepleteRate: 0.5
-  scrapDepleteRate: 0.5
+  organicDepleteRate: 0.4
+  fuelDepleteRate: 0.4
+  scrapDepleteRate: 0.4
   suspicionDepleteRate: 1
-  dayCounter: 0
+  dayCounter: 1
   timer: 150
   isCountingDown: 1
   itemSpawnrate: {x: 4, y: 8}
@@ -12862,7 +12862,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -570808551
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: aa65bff6c8d6f0c4eb4b2ce42140d11e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -12904,7 +12904,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameManager: {fileID: 550975238}
   magnometer: {fileID: 174937708}
-  helpButton: {fileID: 0}
   shakeStrength: 0.05
 --- !u!58 &1516996372
 CircleCollider2D:
@@ -15043,7 +15042,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bioScanner: {fileID: 1831284550}
   gameManager: {fileID: 550975238}
-  helpButton: {fileID: 0}
   shakeStrength: 0.05
 --- !u!58 &1791726644
 CircleCollider2D:
@@ -15123,7 +15121,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -570808551
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 88da2ab36c245464aaf5d901c0298c70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -17602,7 +17600,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thermalScanner: {fileID: 80892436}
   gameManager: {fileID: 550975238}
-  helpButton: {fileID: 0}
   shakeStrength: 0.05
 --- !u!212 &2113944432
 SpriteRenderer:
@@ -17646,7 +17643,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -570808551
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9f2d796defadabb49a570addc649ec47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -18456,6 +18453,10 @@ PrefabInstance:
     - target: {fileID: 1127326452474988479, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650149136412265774, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: moveSpeed
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6791643517418675144, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: gameManager
