@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
     public event Action<GameManager> AlarmThreshold;
     private bool alarmTriggered = false;
 
-    public event Action<GameManager> QuotaAlarmThreshold;
-    private bool quotaAlarmTriggered = false;
 
 
     [SerializeField] private List<Sprite> trashSprites;
@@ -207,7 +205,7 @@ public class GameManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            if (timer <= 0f && dayCounter == 5 && CheckWinThreshold(dayCounter))
+            if (timer <= 0f && dayCounter == 5)
             {
                 if (StatsController.Instance.GetRebellionScore() >= 3)
                 {
@@ -217,9 +215,9 @@ public class GameManager : MonoBehaviour
                     return;
                 }
                 AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
-                scenefader.FadeToScene("WinScene");
+                scenefader.FadeToScene("NarrativeLossScene");
             }
-            if (timer <= 0f && CheckWinThreshold(dayCounter))
+            if (timer <= 0f)
             {
                 StatsController.Instance.IncrementDay();
                 scenefader.FadeToScene("BarracksScene");
@@ -294,7 +292,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-
+    //unused quota code
     public bool CheckWinThreshold(int day)
     {
         if (day <= 1)

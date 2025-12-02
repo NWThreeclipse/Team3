@@ -1009,11 +1009,11 @@ RectTransform:
   - {fileID: 1993697674}
   - {fileID: 1371987456}
   - {fileID: 1028662654}
-  - {fileID: 326835417}
   - {fileID: 945923809}
   - {fileID: 1043782460}
   - {fileID: 1557269943}
   - {fileID: 1866607448}
+  - {fileID: 326835417}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12633,6 +12633,7 @@ MonoBehaviour:
   incorrectSorted: 0
   anomalousItemsRecieved: 0
   rebellionScore: 0
+  anomalousItems: []
 --- !u!4 &1351908952
 Transform:
   m_ObjectHideFlags: 0
