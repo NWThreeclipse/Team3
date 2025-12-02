@@ -7,6 +7,8 @@ public class DragZone : MonoBehaviour
     [SerializeField] protected bool isHoldingItem;
     [SerializeField] protected bool isHoveringItem;
     [SerializeField] protected GameObject snapPoint;
+    [SerializeField] protected BarkManager barkManager;
+
 
 
     public bool IsHoldingItem() => isHoldingItem;
@@ -72,6 +74,15 @@ public class DragZone : MonoBehaviour
         {
             return;
         }
+
+        Item item = draggable.gameObject.GetComponent<Item>();
+
+        if (item.GetItemData().Rarity == Rarity.Anomalous)
+        {
+            barkManager.HidePlayerBark();
+            item.EnableSorting();
+        }
+
         enteredItem = draggable.gameObject;
         enteredItem.transform.DOMove(snapPoint.transform.position, 0.1f);
         isHoldingItem = true;

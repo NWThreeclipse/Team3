@@ -15,7 +15,6 @@ public class Magnometer : DragZone
     [SerializeField] private int itemMagnetism;
     [SerializeField] private int sliderMagnetism;
     private Image spriteImage;
-    [SerializeField] private TMP_Text magnetismText;
     private Tween currentTween;
     private Tween currentShake;
 
@@ -24,6 +23,9 @@ public class Magnometer : DragZone
 
     [SerializeField] private AudioSource minigameSFX;
     [SerializeField] private Slider slider;
+
+    [SerializeField] private GameObject helpCanvas;
+
 
 
     protected override void OnTriggerExit2D(Collider2D collision)
@@ -37,11 +39,12 @@ public class Magnometer : DragZone
         minigameCanvas.SetActive(false);
         slider.value = 0;
         spriteImage = itemSprite.GetComponent<Image>();
-        magnetismText.text = "";
 
         Vector3 initialPosition = itemSprite.transform.position;
         initialPosition.y = spriteHeights[0];
         itemSprite.transform.position = initialPosition;
+        helpCanvas.SetActive(false);
+
 
     }
 
@@ -51,7 +54,6 @@ public class Magnometer : DragZone
         {
             ItemEffects();
             sliderMagnetism = (int)slider.value;
-            magnetismText.text = sliderMagnetism.ToString();
         }
     }
     private void ItemEffects()
@@ -190,7 +192,12 @@ public class Magnometer : DragZone
         isPlaying = false;
         ResetMiniGame();
         minigameSFX.Stop();
+        helpCanvas.SetActive(false);
+    }
 
+    public void ToggleHelpCanvas()
+    {
+        helpCanvas.SetActive(!helpCanvas.activeSelf);
     }
 
     public void ResetMiniGame()
