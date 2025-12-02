@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemName: Flesh Mass Implanted with Wires
   Weight: 2
   TemperatureC: 15
-  Organic: 55
+  Organic: 45
   Magnetism: 4
   Compounds: []
   Sorting: 0

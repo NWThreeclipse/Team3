@@ -412,19 +412,19 @@ public class GameManager : MonoBehaviour
         switch (chosenType)
         {
             case Sorting.Organic:
-                organicWeight -= weightShift;
+                organicWeight -= weightShift * 2;
                 scrapWeight += weightShift;
                 fuelWeight += weightShift;
                 break;
 
             case Sorting.Scrap:
-                scrapWeight -= weightShift;
+                scrapWeight -= weightShift * 2;
                 organicWeight += weightShift;
                 fuelWeight += weightShift;
                 break;
 
             case Sorting.Fuel:
-                fuelWeight -= weightShift;
+                fuelWeight -= weightShift * 2;
                 organicWeight += weightShift;
                 scrapWeight += weightShift;
                 break;

@@ -15,7 +15,7 @@ MonoBehaviour:
   Rarity: 3
   ItemName: Infected Severed Arm
   Weight: 2
-  TemperatureC: 25
+  TemperatureC: 37
   Organic: 100
   Magnetism: 0
   Compounds: []
