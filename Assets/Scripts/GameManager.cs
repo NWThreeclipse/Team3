@@ -90,9 +90,26 @@ public class GameManager : MonoBehaviour
             commonItems = gameItems.Where(item => item.Rarity == Rarity.Common).ToList();
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
         }
-        
-        dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
+        var tree = dailyDialogues[dayCounter];
+        dialogueManager.StartDialogue(tree.nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
+
+        //if (dayCounter == 0 || dayCounter >= 3)
+        //{
+
+        //    if (tree == null || tree.nodes == null || tree.nodes.Count == 0 || tree.nodes[0] == null)
+         //   {
+          //      Debug.LogError("DialogueTree for day " + dayCounter + " is missing a root node!");
+         //       return;
+         //   }
+
+
+        //}
+        //else //if day 1-2
+        //{
+        //    HandleDialogueEnd(dialogueManager);
+        //}
+
         ResetItemTypeWeights();
         conveyorBelt.ToggleBelt();
     }

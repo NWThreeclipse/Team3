@@ -482,7 +482,7 @@ MonoBehaviour:
   m_Name: Option Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 2076.7983, y: -24.449493}
+  position: {x: 2072, y: -24}
   ports:
     keys:
     - prevNode
