@@ -22,8 +22,6 @@ public class ThoughtBubble : MonoBehaviour
             currentScale.y = -currentScale.y;
             backgroundBubble.transform.localScale = currentScale;
         }
-        Debug.Log(i);
-        Debug.Log(backgroundBubble.transform.localScale);
 
         anomalousSprite.sprite = itemSprite;
         button.onClick.AddListener(() => statsUIController.StartPlayerReflection(index));

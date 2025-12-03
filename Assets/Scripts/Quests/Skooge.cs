@@ -24,6 +24,9 @@ public class Skooge : MonoBehaviour
     [SerializeField] protected GameObject enteredItem;
     [SerializeField] protected bool isHoldingItem;
     [SerializeField] protected bool isHoveringItem;
+    [SerializeField] private StartLever startLever;
+    private int day;
+
 
     public QuestInstance GetCurrentQuest()
     {
@@ -227,18 +230,22 @@ public class Skooge : MonoBehaviour
 
     private void Start()
     {
-        int day = StatsController.Instance.GetDays();
+        day = StatsController.Instance.GetDays();
         if (day < 3)
         {
             gameObject.SetActive(false);
             questCanvas.SetActive(false);
         }
-        StartDailyQuest(day);
+        startLever.OnGameStart += HandleGameStart;
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
         originalPosition = transform.position;
 
 
+    }
+    private void HandleGameStart(StartLever lever)
+    {
+        StartDailyQuest(day);
     }
 
     public void StartDailyQuest(int day)

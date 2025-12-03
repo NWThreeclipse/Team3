@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,11 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject nextDayButton;
 
+    [SerializeField] private AudioClip panelOpen, panelClose;
+    [SerializeField] private Vector3 showPanelPos;
+    [SerializeField] private Vector3 hidePanelPos;
+    [SerializeField] private float panelAnimationTime = 1;
+
     private AudioSource source;
 
 
@@ -44,11 +50,15 @@ public class StatsUIController : MonoBehaviour
         anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
         source = GetComponent<AudioSource>();
         barkCanvas.SetActive(false);
+        //statsCanvas.SetActive(true);
+        statsCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
+
     }
 
     public void HideStats()
     {
-        statsCanvas.SetActive(false);
+        statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
+        //statsCanvas.SetActive(false);
         nextButton.SetActive(false);
         nextDayButton.SetActive(true);
         ShowBarks();

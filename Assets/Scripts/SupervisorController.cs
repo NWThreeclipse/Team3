@@ -21,6 +21,7 @@ public class SupervisorController : MonoBehaviour
     [SerializeField] private Vector2 inspectionTimes;
     [SerializeField] private float suspicionDamage; 
     [SerializeField] private float viewingBoardDamage;
+    [SerializeField] private StartLever startLever;
 
 
 
@@ -42,10 +43,15 @@ public class SupervisorController : MonoBehaviour
         }
 
         GenerateSpawnTimes(currentDay);
-        StartCoroutine(DailySpawnLoop());
         isDangerousDay = currentDay >= 3;
-
+        startLever.OnGameStart += HandleGameStart;
     }
+
+    private void HandleGameStart(StartLever lever)
+    {
+        StartCoroutine(DailySpawnLoop());
+    }
+
     private void Update()
     {
         if (isDangerousDay && skooge.GetIsItemStaying())
