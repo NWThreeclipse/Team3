@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505153914de717d4db93aa814b8f4bf8, type: 3}
+  m_Name: D_Request 3B 1
+  m_EditorClassIdentifier: 
+  name: Skooge
+  portrait: {fileID: 0}
+  talkingClip: {fileID: 8300000, guid: 05711e14e9aa33b4397d04a1d59e7fc5, type: 3}
+  sentences:
+  - Yep yep! Your friend friend needs you free free!
