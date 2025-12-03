@@ -36,7 +36,6 @@ public class BioScanner : DragZone
         if (isPlaying && countingCoroutine == null && !hasCompleted && IsHoldingItem())
         {
             int percentage = (int)GetItem().Organic;
-            textfield.text = "0%";
             value = 0;
 
             countingCoroutine = StartCoroutine(CountToPercentage(percentage));
@@ -63,7 +62,6 @@ public class BioScanner : DragZone
         {
             isPlaying = true;
             int percentage = (int)GetItem().Organic;
-
             textfield.text = "0%";
             value = 0;
 
@@ -92,7 +90,7 @@ public class BioScanner : DragZone
     private IEnumerator CountToPercentage(int targetPercentage)
     {
         float stepAmount = Mathf.CeilToInt((targetPercentage - value) / (CountFPS * Duration));
-        WaitForSeconds wait = new WaitForSeconds(1f / CountFPS);  // Wait time between frames
+        WaitForSeconds wait = new WaitForSeconds(1f / CountFPS);
         while (value < targetPercentage)
         {
             value += (int)stepAmount;

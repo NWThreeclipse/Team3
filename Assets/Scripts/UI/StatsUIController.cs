@@ -44,6 +44,7 @@ public class StatsUIController : MonoBehaviour
         anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
         source = GetComponent<AudioSource>();
         barkCanvas.SetActive(false);
+        statsCanvas.SetActive(true);
     }
 
     public void HideStats()

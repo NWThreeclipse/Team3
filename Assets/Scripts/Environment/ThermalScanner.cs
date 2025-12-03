@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -39,7 +40,10 @@ public class ThermalScanner : DragZone
 
     [SerializeField] private GameObject helpCanvas;
 
-
+    [SerializeField] private AudioClip panelOpen, panelClose;
+    [SerializeField] private Vector3 showPanelPos;
+    [SerializeField] private Vector3 hidePanelPos;
+    [SerializeField] private float panelAnimationTime = 1;
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
@@ -48,12 +52,12 @@ public class ThermalScanner : DragZone
     }
     void Start()
     {
-        minigameCanvas.SetActive(false);
+        //minigameCanvas.SetActive(false);
         goalLine.positionCount = points;
         playerLine.positionCount = points;
         ResetMiniGame();
         temperatureSlider.value = -273;
-        helpCanvas.SetActive(false);
+        //helpCanvas.SetActive(false);
 
     }
 
@@ -114,7 +118,9 @@ public class ThermalScanner : DragZone
     {
         if(IsHoldingItem())
         {
-            minigameCanvas.SetActive(true);
+            minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
+
+            //minigameCanvas.SetActive(true);
             isPlaying = true;
             SetGoalValues();
             temperatureSlider.value = -273;
@@ -131,7 +137,7 @@ public class ThermalScanner : DragZone
 
     public void DisableMiniGame()
     {
-        minigameCanvas.SetActive(false);
+        minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
         isPlaying = false;
         ResetMiniGame();
         temperatureSlider.value = -273;

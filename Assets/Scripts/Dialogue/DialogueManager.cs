@@ -18,8 +18,8 @@ public class DialogueManager : MonoBehaviour
 
     [SerializeField] private Image portrait;
     [SerializeField] private AudioClip panelOpen, panelClose;
-    [SerializeField] private Vector3 showPanelPos = new Vector3(0,-140,0);
-    [SerializeField] private Vector3 hidePanelPos = new Vector3(0, -400, 0);
+    [SerializeField] private Vector3 showPanelPos;
+    [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
     [SerializeField] private float textSpeed = 0.01f;
 
@@ -50,6 +50,7 @@ public class DialogueManager : MonoBehaviour
             //set panel
             nameText.text = dialogue.name;
             portrait.sprite = dialogue.portrait;
+            AlignIcons(dialogue.name);
             talkingClip = dialogue.talkingClip;
             sentenceText.text = "";
 
@@ -77,7 +78,8 @@ public class DialogueManager : MonoBehaviour
             //load node for speaker
             SimpleDialogueNode simple = curNode as SimpleDialogueNode;
             Dialogue dialogue = simple.sentence;
-            
+            AlignIcons(dialogue.name);
+
             //set panel
             nameText.text = dialogue.name;
             portrait.sprite = dialogue.portrait;
@@ -196,5 +198,27 @@ public class DialogueManager : MonoBehaviour
         dialogueMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
         OnDialogueEnd?.Invoke(this);
 
+    }
+
+    private void AlignIcons(string name)
+    {
+        if (name == "Supervisor")
+        {
+            Vector3 portraitPosition = new Vector3(0, -74.7f, 0);
+            Vector3 portraitScale = new Vector3(2.7f, 2.7f, 2.7f);
+            portrait.gameObject.transform.localPosition = portraitPosition;
+            portrait.gameObject.transform.localScale = portraitScale;
+        }
+        else if (name == "Xanthon" || name == "Unit 481202")
+        {
+            Vector3 portraitPosition = new Vector3(0, -64, 0);
+            Vector3 portraitScale = new Vector3(6, 6, 6);
+            portrait.gameObject.transform.localPosition = portraitPosition;
+            portrait.gameObject.transform.localScale = portraitScale;
+        }
+        else //skooge
+        {
+
+        }
     }
 }

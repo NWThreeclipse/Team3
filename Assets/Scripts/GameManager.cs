@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<DialogueTree> dailyDialogues;
     [SerializeField] private DialogueManager dialogueManager;
-    private bool isDialogueEnded = false;
+    private bool gameStarted = false;
 
     [SerializeField] private Skooge skooge;
     private ItemSO[] mustSpawnItems;
@@ -70,12 +70,15 @@ public class GameManager : MonoBehaviour
 
     private const float weightShift = 0.05f;
 
-
     [SerializeField] private ItemSO[] itemVariants;
+    [SerializeField] private StartLever startLever;
+    private float multi = 1f;
+
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
     public float GetSuspicionStat() => suspicionStat;
+   
 
 
     private void Start()
@@ -87,16 +90,11 @@ public class GameManager : MonoBehaviour
             commonItems = gameItems.Where(item => item.Rarity == Rarity.Common).ToList();
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
         }
-        if (dayCounter >= 2)
-        {
-            if (dayCounter != 2)
-            {
-                mustSpawnItems = skooge.GetQuestItems();
-            }
-        }
+        
         dialogueManager.StartDialogue(dailyDialogues[dayCounter].nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
         ResetItemTypeWeights();
+        conveyorBelt.ToggleBelt();
     }
 
 
@@ -104,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isDialogueEnded)
+        if (gameStarted)
         {
             CountDown();
             PassiveDeplete();
@@ -113,13 +111,60 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void HandleDialogueEnd(DialogueManager dialogueManager)
+    private void HandleGameStart(StartLever lever)
     {
-        isDialogueEnded = true;
+        gameStarted = true;
+        if (dayCounter >= 3)
+        {
+            mustSpawnItems = skooge.GetQuestItems();
+        }
         StartCoroutine(SpawnItem());
         StartCoroutine(SpawnTrash());
+        conveyorBelt.ToggleBelt();
+       
+
+    }
+    private void HandleDialogueEnd(DialogueManager dialogueManager)
+    {
+        startLever.OnGameStart += HandleGameStart;
+        startLever.SetInteractible(true);
+
     }
 
+    public void SetPointMultiplier(string multiplier)
+    {
+        if (float.TryParse(multiplier, out float result))
+        {
+            multi = result;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid value entered.");
+        }
+    }
+
+    public void SetItemSpawnMin(string min)
+    {
+        if (float.TryParse(min, out float result))
+        {
+            itemSpawnrate.x = result;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid value entered.");
+        }
+    }
+    public void SetItemSpawnMax(string max)
+    {
+        if (float.TryParse(max, out float result))
+        {
+            itemSpawnrate.y = result;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid value entered.");
+        }
+    }
 
 
 
@@ -232,13 +277,13 @@ public class GameManager : MonoBehaviour
         switch (type)
         {
             case Sorting.Organic:
-                organicStat = Mathf.Min(organicStat + value, maxStat);
+                organicStat = Mathf.Min(organicStat + (value * multi), maxStat);
                 break;
             case Sorting.Fuel:
-                fuelStat = Mathf.Min(fuelStat + value, maxStat);
+                fuelStat = Mathf.Min(fuelStat + (value * multi), maxStat);
                 break;
             case Sorting.Scrap:
-                scrapStat = Mathf.Min(scrapStat + value, maxStat);
+                scrapStat = Mathf.Min(scrapStat + (value * multi), maxStat);
                 break;
         }
     }

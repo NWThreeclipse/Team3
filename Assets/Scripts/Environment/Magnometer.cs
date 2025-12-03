@@ -11,10 +11,10 @@ public class Magnometer : DragZone
     [SerializeField] private GameObject minigameCanvas;
     [SerializeField] private float[] spriteHeights;
 
-    [SerializeField] GameObject itemSprite;
+    [SerializeField] GameObject spriteObject;
     [SerializeField] private int itemMagnetism;
     [SerializeField] private int sliderMagnetism;
-    private Image spriteImage;
+    private Image itemSprite;
     private Tween currentTween;
     private Tween currentShake;
 
@@ -26,7 +26,12 @@ public class Magnometer : DragZone
 
     [SerializeField] private GameObject helpCanvas;
 
+    [SerializeField] private AudioClip panelOpen, panelClose;
+    [SerializeField] private Vector3 showPanelPos;
+    [SerializeField] private Vector3 hidePanelPos;
+    [SerializeField] private float panelAnimationTime = 1;
 
+    private Vector3 tempPos;
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
@@ -36,13 +41,13 @@ public class Magnometer : DragZone
 
     private void Start()
     {
-        minigameCanvas.SetActive(false);
+        //minigameCanvas.SetActive(false);
         slider.value = 0;
-        spriteImage = itemSprite.GetComponent<Image>();
+        itemSprite = spriteObject.GetComponentInChildren<Image>();
 
-        Vector3 initialPosition = itemSprite.transform.position;
+        Vector3 initialPosition = spriteObject.transform.localPosition;
         initialPosition.y = spriteHeights[0];
-        itemSprite.transform.position = initialPosition;
+        spriteObject.transform.localPosition = initialPosition;
         helpCanvas.SetActive(false);
 
 
@@ -58,108 +63,144 @@ public class Magnometer : DragZone
     }
     private void ItemEffects()
     {
-        if (itemMagnetism == 5 && sliderMagnetism != 0)
+        if (itemMagnetism == 5 )
         {
-            MoveItemSprite(2);
+            if (sliderMagnetism == 0)
+            {
+                MovespriteObject(0);
+            }
+            if (sliderMagnetism != 0)
+            {
+                MovespriteObject(2);
+            }
         }
         if (itemMagnetism == 4)
         {
+            if (sliderMagnetism == 0)
+            {
+                MovespriteObject(0);
+            }
             if (sliderMagnetism == 1)
             {
                 //strong vib & float
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
-                MoveItemSprite(1);
+
+                MovespriteObject(1);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
 
             if (sliderMagnetism >= 2)
             {
                 //pull
-                MoveItemSprite(2);
+                MovespriteObject(2);
 
             }
         }
         if (itemMagnetism == 3)
         {
+            if (sliderMagnetism == 0)
+            {
+                MovespriteObject(0);
+            }
             if (sliderMagnetism == 1)
             {
                 //med vib
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[1]);
-                MoveItemSprite(0);
+
+                MovespriteObject(0);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism == 2)
             {
                 //strong vib and float
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
-                MoveItemSprite(1);
+
+                MovespriteObject(1);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism >= 3)
             {
-                MoveItemSprite(2);
+                MovespriteObject(2);
             }
         }
 
         if (itemMagnetism == 2)
         {
+            if (sliderMagnetism == 0)
+            {
+                MovespriteObject(0);
+            }
             if (sliderMagnetism == 1)
             {
                 //low vib
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[0]);
-                MoveItemSprite(0);
+
+                MovespriteObject(0);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism == 2)
             {
                 //med vib
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[1]);
-                MoveItemSprite(0);
+
+                MovespriteObject(0);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism == 3)
             {
                 //strong vib and float
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
-                MoveItemSprite(1);
+
+                MovespriteObject(1);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism >= 4)
             {
-                MoveItemSprite(2);
+                MovespriteObject(2);
             }
         }
 
         if (itemMagnetism == 1)
         {
+            if (sliderMagnetism == 0)
+            {
+                MovespriteObject(0);
+            }
             if (sliderMagnetism == 1)
             {
                 //no vib
-                MoveItemSprite(0);
+                MovespriteObject(0);
             }
             if (sliderMagnetism == 2)
             {
                 //low vib
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[0]);
-                MoveItemSprite(0);
+                MovespriteObject(0);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism == 3)
             {
                 //med vib
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[1]);
-                MoveItemSprite(0);
+                MovespriteObject(0);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+
             }
             if (sliderMagnetism == 4)
             {
                 //strong vib and float
-                //currentShake = itemSprite.transform.DOShakePosition(.5f, vibrateStrengths[2]);
+                MovespriteObject(1);
+                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
-                MoveItemSprite(1);
             }
             if (sliderMagnetism >= 5)
             {
-                MoveItemSprite(2);
+                MovespriteObject(2);
             }
         }
 
         if (itemMagnetism == 0)
         {
-            MoveItemSprite(0);
+            MovespriteObject(0);
         }
 
 
@@ -170,13 +211,13 @@ public class Magnometer : DragZone
     {
         if (IsHoldingItem())
         {
-            minigameCanvas.SetActive(true);
+            minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
             isPlaying = true;
             SetGoalValues();
             ResetMiniGame();
 
             SpriteRenderer heldItem = GetEnteredItem().GetComponentInChildren<SpriteRenderer>();
-            spriteImage.sprite = heldItem.sprite;
+            itemSprite.sprite = heldItem.sprite;
             minigameSFX.Play();
         }
     }
@@ -188,7 +229,7 @@ public class Magnometer : DragZone
 
     public void DisableMiniGame()
     {
-        minigameCanvas.SetActive(false);
+        minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
         isPlaying = false;
         ResetMiniGame();
         minigameSFX.Stop();
@@ -204,18 +245,19 @@ public class Magnometer : DragZone
     {
         sliderMagnetism = 0;
         slider.value = 0;
-        MoveItemSprite(0);
+        MovespriteObject(0);
     }
 
 
-    private void MoveItemSprite(int targetIndex)
+    private void MovespriteObject(int targetIndex)
     {
         if (currentTween != null)
         {
             currentTween.Kill();
         }
-        Vector3 newPosition = itemSprite.transform.position;
+        Vector3 newPosition = spriteObject.transform.localPosition;
         newPosition.y = spriteHeights[targetIndex];
-        currentTween = itemSprite.transform.DOMove(newPosition, 0.5f).SetEase(Ease.OutQuad);
+        currentTween = spriteObject.transform.DOLocalMove(newPosition, 0.5f).SetEase(Ease.OutQuad);
+        tempPos = itemSprite.gameObject.transform.position;
     }
 }

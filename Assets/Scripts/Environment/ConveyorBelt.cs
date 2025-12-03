@@ -92,6 +92,19 @@ public class ConveyorBelt : MonoBehaviour
         }
     }
 
+    public void SetSpeed(string speed)
+    {
+        if (float.TryParse(speed, out float result))
+        {
+            moveSpeed = result;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid speed value entered.");
+        }
+    }
+
+
     public void AddItem(GameObject item)
     {
         collidingItems.Add(item);
