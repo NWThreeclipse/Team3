@@ -9,14 +9,14 @@ public class Magnometer : DragZone
 {
     [SerializeField] private bool isPlaying = false;
     [SerializeField] private GameObject minigameCanvas;
-    [SerializeField] private float[] spriteHeights;
+    [SerializeField] private Vector3[] spriteHeights;
 
     [SerializeField] GameObject spriteObject;
     [SerializeField] private int itemMagnetism;
     [SerializeField] private int sliderMagnetism;
     private Image itemSprite;
     private Tween currentTween;
-    private Tween currentShake;
+    //private Tween currentShake;
 
     [SerializeField] private float[] vibrateStrengths;
     [SerializeField] private float vibrato;
@@ -31,7 +31,7 @@ public class Magnometer : DragZone
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
 
-    private Vector3 tempPos;
+    //private Vector3 tempPos;
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
@@ -46,7 +46,7 @@ public class Magnometer : DragZone
         itemSprite = spriteObject.GetComponentInChildren<Image>();
 
         Vector3 initialPosition = spriteObject.transform.localPosition;
-        initialPosition.y = spriteHeights[0];
+        initialPosition = spriteHeights[0];
         spriteObject.transform.localPosition = initialPosition;
         helpCanvas.SetActive(false);
 
@@ -85,7 +85,7 @@ public class Magnometer : DragZone
                 //strong vib & float
 
                 MovespriteObject(1);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
 
@@ -107,7 +107,7 @@ public class Magnometer : DragZone
                 //med vib
 
                 MovespriteObject(0);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism == 2)
@@ -115,7 +115,7 @@ public class Magnometer : DragZone
                 //strong vib and float
 
                 MovespriteObject(1);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism >= 3)
@@ -135,7 +135,7 @@ public class Magnometer : DragZone
                 //low vib
 
                 MovespriteObject(0);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism == 2)
@@ -143,7 +143,7 @@ public class Magnometer : DragZone
                 //med vib
 
                 MovespriteObject(0);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism == 3)
@@ -151,7 +151,7 @@ public class Magnometer : DragZone
                 //strong vib and float
 
                 MovespriteObject(1);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism >= 4)
@@ -175,21 +175,21 @@ public class Magnometer : DragZone
             {
                 //low vib
                 MovespriteObject(0);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism == 3)
             {
                 //med vib
                 MovespriteObject(0);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism == 4)
             {
                 //strong vib and float
                 MovespriteObject(1);
-                currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
 
             }
             if (sliderMagnetism >= 5)
@@ -255,9 +255,7 @@ public class Magnometer : DragZone
         {
             currentTween.Kill();
         }
-        Vector3 newPosition = spriteObject.transform.localPosition;
-        newPosition.y = spriteHeights[targetIndex];
+        Vector3 newPosition = spriteHeights[targetIndex];
         currentTween = spriteObject.transform.DOLocalMove(newPosition, 0.5f).SetEase(Ease.OutQuad);
-        tempPos = itemSprite.gameObject.transform.position;
     }
 }

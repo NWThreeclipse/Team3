@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,6 +8,10 @@ public class SettingsMenuController : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private GameObject settingsMenu;
 
+    [SerializeField] private AudioClip panelOpen, panelClose;
+    [SerializeField] private Vector3 showPanelPos;
+    [SerializeField] private Vector3 hidePanelPos;
+    [SerializeField] private float panelAnimationTime = 1;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -18,9 +23,20 @@ public class SettingsMenuController : MonoBehaviour
 
     public void ToggleCanvas(bool toggle)
     {
-        settingsMenu.SetActive(toggle);
-        ToggleItemInteractivity(!toggle);
-        Time.timeScale = toggle ? 0f : 1f;
+        if (toggle)
+        {
+            settingsMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => {ToggleItemInteractivity(!toggle); Time.timeScale = 0f; });
+
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            settingsMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => ToggleItemInteractivity(!toggle));
+
+        }
+        //settingsMenu.SetActive(toggle);
+        //ToggleItemInteractivity(!toggle);
+        //Time.timeScale = toggle ? 0f : 1f;
     }
 
     private void ToggleItemInteractivity(bool toggle)
