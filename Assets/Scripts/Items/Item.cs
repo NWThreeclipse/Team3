@@ -103,7 +103,8 @@ public class Item : Draggable
 
     private void OnDestroy()
     {
-        if (itemData.Rarity == Rarity.Anomalous && !spawnedAnomHovered)
+        Debug.Log("ondestry");
+        if (itemData.Rarity == Rarity.Anomalous)
         {
             barkManager.HidePlayerBark();
             StopAllCoroutines();
