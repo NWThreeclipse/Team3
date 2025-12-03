@@ -1966,7 +1966,7 @@ MonoBehaviour:
       - m_Target: {fileID: 946350961}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: ToggleCanvas
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3202,6 +3202,8 @@ MonoBehaviour:
   showPanelPos: {x: 0, y: 0, z: 0}
   hidePanelPos: {x: 0, y: 1080, z: 0}
   panelAnimationTime: 1
+  turnedOn: 0
+  onCooldown: 0
 --- !u!4 &946350962
 Transform:
   m_ObjectHideFlags: 0
@@ -3746,8 +3748,8 @@ RectTransform:
   - {fileID: 1815679589}
   - {fileID: 1806268947}
   - {fileID: 1805685727}
-  - {fileID: 1794963727}
   - {fileID: 1850853153}
+  - {fileID: 1794963727}
   - {fileID: 271417773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4600,10 +4602,7 @@ MonoBehaviour:
   incorrectSorted: 0
   anomalousItemsRecieved: 0
   rebellionScore: 0
-  anomalousItems:
-  - Bloodied Microscope
-  - Bloodied Microscope
-  - Bloodied Microscope
+  anomalousItems: []
 --- !u!4 &1394290819
 Transform:
   m_ObjectHideFlags: 0
@@ -5942,7 +5941,7 @@ MonoBehaviour:
       - m_Target: {fileID: 946350961}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: ToggleCanvas
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

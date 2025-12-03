@@ -9741,6 +9741,8 @@ MonoBehaviour:
   showPanelPos: {x: 0, y: 0, z: 0}
   hidePanelPos: {x: 0, y: 1080, z: 0}
   panelAnimationTime: 1
+  turnedOn: 0
+  onCooldown: 0
 --- !u!4 &1113654769
 Transform:
   m_ObjectHideFlags: 0
@@ -15417,7 +15419,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1113654768}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: ToggleCanvas
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18616,7 +18618,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1113654768}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: ToggleCanvas
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -308,7 +308,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c5b59d5705d9def4cb81c7535bc51133, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba43ecdfb7c36a243978024e0ea64cc6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2815,6 +2815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd9a71d58654314da11cd06c9dba80e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueMenu: {fileID: 0}
   nameText: {fileID: 1468708846}
   sentenceText: {fileID: 959976610}
   nextButton: {fileID: 665561783}

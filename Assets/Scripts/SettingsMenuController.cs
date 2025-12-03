@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -12,31 +13,48 @@ public class SettingsMenuController : MonoBehaviour
     [SerializeField] private Vector3 showPanelPos;
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
+
+    [SerializeField] private bool turnedOn = false;
+    [SerializeField] private bool onCooldown = false;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
 
         LoadSettings();
 
-        ToggleCanvas(false);
+        //ToggleCanvas();
     }
 
-    public void ToggleCanvas(bool toggle)
+    public void ToggleCanvas()
     {
-        if (toggle)
+        if (onCooldown)
         {
-            settingsMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => {ToggleItemInteractivity(!toggle); Time.timeScale = 0f; });
+            return;
+        }
+        turnedOn = !turnedOn;
+
+        if (turnedOn)
+        {
+            settingsMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => {ToggleItemInteractivity(!turnedOn); Time.timeScale = 0f; });
 
         }
         else
         {
             Time.timeScale = 1f;
-            settingsMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => ToggleItemInteractivity(!toggle));
+            settingsMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => ToggleItemInteractivity(!turnedOn));
 
         }
+        StartCoroutine(Cooldown());
         //settingsMenu.SetActive(toggle);
         //ToggleItemInteractivity(!toggle);
         //Time.timeScale = toggle ? 0f : 1f;
+    }
+
+    private IEnumerator Cooldown()
+    {
+        onCooldown = true;
+        yield return new WaitForSecondsRealtime(1.5f);
+        onCooldown = false;
     }
 
     private void ToggleItemInteractivity(bool toggle)
