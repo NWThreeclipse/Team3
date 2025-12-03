@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float suspicionDepleteRate;
 
     //DAYS ARE FROM 0-5
-    [Range(0,5)][SerializeField] private int dayCounter;
+    [Range(0, 5)][SerializeField] private int dayCounter;
     [SerializeField] private float timer;
     [SerializeField] private bool isCountingDown;
     [SerializeField] private Vector2 itemSpawnrate;
@@ -43,14 +43,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject trashPrefab;
     [SerializeField] private Vector2 trashSpawnrate;
 
-    
+
     private bool anomalousItemSpawnedToday = false;
     private int itemsSpawnedToday = 0;
 
     [SerializeField] private List<DialogueTree> dailyDialogues;
     [SerializeField] private DialogueManager dialogueManager;
     private bool isDialogueEnded = false;
-    
+
     [SerializeField] private Skooge skooge;
     private ItemSO[] mustSpawnItems;
 
@@ -99,16 +99,16 @@ public class GameManager : MonoBehaviour
         ResetItemTypeWeights();
     }
 
-    
 
-   
+
+
     private void Update()
     {
-        if(isDialogueEnded)
+        if (isDialogueEnded)
         {
             CountDown();
             PassiveDeplete();
-          
+
         }
 
     }
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         {
             ItemSO itemData;
 
-            if ( dayCounter > 1)
+            if (dayCounter > 1)
             {
                 // check to spawn a quest item (must spawn item)
                 bool spawnQuestItem = dayCounter >= 3 && mustSpawnItems.Length > 0 && UnityEngine.Random.value <= 0.2f;
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            else 
+            else
             {
                 //day 1 only spawns commons
                 int randomIndex = UnityEngine.Random.Range(0, commonItems.Count);
@@ -176,11 +176,11 @@ public class GameManager : MonoBehaviour
             //check if anom, play sound
 
             // Instantiate the item 
-            GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject itemInstance = Instantiate(itemPrefab, spawnPoint.position + new Vector3(0, UnityEngine.Random.Range(-0.1f, 0.3f)), Quaternion.identity);
             Item item = itemInstance.GetComponent<Item>();
             item.SetItemData(itemData);
             conveyorBelt.AddItem(itemInstance);
-            
+
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
@@ -188,10 +188,10 @@ public class GameManager : MonoBehaviour
     private IEnumerator SpawnTrash()
     {
         yield return new WaitForSeconds(1f);
-        while(true)
+        while (true)
         {
             int randomIndex = UnityEngine.Random.Range(0, trashSprites.Count);
-            GameObject trashInstance = Instantiate(trashPrefab, spawnPoint.position, Quaternion.identity);
+            GameObject trashInstance = Instantiate(trashPrefab, spawnPoint.position + new Vector3(0, UnityEngine.Random.Range(-0.4f, 0.3f)), Quaternion.identity);
             Trash trash = trashInstance.GetComponent<Trash>();
             trash.SetSprite(trashSprites[randomIndex]);
             conveyorBelt.AddItem(trashInstance);
@@ -232,13 +232,13 @@ public class GameManager : MonoBehaviour
         switch (type)
         {
             case Sorting.Organic:
-                organicStat = Mathf.Min(organicStat + value, maxStat); 
+                organicStat = Mathf.Min(organicStat + value, maxStat);
                 break;
             case Sorting.Fuel:
-                fuelStat = Mathf.Min(fuelStat + value, maxStat); 
+                fuelStat = Mathf.Min(fuelStat + value, maxStat);
                 break;
             case Sorting.Scrap:
-                scrapStat = Mathf.Min(scrapStat + value, maxStat); 
+                scrapStat = Mathf.Min(scrapStat + value, maxStat);
                 break;
         }
     }
@@ -407,24 +407,24 @@ public class GameManager : MonoBehaviour
 
     private void AdjustWeights(Sorting chosenType)
     {
-        
+
 
         switch (chosenType)
         {
             case Sorting.Organic:
-                organicWeight -= weightShift;
+                organicWeight -= weightShift * 2;
                 scrapWeight += weightShift;
                 fuelWeight += weightShift;
                 break;
 
             case Sorting.Scrap:
-                scrapWeight -= weightShift;
+                scrapWeight -= weightShift * 2;
                 organicWeight += weightShift;
                 fuelWeight += weightShift;
                 break;
 
             case Sorting.Fuel:
-                fuelWeight -= weightShift;
+                fuelWeight -= weightShift * 2;
                 organicWeight += weightShift;
                 scrapWeight += weightShift;
                 break;
