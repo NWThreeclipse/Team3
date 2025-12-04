@@ -24,6 +24,13 @@ public class SceneFader : MonoBehaviour
         StartCoroutine(FadeOut(sceneName));
     }
 
+    public void ExitToMenu()
+    {
+        Time.timeScale = 1f;
+        StartCoroutine(FadeOut("MainMenu"));
+
+    }
+
     public void FadeToQuit()
     {
         if (Time.timeScale == 0)
