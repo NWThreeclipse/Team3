@@ -11996,7 +11996,7 @@ MonoBehaviour:
   correctSorted: 0
   incorrectSorted: 0
   anomalousItemsRecieved: 0
-  rebellionScore: 0
+  rebellionScore: 4
   anomalousItems: []
 --- !u!4 &1351908952
 Transform:

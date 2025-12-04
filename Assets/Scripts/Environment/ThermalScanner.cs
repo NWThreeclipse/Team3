@@ -47,8 +47,8 @@ public class ThermalScanner : DragZone
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
-        base.OnTriggerExit2D(collision);
         DisableMiniGame();
+        base.OnTriggerExit2D(collision);
     }
     void Start()
     {

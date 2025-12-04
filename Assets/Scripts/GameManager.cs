@@ -275,6 +275,7 @@ public class GameManager : MonoBehaviour
                     //rebellion ending
                     AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
                     scenefader.FadeToScene("NarrativeWinScene");
+                    return;
                 }
                 isCountingDown = false;
                 AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
@@ -287,6 +288,10 @@ public class GameManager : MonoBehaviour
                 scenefader.FadeToScene("BarracksScene");
 
             }
+        }
+        else
+        {
+            timer = 0f;
         }
     }
 
