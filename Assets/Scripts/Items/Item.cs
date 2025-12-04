@@ -13,14 +13,14 @@ public class Item : Draggable
     [SerializeField] private Volume postprocessingVolume;
     private Vignette vignette;
     private bool spawnedAnom = false;
-    private bool spawnedAnomHovered = false;
+    private bool animationOver = false;
 
     private Material itemMaterial;
     private bool isSortable = true;
     private Coroutine vignetteRoutine;
 
-    private BarkManager barkManager;
 
+    public bool GetAnimOver() => animationOver;
     public ItemSO GetItemData() => itemData;
     public bool GetSortable() => isSortable;
     public Vignette GetVignette() => vignette;
@@ -54,7 +54,6 @@ public class Item : Draggable
         if (itemData.Rarity == Rarity.Anomalous)
         {
             isSortable = false;
-            barkManager = FindAnyObjectByType<BarkManager>();
             postprocessingVolume = FindAnyObjectByType<Volume>();
             postprocessingVolume.profile.TryGet<Vignette>(out vignette);
 
@@ -92,21 +91,10 @@ public class Item : Draggable
 
     }
 
-    private void OnMouseEnter()
-    {
-        if (itemData.Rarity == Rarity.Anomalous && !spawnedAnomHovered)
-        {
-            spawnedAnomHovered = true;
-            barkManager.StartPlayerBark();
-        }
-    }
-
     private void OnDestroy()
     {
-        Debug.Log("ondestry");
         if (itemData.Rarity == Rarity.Anomalous)
         {
-            barkManager.HidePlayerBark();
             StopAllCoroutines();
         }
 
@@ -132,6 +120,7 @@ public class Item : Draggable
     }
     private IEnumerator FadeInVignette()
     {
+        animationOver = false;
         float targetIntensity = 0.6f;
         float fadeDuration = 1f;
         float startIntensity = vignette.intensity.value;
@@ -164,6 +153,7 @@ public class Item : Draggable
         vignette.intensity.value = 0f;
 
         //Time.timeScale = 1f;
+        animationOver = true;
 
     }
 

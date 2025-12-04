@@ -26,8 +26,6 @@ public class ViewingBoard : DragZone
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
-        base.OnTriggerExit2D(collision);
-
         if (isHoldingItem && collision.gameObject == enteredItem)
         {
             textfield.text = "";
@@ -35,6 +33,7 @@ public class ViewingBoard : DragZone
             enteredItem = null;
             isCounting = false;
         }
+        base.OnTriggerExit2D(collision);
     }
 
 

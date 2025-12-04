@@ -73,8 +73,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private ItemSO[] itemVariants;
     [SerializeField] private StartLever startLever;
+    [SerializeField] private BarkManager barkManager;
     private float multi = 1f;
 
+    private bool anom = false;
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -209,7 +211,7 @@ public class GameManager : MonoBehaviour
                     {
                         anomalousItemSpawnedToday = true;
                         itemData = anomalousItems[dayCounter - 2];
-                        //anom = true
+                        anom = true;
                     }
                     else
                     {
@@ -235,7 +237,11 @@ public class GameManager : MonoBehaviour
                 itemData = commonItems[randomIndex];
             }
             itemsSpawnedToday++;
-
+            if (anom)
+            {
+                anom = false;
+                StartCoroutine(AnomalousBark());
+            }
             //check if anom, play sound
 
             // Instantiate the item 
@@ -247,6 +253,13 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
+    }
+
+    private IEnumerator AnomalousBark()
+    {
+        yield return new WaitForSeconds(1f);
+        barkManager.StartPlayerBark();
+
     }
     private IEnumerator SpawnTrash()
     {

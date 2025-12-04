@@ -69,6 +69,10 @@ public class Skooge : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (currentQuest.IsComplete())
+        {
+            return;
+        }
         holdTime += Time.deltaTime;  // Accumulate the hold time
         itemIsStaying = true;
 
@@ -94,8 +98,8 @@ public class Skooge : MonoBehaviour
         {
             if (collision.CompareTag("Item"))
             {
-                Item i = collision.gameObject.GetComponent<Item>();
-                i.ResetPosition();
+                //Item i = collision.gameObject.GetComponent<Item>();
+                //i.ResetPosition();
                 return;
 
             }
