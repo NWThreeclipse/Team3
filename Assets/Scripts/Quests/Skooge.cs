@@ -27,6 +27,8 @@ public class Skooge : MonoBehaviour
     [SerializeField] private StartLever startLever;
     private int day;
 
+    [SerializeField] private Sprite[] sortingIcons;
+
 
     public QuestInstance GetCurrentQuest()
     {
@@ -269,6 +271,22 @@ public class Skooge : MonoBehaviour
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);
             itemInstance.transform.SetParent(questCanvas.transform);
             Image image = itemInstance.GetComponent<Image>();
+            Image iconImage = itemInstance.GetComponentInChildren<Image>();
+            if (questData.questItems[i].Rarity == Rarity.Uncommon)
+            {
+                if (questData.questItems[i].Sorting == Sorting.Organic)
+                {
+                    iconImage.sprite = sortingIcons[0];
+                }
+                else if (questData.questItems[i].Sorting == Sorting.Fuel)
+                {
+                    iconImage.sprite = sortingIcons[1];
+                }
+                else if (questData.questItems[i].Sorting == Sorting.Scrap)
+                {
+                    iconImage.sprite = sortingIcons[2];
+                }
+            }
             image.sprite = questData.questItems[i].Sprite[0];
             questItemsIcons[i] = itemInstance;
         }
