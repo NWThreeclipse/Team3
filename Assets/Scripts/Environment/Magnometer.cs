@@ -31,7 +31,14 @@ public class Magnometer : DragZone
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
 
+    [SerializeField] private Vector3 showPanelPos2;
+    [SerializeField] private Vector3 hidePanelPos2;
+    private bool helpCanvasEnabled = false;
+    [SerializeField] private ThermalScanner thermalScanner;
+
     //private Vector3 tempPos;
+    public bool GetPlaying() => isPlaying;
+
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
@@ -48,7 +55,7 @@ public class Magnometer : DragZone
         Vector3 initialPosition = spriteObject.transform.localPosition;
         initialPosition = spriteHeights[0];
         spriteObject.transform.localPosition = initialPosition;
-        helpCanvas.SetActive(false);
+        //helpCanvas.SetActive(false);
 
 
     }
@@ -209,6 +216,10 @@ public class Magnometer : DragZone
 
     public void EnableMiniGame()
     {
+        if (thermalScanner.GetPlaying())
+        {
+            return;
+        }
         if (IsHoldingItem())
         {
             minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
@@ -233,13 +244,20 @@ public class Magnometer : DragZone
         isPlaying = false;
         ResetMiniGame();
         minigameSFX.Stop();
-        helpCanvas.SetActive(false);
+        if (helpCanvasEnabled)
+        {
+            ToggleHelpCanvas();
+        }        
+        //helpCanvas.SetActive(false);
     }
 
     public void ToggleHelpCanvas()
     {
-        helpCanvas.SetActive(!helpCanvas.activeSelf);
+        helpCanvasEnabled = !helpCanvasEnabled;
+        Debug.Log(helpCanvasEnabled);
+        helpCanvas.transform.DOLocalMove(helpCanvasEnabled ? showPanelPos2 : hidePanelPos2, panelAnimationTime).SetEase(Ease.OutQuad);
     }
+
 
     public void ResetMiniGame()
     {

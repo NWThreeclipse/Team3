@@ -15,7 +15,8 @@ public class SupervisorController : MonoBehaviour
     [SerializeField] private Transform[] idlePoints;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private Skooge skooge;
-    [SerializeField] private ViewingBoard viewingBoard;
+    [SerializeField] private DragZone[] dragzones;
+    
 
     [SerializeField] private Vector2 walkSpeeds;
     [SerializeField] private Vector2 inspectionTimes;
@@ -61,12 +62,16 @@ public class SupervisorController : MonoBehaviour
                 gameManager.AddSuspicion(suspicionDamage * Time.deltaTime);
             }
         }
-        if (isDangerousDay && viewingBoard.IsHoldingItem())
+        if (isDangerousDay)
         {
-            if (viewingBoard.GetItem().Rarity == Rarity.Anomalous)
+            foreach (DragZone dz in dragzones)
             {
-                gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
+                if (dz.IsHoldingItem() && dz.GetItem().Rarity == Rarity.Anomalous)
+                {
+                    Debug.Log("viewing damage");
+                    gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
 
+                }
             }
         }
     }

@@ -45,6 +45,12 @@ public class ThermalScanner : DragZone
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
 
+    [SerializeField] private Vector3 showPanelPos2;
+    [SerializeField] private Vector3 hidePanelPos2;
+    private bool helpCanvasEnabled = false;
+    [SerializeField] private Magnometer magnometer;
+
+    public bool GetPlaying() => isPlaying;
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         DisableMiniGame();
@@ -116,6 +122,10 @@ public class ThermalScanner : DragZone
 
     public void EnableMiniGame()
     {
+        if (magnometer.GetPlaying())
+        {
+            return;
+        }
         if(IsHoldingItem())
         {
             minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
@@ -134,7 +144,12 @@ public class ThermalScanner : DragZone
         goalAmplitude = Random.Range(0.2f, 1f);
         goalFrequency = Random.Range(0.5f, 2.5f);
     }
-
+    public void ToggleHelpCanvas()
+    {
+        helpCanvasEnabled = !helpCanvasEnabled;
+        Debug.Log(helpCanvasEnabled);
+        helpCanvas.transform.DOLocalMove(helpCanvasEnabled ? showPanelPos2 : hidePanelPos2, panelAnimationTime).SetEase(Ease.OutQuad);
+    }
     public void DisableMiniGame()
     {
         minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
@@ -142,15 +157,16 @@ public class ThermalScanner : DragZone
         ResetMiniGame();
         temperatureSlider.value = -273;
         minigameSFX.Stop();
-        helpCanvas.SetActive(false);
+        if (helpCanvasEnabled)
+        {
+            ToggleHelpCanvas();
+        }
+        //helpCanvas.SetActive(false);
 
 
     }
 
-    public void ToggleHelpCanvas()
-    {
-        helpCanvas.SetActive(!helpCanvas.activeSelf);
-    }
+    
     public void ResetMiniGame()
     {
         playerAmplitude = 1f;
