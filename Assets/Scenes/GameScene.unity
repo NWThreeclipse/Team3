@@ -11996,7 +11996,7 @@ MonoBehaviour:
   correctSorted: 0
   incorrectSorted: 0
   anomalousItemsRecieved: 0
-  rebellionScore: 4
+  rebellionScore: 0
   anomalousItems: []
 --- !u!4 &1351908952
 Transform:
@@ -17756,7 +17756,7 @@ SpriteMask:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a1d3a85245671ba4e83f16942363c5b5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57d33ea4314243e43b87aa0a45429589, type: 3}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
@@ -17776,8 +17776,8 @@ Transform:
   m_GameObject: {fileID: 1973594602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.51, z: 0}
-  m_LocalScale: {x: 24.793423, y: 5.70375, z: 1}
+  m_LocalPosition: {x: 0, y: -2.64, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

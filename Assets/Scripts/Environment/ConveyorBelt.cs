@@ -47,7 +47,6 @@ public class ConveyorBelt : MonoBehaviour
                 Trash trashItem = item.GetComponent<Trash>();
                 SpriteRenderer itemSP = item.GetComponentInChildren<SpriteRenderer>();
 
-
                 if (trashItem != null)
                 {
                     item.transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
@@ -79,6 +78,7 @@ public class ConveyorBelt : MonoBehaviour
             collidingItems.Add(collision.gameObject);
         }
     }
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {

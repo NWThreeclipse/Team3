@@ -61,7 +61,7 @@ public class ThermalScanner : DragZone
 
     }
 
-    void Update()
+    private void Update()
     {
         if (GetEnteredItem() != null)
         {
