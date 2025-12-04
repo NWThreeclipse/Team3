@@ -32,7 +32,7 @@ public class BioScanner : DragZone
     }
 
     private void Update()
-    {
+    { 
         if (isPlaying && countingCoroutine == null && !hasCompleted && IsHoldingItem())
         {
             int percentage = (int)GetItem().Organic;

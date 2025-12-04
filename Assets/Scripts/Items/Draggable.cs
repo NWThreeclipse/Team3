@@ -68,11 +68,16 @@ public class Draggable : MonoBehaviour
 
     public void ResetPosition()
     {
+        //SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        //int prevLayerID = spriteRenderer.sortingLayerID;
+        //spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
         isInteractible = false;
         IsResetting = true;
 
+
         transform.DOLocalMove(pickupPosition, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
+                //spriteRenderer.sortingLayerID = prevLayerID;
                 isInteractible = true;
                 IsResetting = false;
                 DetectZoneAfterReset();

@@ -97,6 +97,11 @@ public class Bin : MonoBehaviour
             draggable.ResetPosition();
             return;
         }
+        if (item.GetItemData().Rarity == Rarity.Anomalous && !item.GetAnimOver())
+        {
+            draggable.ResetPosition();
+            return;
+        } 
 
         foreach (var other in otherBins)
         {

@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BarracksScene.unity
     guid: 27048f338547a5e4a9ad9030d27ed97f
+  - enabled: 1
+    path: Assets/Scenes/NarrativeWinScene.unity
+    guid: 96fef979623d99e488ebd0cbe6633aea
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

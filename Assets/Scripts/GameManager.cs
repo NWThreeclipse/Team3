@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -72,8 +73,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private ItemSO[] itemVariants;
     [SerializeField] private StartLever startLever;
+    [SerializeField] private BarkManager barkManager;
     private float multi = 1f;
 
+    private bool anom = false;
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -208,7 +211,7 @@ public class GameManager : MonoBehaviour
                     {
                         anomalousItemSpawnedToday = true;
                         itemData = anomalousItems[dayCounter - 2];
-                        //anom = true
+                        anom = true;
                     }
                     else
                     {
@@ -234,7 +237,11 @@ public class GameManager : MonoBehaviour
                 itemData = commonItems[randomIndex];
             }
             itemsSpawnedToday++;
-
+            if (anom)
+            {
+                anom = false;
+                StartCoroutine(AnomalousBark());
+            }
             //check if anom, play sound
 
             // Instantiate the item 
@@ -246,6 +253,13 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
         }
+    }
+
+    private IEnumerator AnomalousBark()
+    {
+        yield return new WaitForSeconds(1f);
+        barkManager.StartPlayerBark();
+
     }
     private IEnumerator SpawnTrash()
     {
@@ -266,25 +280,31 @@ public class GameManager : MonoBehaviour
         if (isCountingDown)
         {
             timer -= Time.deltaTime;
-
             if (timer <= 0f && dayCounter == 5)
             {
                 if (StatsController.Instance.GetRebellionScore() >= 3)
                 {
+                    isCountingDown = false;
                     //rebellion ending
                     AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
                     scenefader.FadeToScene("NarrativeWinScene");
                     return;
                 }
+                isCountingDown = false;
                 AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
                 scenefader.FadeToScene("NarrativeLossScene");
             }
-            if (timer <= 0f)
+            else if (timer <= 0f)
             {
+                isCountingDown = false;
                 StatsController.Instance.IncrementDay();
                 scenefader.FadeToScene("BarracksScene");
 
             }
+        }
+        else
+        {
+            timer = 0f;
         }
     }
 

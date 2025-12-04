@@ -16,9 +16,13 @@ MonoBehaviour:
   portrait: {fileID: 0}
   talkingClip: {fileID: 0}
   sentences:
-  - The model ship says "Generation 20".
-  - "I seem to remember having one of these\u2026  There are blood stains on it. 
-    I wonder who's blood this was."
-  - That infection... why does that seem so familiar?
-  - That was a standard containment device... what's not standard is that despersal
-    attachment...
+  - I think this is a model of the ship I'm on. It says "Generation 20". Is that
+    how long it has been traveling?
+  - "I seem to remember having one of these\u2026 There are blood stains on it. I
+    wonder who's blood this was."
+  - This infection is the Phenotaint! I now remember! I was studying the disease.
+    If I recall correctly, the Phenotaint turned the victims into suggestable automatons, 
+    I think I was close to finding a cure.
+  - This doesn't make sense... This looks like a device for for distrubuting chemicals
+    in the water, but it contains the Phenotaint. Someone must have engineered the
+    Phenotaint and infected the population!

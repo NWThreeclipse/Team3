@@ -73,6 +73,9 @@ TagManager:
   - name: Held
     uniqueID: 797723563
     locked: 0
+  - name: Lid
+    uniqueID: 378717215
+    locked: 0
   m_RenderingLayers:
   - Default
   - Light Layer 1

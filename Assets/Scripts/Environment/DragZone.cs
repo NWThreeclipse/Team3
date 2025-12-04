@@ -33,6 +33,19 @@ public class DragZone : MonoBehaviour
         isHoveringItem = true;
     }
 
+    protected virtual void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Item"))
+        {
+            return;
+        }
+        if (enteredItem != null)
+        {
+            SpriteRenderer spriteRenderer = collision.gameObject.GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
+        }
+    }
+
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (!collision.CompareTag("Item"))
@@ -82,6 +95,10 @@ public class DragZone : MonoBehaviour
             barkManager.HidePlayerBark();
             item.EnableSorting();
         }
+
+        //SpriteRenderer spriteRenderer = draggable.gameObject.GetComponentInChildren<SpriteRenderer>();
+        //spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
+
 
         enteredItem = draggable.gameObject;
         enteredItem.transform.DOMove(snapPoint.transform.position, 0.1f);

@@ -8,9 +8,6 @@ public class SceneFader : MonoBehaviour
     public Image fadeImage;
     public float fadeDuration = 1f;
 
-    public static SceneFader Instance;
-
-    
     private void Start()
     {
         fadeImage.enabled = true;
@@ -19,13 +16,21 @@ public class SceneFader : MonoBehaviour
 
     public void FadeToScene(string sceneName)
     {
-        StopAllCoroutines();
+       if (Time.timeScale == 0)
+        {
+            return;
+        }
+        //StopAllCoroutines();
         StartCoroutine(FadeOut(sceneName));
     }
 
     public void FadeToQuit()
     {
-        StopAllCoroutines();
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
+        //StopAllCoroutines();
         StartCoroutine(FadeOutAndQuit());
     }
 
