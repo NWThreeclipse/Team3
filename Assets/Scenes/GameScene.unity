@@ -3653,7 +3653,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: fa80b510fc14b324484a94788a4e404f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -5441,9 +5441,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 314179537}
   m_Direction: 2
   m_MinValue: -273
-  m_MaxValue: 900
+  m_MaxValue: 200
   m_WholeNumbers: 0
-  m_Value: 683
+  m_Value: 2
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -20025,6 +20025,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 1.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6791643517418675144, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: barkManager
+      value: 
+      objectReference: {fileID: 1698692891}
     - target: {fileID: 6791643517418675144, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: gameManager
       value: 
