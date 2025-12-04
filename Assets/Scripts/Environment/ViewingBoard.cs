@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -26,18 +27,49 @@ public class ViewingBoard : DragZone
     protected override void OnTriggerExit2D(Collider2D collision)
     {
         base.OnTriggerExit2D(collision);
-        textfield.text = "";
+
+        if (isHoldingItem && collision.gameObject == enteredItem)
+        {
+            textfield.text = "";
+            isHoldingItem = false;
+            enteredItem = null;
+            isCounting = false;
+        }
     }
+
 
     protected override void HandleItemRelease(Draggable draggable)
     {
-        base.HandleItemRelease(draggable);
+        if (isHoldingItem && draggable.gameObject != enteredItem)
+        {
+            draggable.ResetPosition();
+            return;
+        }
+
+        if (!isHoveringItem)
+        {
+            return;
+        }
+
         Item item = draggable.gameObject.GetComponent<Item>();
+
+        if (item.GetItemData().Rarity == Rarity.Anomalous)
+        {
+            barkManager.HidePlayerBark();
+            item.EnableSorting();
+        }
+
+        
+
+        enteredItem = draggable.gameObject;
+        enteredItem.transform.DOMove(snapPoint.transform.position, 0.1f);
+        isHoldingItem = true;
         StartWeightTransition(item.GetItemData().Weight);
     }
 
     private void StartWeightTransition(Weight weight)
     {
+        
         if (!isCounting)
         {
             targetWeight = weight;

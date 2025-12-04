@@ -16,13 +16,20 @@ public class SceneFader : MonoBehaviour
 
     public void FadeToScene(string sceneName)
     {
-       
+       if (Time.timeScale == 0)
+        {
+            return;
+        }
         //StopAllCoroutines();
         StartCoroutine(FadeOut(sceneName));
     }
 
     public void FadeToQuit()
     {
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
         //StopAllCoroutines();
         StartCoroutine(FadeOutAndQuit());
     }
@@ -43,7 +50,6 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator FadeOut(string sceneName)
     {
-        Debug.Log("fadeout called");
         fadeImage.enabled = true;
         float t = 0f;
         while (t < fadeDuration)

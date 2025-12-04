@@ -2393,7 +2393,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &672942473
@@ -3399,7 +3399,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1165014004
@@ -5339,7 +5339,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -978}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1802652869
@@ -5927,6 +5927,11 @@ MonoBehaviour:
   creditsMenu: {fileID: 1802652867}
   teamImage: {fileID: 655859704}
   qaImage: {fileID: 1982719720}
+  panelOpen: {fileID: 0}
+  panelClose: {fileID: 0}
+  showPanelPos: {x: 0, y: 0, z: 0}
+  hidePanelPos: {x: 0, y: -978, z: 0}
+  panelAnimationTime: 1
 --- !u!1 &1982719718
 GameObject:
   m_ObjectHideFlags: 0
