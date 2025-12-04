@@ -16,5 +16,34 @@ MonoBehaviour:
   portrait: {fileID: 0}
   talkingClip: {fileID: 0}
   sentences:
-  - Good Job
-  - Bad Job
+  - The reeducation seems to have been effective.
+  - 'Unit 481202 is performing adequately.
+
+'
+  - 'The subject is performing their sorting duties as expected.
+
+'
+  - 'The initial reeducation process has been successful. Recommending proceeding
+    to further subjects.
+
+'
+  - 'The Phenotaint infection seems to have successfully accelerated the reeducation
+    process, as expected.
+
+'
+  - 'The sorting training appears to require some adjustments.
+
+'
+  - 'Unit 481202 may need to repeat the reeducation process.
+
+'
+  - "The subject\u2019s sorting capability appears to be impaired.\r\n"
+  - 'The reeducation program will need to extend the sorting training.
+
+'
+  - 'The reeducation process needs to be refined before introducing other subjects.
+
+'
+  - 'Prior to the next reeducation process, the Phenotaint infection should be examined.
+
+'

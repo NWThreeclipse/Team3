@@ -67,7 +67,7 @@ public class BarkManager : MonoBehaviour
         rightSupervisorText.text = "";
         //StopAllCoroutines();
 
-        string chosenText = sortOutcome ? supervisorDialogue.sentences[0] : supervisorDialogue.sentences[1];
+        string chosenText = sortOutcome ? supervisorDialogue.sentences[Random.Range(0, 4)] : supervisorDialogue.sentences[Random.Range(5, 11)];
 
         StartCoroutine(RenderSentence(chosenText, leftSide ? leftSupervisorText : rightSupervisorText, supervisorDialogue.talkingClip, true, leftSide ? leftSupervisorCanvas : rightSupervisorCanvas));
     }

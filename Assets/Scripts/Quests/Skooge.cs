@@ -240,6 +240,8 @@ public class Skooge : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
         originalPosition = transform.position;
+        questCanvas.SetActive(false);
+
 
 
     }
@@ -257,6 +259,7 @@ public class Skooge : MonoBehaviour
         SkoogeQuestSO[] quests = Resources.LoadAll<SkoogeQuestSO>("").Where(quests => quests.day == day).ToArray();
         SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
         questItemsIcons = new GameObject[questData.questItems.Length];
+        questCanvas.SetActive(true);
         for (int i = 0; i < questData.questItems.Length; i++)
         {
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);

@@ -35,8 +35,8 @@ public class Magnometer : DragZone
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
-        base.OnTriggerExit2D(collision);
         DisableMiniGame();
+        base.OnTriggerExit2D(collision);
     }
 
     private void Start()
