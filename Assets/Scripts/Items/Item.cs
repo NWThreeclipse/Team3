@@ -18,6 +18,7 @@ public class Item : Draggable
     private Material itemMaterial;
     private bool isSortable = true;
     private Coroutine vignetteRoutine;
+    private SpriteRenderer shadowRenderer;
 
 
     public bool GetAnimOver() => animationOver;
@@ -35,10 +36,7 @@ public class Item : Draggable
     {
         base.Start();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
-
-        
-        
+        //shadowRenderer = spriteRenderer.gameObject.GetComponentInChildren<SpriteRenderer>();
         itemMaterial = spriteRenderer.material;
 
 
@@ -86,9 +84,14 @@ public class Item : Draggable
         itemMaterial.SetFloat("_IsEnabled", itemData.Rarity == Rarity.Common ? 0f : 1f);
         itemMaterial.SetFloat("_IsAnomalous", itemData.Rarity == Rarity.Anomalous ? 1f : 0f);
 
+        //shadowRenderer.sprite = spriteRenderer.sprite;
+        //shadowRenderer.enabled = false;
 
+    }
 
-
+    public void SetShadow(bool toggle)
+    {
+        shadowRenderer.enabled = toggle;
     }
 
     private void OnDestroy()
@@ -109,6 +112,7 @@ public class Item : Draggable
         }
         base.OnMouseDown();
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
+        //SetShadow(false);
         if (itemData.Rarity == Rarity.Anomalous && !spawnedAnom)
         {
             spawnedAnom = true;
@@ -161,6 +165,7 @@ public class Item : Draggable
     {
         base.OnMouseUp();
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Item");
+        //SetShadow(true);
     }
 
     public void EnableSorting()
