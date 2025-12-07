@@ -100,7 +100,7 @@ public class ThermalScanner : DragZone
         {
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
-                temperatureSlider.value = Mathf.Lerp(temperatureSlider.value, GetItem().TemperatureC, .1f);
+                temperatureSlider.value = Mathf.Lerp(temperatureSlider.value, GetItem().TemperatureC >= 190 ? GetItem().TemperatureC : GetItem().TemperatureC + 10, .1f);
                 amplitudeSlider.interactable = false;
                 frequencySlider.interactable = false;
                 minigameSFX.Stop();
