@@ -32,7 +32,7 @@ public class StartLever : MonoBehaviour
         {
             return;
         }
-        Vector3 newpos = new Vector3(2.704f, 3.934f, 0f);
+        Vector3 newpos = new Vector3(2.704f, 3.554f, 0f);
         transform.position = newpos;
         spriteRenderer.sprite = flippedSprite;
 

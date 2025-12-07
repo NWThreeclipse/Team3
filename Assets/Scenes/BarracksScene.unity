@@ -2824,7 +2824,7 @@ SpriteRenderer:
   m_SortingLayerID: 560728885
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 741501c93c0b0df40ada599d89fab4a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 72010e4842bb287478e8d04d58aa80bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4707,6 +4707,14 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.35967356
       objectReference: {fileID: 0}
+    - target: {fileID: 476074977573795318, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 4.94
+      objectReference: {fileID: 0}
+    - target: {fileID: 476074977573795318, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 8.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1127326452474988479, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.31
@@ -4718,6 +4726,22 @@ PrefabInstance:
     - target: {fileID: 3650149136412265774, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: scrollSpeed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 72010e4842bb287478e8d04d58aa80bc, type: 3}
+    - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8113348502405141365, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Name

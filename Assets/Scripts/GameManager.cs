@@ -291,10 +291,14 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
                     scenefader.FadeToScene("NarrativeWinScene");
                     return;
+                } 
+                else
+                {
+                    isCountingDown = false;
+                    AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
+                    scenefader.FadeToScene("NarrativeLossScene");
                 }
-                isCountingDown = false;
-                AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
-                scenefader.FadeToScene("NarrativeLossScene");
+                    
             }
             else if (timer <= 0f)
             {
