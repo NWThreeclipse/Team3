@@ -64,6 +64,9 @@ TagManager:
   - name: Trash
     uniqueID: 825388839
     locked: 0
+  - name: ItemShadow
+    uniqueID: 100021299
+    locked: 0
   - name: Item
     uniqueID: 3724158745
     locked: 0

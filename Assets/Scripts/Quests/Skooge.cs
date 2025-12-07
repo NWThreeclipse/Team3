@@ -55,6 +55,11 @@ public class Skooge : MonoBehaviour
         {
             var draggable = collision.GetComponent<Draggable>();
 
+            if (!draggable.GetHeld())
+            {
+                return;
+            }
+
             if (draggable != null)
             {
                 draggable.OnReleased += HandleItemRelease;
@@ -75,19 +80,21 @@ public class Skooge : MonoBehaviour
         {
             return;
         }
-        holdTime += Time.deltaTime;  // Accumulate the hold time
+        var draggable = collision.GetComponent<Draggable>();
+
+        if (!draggable.GetHeld())
+        {
+            return;
+        }
+
+        holdTime += Time.deltaTime;
         itemIsStaying = true;
 
-        // Check if the hold time has exceeded the 5 seconds threshold
         if (holdTime >= 5f)
         {
-            // Find the draggable object attached to the collision
-            var draggable = collision.GetComponent<Draggable>();
 
-            // Ensure the draggable is valid
             if (draggable != null)
             {
-                // Automatically handle the item release
                 HandleItemRelease(draggable);
             }
         }
@@ -98,13 +105,7 @@ public class Skooge : MonoBehaviour
     {
         if (currentQuest.IsComplete())
         {
-            if (collision.CompareTag("Item"))
-            {
-                //Item i = collision.gameObject.GetComponent<Item>();
-                //i.ResetPosition();
-                return;
-
-            }
+            return;
 
         }
         if (collision.CompareTag("Item"))

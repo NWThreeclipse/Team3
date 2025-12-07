@@ -126,7 +126,7 @@ public class Magnometer : DragZone
             if (sliderMagnetism != 0)
             {
                 MovespriteObject(2);
-                SetVibrateStrength(3);
+                //SetVibrateStrength(3);
             }
         }
         if (itemMagnetism == 4)

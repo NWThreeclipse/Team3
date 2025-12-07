@@ -35,8 +35,9 @@ public class Item : Draggable
     private void Start()
     {
         base.Start();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        //shadowRenderer = spriteRenderer.gameObject.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        shadowRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+
         itemMaterial = spriteRenderer.material;
 
 
@@ -84,8 +85,8 @@ public class Item : Draggable
         itemMaterial.SetFloat("_IsEnabled", itemData.Rarity == Rarity.Common ? 0f : 1f);
         itemMaterial.SetFloat("_IsAnomalous", itemData.Rarity == Rarity.Anomalous ? 1f : 0f);
 
-        //shadowRenderer.sprite = spriteRenderer.sprite;
-        //shadowRenderer.enabled = false;
+        shadowRenderer.sprite = spriteRenderer.sprite;
+        shadowRenderer.enabled = true;
 
     }
 
@@ -112,7 +113,7 @@ public class Item : Draggable
         }
         base.OnMouseDown();
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
-        //SetShadow(false);
+        SetShadow(false);
         if (itemData.Rarity == Rarity.Anomalous && !spawnedAnom)
         {
             spawnedAnom = true;
@@ -165,12 +166,12 @@ public class Item : Draggable
     {
         base.OnMouseUp();
         spriteRenderer.sortingLayerID = SortingLayer.NameToID("Item");
-        //SetShadow(true);
+        SetShadow(true);
     }
 
     public void EnableSorting()
     {
         isSortable = true;
     }
-    
+
 }

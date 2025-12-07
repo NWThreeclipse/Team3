@@ -2100,6 +2100,14 @@ MonoBehaviour:
   showPanelPos2: {x: 617, y: -157, z: 0}
   hidePanelPos2: {x: 1250, y: -157, z: 0}
   thermalScanner: {fileID: 80892436}
+  vibSpeed: 0
+  vibAmplitude: 0
+  lowSpeed: 25
+  lowAmp: 2
+  medSpeed: 30
+  medAmp: 4
+  highSpeed: 50
+  highAmp: 3
 --- !u!82 &174937709
 AudioSource:
   m_ObjectHideFlags: 0
