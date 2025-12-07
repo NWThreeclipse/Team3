@@ -35,13 +35,13 @@ public class SettingsMenuController : MonoBehaviour
 
         if (turnedOn)
         {
-            settingsMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => {ToggleItemInteractivity(!turnedOn); Time.timeScale = 0f; });
+            settingsMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad).OnComplete(() => {ToggleItemInteractivity(!turnedOn); Time.timeScale = 0f; });
 
         }
         else
         {
             Time.timeScale = 1f;
-            settingsMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime).OnComplete(() => ToggleItemInteractivity(!turnedOn));
+            settingsMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => ToggleItemInteractivity(!turnedOn));
 
         }
         StartCoroutine(Cooldown());

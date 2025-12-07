@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class BarkManager : MonoBehaviour
     [SerializeField] private TMP_Text leftSupervisorText;
     [SerializeField] private TMP_Text rightSupervisorText;
     [SerializeField] private Dialogue supervisorDialogue;
+    [SerializeField] private float shakeStrength = 0.05f;
+
 
 
     private bool isSupervisorBarking = false;
@@ -81,7 +84,14 @@ public class BarkManager : MonoBehaviour
 
     IEnumerator RenderSentence(string sentence, TMP_Text textbox, AudioClip audioClip, bool autoFade, GameObject canvas)
     {
+
+        if (!DOTween.IsTweening(canvas.gameObject))
+        {
+            Vector3 originalPosition = canvas.gameObject.transform.position;
+            canvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, shakeStrength).OnComplete(() => canvas.transform.position = originalPosition);
+        }
         textbox.text = "";
+        yield return new WaitForSeconds(.5f);
         char[] letters = sentence.ToCharArray();
         for (int i = 0; i < letters.Length; i++)
         {

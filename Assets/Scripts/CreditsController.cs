@@ -26,7 +26,7 @@ public class CreditsController : MonoBehaviour
             qaImage.enabled = false;
             teamImage.enabled = true;
         }
-        creditsMenu.transform.DOLocalMove(toggle ? showPanelPos : hidePanelPos, panelAnimationTime);
+        creditsMenu.transform.DOLocalMove(toggle ? showPanelPos : hidePanelPos, panelAnimationTime).SetEase(toggle ? Ease.OutQuad : Ease.InQuad);
     }
     
     public void ToggleTeam(bool toggle)

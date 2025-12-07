@@ -222,7 +222,7 @@ public class Magnometer : DragZone
         }
         if (IsHoldingItem())
         {
-            minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
+            minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad);
             isPlaying = true;
             SetGoalValues();
             ResetMiniGame();
@@ -240,7 +240,7 @@ public class Magnometer : DragZone
 
     public void DisableMiniGame()
     {
-        minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
+        minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad);
         isPlaying = false;
         ResetMiniGame();
         minigameSFX.Stop();
@@ -254,8 +254,7 @@ public class Magnometer : DragZone
     public void ToggleHelpCanvas()
     {
         helpCanvasEnabled = !helpCanvasEnabled;
-        Debug.Log(helpCanvasEnabled);
-        helpCanvas.transform.DOLocalMove(helpCanvasEnabled ? showPanelPos2 : hidePanelPos2, panelAnimationTime).SetEase(Ease.OutQuad);
+        helpCanvas.transform.DOLocalMove(helpCanvasEnabled ? showPanelPos2 : hidePanelPos2, panelAnimationTime).SetEase(helpCanvasEnabled ? Ease.OutQuad : Ease.InQuad);
     }
 
 
@@ -274,6 +273,6 @@ public class Magnometer : DragZone
             currentTween.Kill();
         }
         Vector3 newPosition = spriteHeights[targetIndex];
-        currentTween = spriteObject.transform.DOLocalMove(newPosition, 0.5f).SetEase(Ease.OutQuad);
+        currentTween = spriteObject.transform.DOLocalMove(newPosition, 0.5f);//.SetEase(Ease.OutQuad);
     }
 }

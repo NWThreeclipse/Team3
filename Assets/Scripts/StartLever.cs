@@ -10,6 +10,9 @@ public class StartLever : MonoBehaviour
     private Vector3 originalPosition;
     private bool gameStarted = false;
     private bool interactible = false;
+    [SerializeField] private Sprite flippedSprite;
+
+    private SpriteRenderer spriteRenderer;
 
     
     public void SetInteractible(bool toggle)
@@ -20,6 +23,7 @@ public class StartLever : MonoBehaviour
     void Start()
     {
         originalPosition = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnMouseDown()
@@ -28,9 +32,13 @@ public class StartLever : MonoBehaviour
         {
             return;
         }
+        Vector3 newpos = new Vector3(2.704f, 3.934f, 0f);
+        transform.position = newpos;
+        spriteRenderer.sprite = flippedSprite;
+
         if (!DOTween.IsTweening(gameObject))
         {
-            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.position = newpos);
         }
         OnGameStart?.Invoke(this);
         gameStarted = true;

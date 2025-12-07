@@ -69,7 +69,7 @@ public class DialogueManager : MonoBehaviour
                 sentences.Enqueue(dialogue.sentences[i]);
             }
 
-            source.PlayOneShot(panelOpen);
+            //source.PlayOneShot(panelOpen); <-- bug
             dialogueMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).OnComplete(() => DisplaySentence());
         }
         //simple node
@@ -212,7 +212,7 @@ public class DialogueManager : MonoBehaviour
         else if (name == "Xanthon" || name == "Unit 481202")
         {
             Vector3 portraitPosition = new Vector3(0, -64, 0);
-            Vector3 portraitScale = new Vector3(6, 6, 6);
+            Vector3 portraitScale = new Vector3(2.5f, 2.5f, 2.5f);
             portrait.gameObject.transform.localPosition = portraitPosition;
             portrait.gameObject.transform.localScale = portraitScale;
         }
