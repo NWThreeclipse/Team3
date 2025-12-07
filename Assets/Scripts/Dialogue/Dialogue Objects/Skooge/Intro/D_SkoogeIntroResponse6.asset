@@ -17,4 +17,3 @@ MonoBehaviour:
   talkingClip: {fileID: 0}
   sentences:
   - What do you need?
-  - I don't think I'm supposed to do this.
