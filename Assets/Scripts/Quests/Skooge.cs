@@ -266,6 +266,11 @@ public class Skooge : MonoBehaviour
         SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
         questItemsIcons = new GameObject[questData.questItems.Length];
         questCanvas.SetActive(true);
+        if (!DOTween.IsTweening(questCanvas.gameObject))
+        {
+            //Vector3 originalPosition = canvas.gameObject.transform.position;
+            questCanvas.gameObject.transform.DOShakePosition(shakeStrength, 0.1f);//.OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+        }
         for (int i = 0; i < questData.questItems.Length; i++)
         {
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);

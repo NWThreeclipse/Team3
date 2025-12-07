@@ -4392,7 +4392,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 19.2, y: 10.8}
+  m_Size: {x: 20.64516, y: 11.612904}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4503,7 +4503,7 @@ Transform:
   m_GameObject: {fileID: 546576820}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.52, y: 1.11, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -4543,17 +4543,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -6.464544, y: 1.9406437}
+  m_Offset: {x: -7.001498, y: 2.0002046}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 19.2, y: 10.8}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 20.64516, y: 11.612904}
+    newSize: {x: 19.2, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.405099, y: 1.9892633}
+  m_Size: {x: 2.5937781, y: 2.0169306}
   m_EdgeRadius: 0
 --- !u!212 &546576826
 SpriteRenderer:
@@ -4604,7 +4604,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4673,7 +4673,7 @@ MonoBehaviour:
   trashPrefab: {fileID: 5173479532194095059, guid: efad17b957da1994b8ae3b13a0dd2baa, type: 3}
   trashSpawnrate: {x: 0.2, y: 3}
   dailyDialogues:
-  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
+  - {fileID: 11400000, guid: 3b6b7d6c87736dc4390691e1d1921748, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
@@ -5061,7 +5061,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c2e1c2a570f18449eb2cf33f433a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeStrength: 0.05
+  shakeStrength: 0.1
+  flippedSprite: {fileID: 21300000, guid: 32f413b0aa3d3bb40a1d3e882c3d14e4, type: 3}
 --- !u!212 &576231707
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5106,11 +5107,11 @@ SpriteRenderer:
   m_SortingLayerID: 560728885
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df9d9a814a863cf408959daec75c04b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -5126,7 +5127,7 @@ Transform:
   m_GameObject: {fileID: 576231705}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.93, y: 3.78, z: 0}
+  m_LocalPosition: {x: 2.704, y: 3.554, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5168,12 +5169,12 @@ BoxCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.5591398, y: 0.65591395}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 2
+    drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -8773,7 +8774,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 19.2, y: 10.8}
+  m_Size: {x: 20.64516, y: 11.612904}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -12006,7 +12007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f94f91358323148972af71914ee916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNumber: 0
+  dayNumber: 5
   itemsSorted: 0
   correctSorted: 0
   incorrectSorted: 0
@@ -15313,6 +15314,7 @@ MonoBehaviour:
   leftSupervisorText: {fileID: 1249004488}
   rightSupervisorText: {fileID: 1601155729}
   supervisorDialogue: {fileID: 11400000, guid: fa2bac31269cc264a9d90dc80040efb1, type: 2}
+  shakeStrength: 1
 --- !u!1 &1709507780
 GameObject:
   m_ObjectHideFlags: 0

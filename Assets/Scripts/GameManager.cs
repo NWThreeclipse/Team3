@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
         }
         var tree = dailyDialogues[dayCounter];
+        Debug.Log(tree.name);
+        Debug.Log(tree.nodes.Count);
         dialogueManager.StartDialogue(tree.nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
 
