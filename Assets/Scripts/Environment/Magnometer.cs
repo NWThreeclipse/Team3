@@ -36,7 +36,15 @@ public class Magnometer : DragZone
     private bool helpCanvasEnabled = false;
     [SerializeField] private ThermalScanner thermalScanner;
 
-    //private Vector3 tempPos;
+    [SerializeField] private float vibSpeed;
+    [SerializeField] private float vibAmplitude;
+
+    [SerializeField] private float lowSpeed = 25f;
+    [SerializeField] private float lowAmp = 2f;
+    [SerializeField] private float medSpeed = 30f;
+    [SerializeField] private float medAmp = 4f;
+    [SerializeField] private float highSpeed = 50f;
+    [SerializeField] private float highAmp = 3f;
     public bool GetPlaying() => isPlaying;
 
 
@@ -44,6 +52,7 @@ public class Magnometer : DragZone
     {
         DisableMiniGame();
         base.OnTriggerExit2D(collision);
+        SetVibrateStrength(0);
     }
 
     private void Start()
@@ -66,19 +75,58 @@ public class Magnometer : DragZone
         {
             ItemEffects();
             sliderMagnetism = (int)slider.value;
+
+            ApplyVibrate();
         }
     }
+
+    private void ApplyVibrate()
+    {
+        float xOffset = Mathf.Sin(Time.time * vibSpeed) * vibAmplitude;
+        float yOffset = Mathf.Cos(Time.time * vibSpeed * 1.3f) * vibAmplitude;
+
+        itemSprite.transform.localPosition = new Vector3(xOffset, yOffset, 0);
+    }
+
+    private void SetVibrateStrength(int strength)
+    {
+        switch (strength)
+        {
+            // low
+            case 1:
+                vibSpeed = lowSpeed;
+                vibAmplitude = lowAmp;
+                break;
+            // med
+            case 2:
+                vibSpeed = medSpeed;
+                vibAmplitude = medAmp;
+                break;
+            // high
+            case 3:
+                vibSpeed = highSpeed;
+                vibAmplitude = highAmp;
+                break;
+            case 0:
+                vibSpeed = 0f;
+                vibAmplitude = 0f;
+                break;
+        }
+    }
+
     private void ItemEffects()
     {
-        if (itemMagnetism == 5 )
+        if (itemMagnetism == 5)
         {
             if (sliderMagnetism == 0)
             {
                 MovespriteObject(0);
+                SetVibrateStrength(0);
             }
             if (sliderMagnetism != 0)
             {
                 MovespriteObject(2);
+                SetVibrateStrength(3);
             }
         }
         if (itemMagnetism == 4)
@@ -86,13 +134,13 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 0)
             {
                 MovespriteObject(0);
+                SetVibrateStrength(0);
             }
             if (sliderMagnetism == 1)
             {
                 //strong vib & float
-
                 MovespriteObject(1);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
+                SetVibrateStrength(3);
 
             }
 
@@ -100,6 +148,7 @@ public class Magnometer : DragZone
             {
                 //pull
                 MovespriteObject(2);
+                SetVibrateStrength(0);
 
             }
         }
@@ -108,26 +157,26 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 0)
             {
                 MovespriteObject(0);
+                SetVibrateStrength(0);
             }
             if (sliderMagnetism == 1)
             {
-                //med vib
-
+                // med vib
                 MovespriteObject(0);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(2);
             }
             if (sliderMagnetism == 2)
             {
-                //strong vib and float
-
+                // strong vib
                 MovespriteObject(1);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(3);
             }
             if (sliderMagnetism >= 3)
             {
+                // pull
                 MovespriteObject(2);
+                SetVibrateStrength(0);
+
             }
         }
 
@@ -136,34 +185,32 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 0)
             {
                 MovespriteObject(0);
+                SetVibrateStrength(0);
             }
             if (sliderMagnetism == 1)
             {
-                //low vib
-
+                // low vib
                 MovespriteObject(0);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(1);
             }
             if (sliderMagnetism == 2)
             {
-                //med vib
-
+                // med vib
                 MovespriteObject(0);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(2);
             }
             if (sliderMagnetism == 3)
             {
                 //strong vib and float
 
                 MovespriteObject(1);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(3);
             }
             if (sliderMagnetism >= 4)
             {
+                // pull
                 MovespriteObject(2);
+                SetVibrateStrength(0);
             }
         }
 
@@ -172,42 +219,45 @@ public class Magnometer : DragZone
             if (sliderMagnetism == 0)
             {
                 MovespriteObject(0);
+                SetVibrateStrength(0);
             }
             if (sliderMagnetism == 1)
             {
                 //no vib
                 MovespriteObject(0);
+                SetVibrateStrength(0);
             }
             if (sliderMagnetism == 2)
             {
                 //low vib
                 MovespriteObject(0);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[0]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(1);
             }
             if (sliderMagnetism == 3)
             {
                 //med vib
                 MovespriteObject(0);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[1]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(2);
             }
             if (sliderMagnetism == 4)
             {
                 //strong vib and float
                 MovespriteObject(1);
-                //currentShake = itemSprite.gameObject.transform.DOShakePosition(.5f, vibrateStrengths[2]).OnComplete(() => itemSprite.gameObject.transform.position = tempPos);
-
+                SetVibrateStrength(3);
             }
             if (sliderMagnetism >= 5)
             {
+                // pull
                 MovespriteObject(2);
+                SetVibrateStrength(0);
+
             }
         }
 
         if (itemMagnetism == 0)
         {
             MovespriteObject(0);
+            SetVibrateStrength(0);
         }
 
 
@@ -247,7 +297,7 @@ public class Magnometer : DragZone
         if (helpCanvasEnabled)
         {
             ToggleHelpCanvas();
-        }        
+        }
         //helpCanvas.SetActive(false);
     }
 
