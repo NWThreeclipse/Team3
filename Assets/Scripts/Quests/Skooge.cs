@@ -14,6 +14,7 @@ public class Skooge : MonoBehaviour
     [SerializeField] private float holdTimeRequired;
     [SerializeField] private bool itemIsStaying;
     [SerializeField] private float shakeStrength = 0.05f;
+    [SerializeField] private float uiShakeStrength;
     private SpriteRenderer spriteRenderer;
     private Vector3 originalPosition;
     [SerializeField] private GameObject questCanvas;
@@ -28,7 +29,6 @@ public class Skooge : MonoBehaviour
     private int day;
 
     [SerializeField] private Sprite[] sortingIcons;
-
 
     public QuestInstance GetCurrentQuest()
     {
@@ -203,10 +203,6 @@ public class Skooge : MonoBehaviour
         barkManager.StartSkoogeBark();
         yield return new WaitForSeconds(2f);
         spriteRenderer.enabled = false;
-        if (!DOTween.IsTweening(gameObject))
-        {
-            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
-        }
     }
     private IEnumerator ShrinkItem(GameObject item)
     {
@@ -268,8 +264,8 @@ public class Skooge : MonoBehaviour
         questCanvas.SetActive(true);
         if (!DOTween.IsTweening(questCanvas.gameObject))
         {
-            //Vector3 originalPosition = canvas.gameObject.transform.position;
-            questCanvas.gameObject.transform.DOShakePosition(shakeStrength, 0.1f);//.OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+            Vector3 originalPosition = questCanvas.gameObject.transform.position;
+            questCanvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, uiShakeStrength).OnComplete(() => questCanvas.transform.position = originalPosition);
         }
         for (int i = 0; i < questData.questItems.Length; i++)
         {

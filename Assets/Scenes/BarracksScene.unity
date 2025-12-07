@@ -514,6 +514,7 @@ MonoBehaviour:
   showPanelPos: {x: 0, y: 0, z: 0}
   hidePanelPos: {x: 0, y: -1115, z: 0}
   panelAnimationTime: 1
+  shakeStrength: 30
 --- !u!4 &141304783
 Transform:
   m_ObjectHideFlags: 0

@@ -30,6 +30,8 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
 
+    [SerializeField] private float shakeStrength;
+
     private AudioSource source;
 
 
@@ -50,17 +52,17 @@ public class StatsUIController : MonoBehaviour
         source = GetComponent<AudioSource>();
         barkCanvas.SetActive(false);
         //statsCanvas.SetActive(true);
-        statsCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
+        statsCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad);
 
     }
 
     public void HideStats()
     {
-        statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
+        statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => { nextButton.SetActive(false); nextDayButton.SetActive(true); ShowBarks();});
         //statsCanvas.SetActive(false);
-        nextButton.SetActive(false);
-        nextDayButton.SetActive(true);
-        ShowBarks();
+        //nextButton.SetActive(false);
+        //nextDayButton.SetActive(true);
+        //ShowBarks();
     }
 
     public void ShowBarks()
@@ -134,6 +136,14 @@ public class StatsUIController : MonoBehaviour
     {
         gridParent.SetActive(false);
         textbox.text = "";
+
+        if (!DOTween.IsTweening(canvas.gameObject))
+        {
+            Vector3 originalPosition = canvas.gameObject.transform.position;
+            canvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, shakeStrength).OnComplete(() => canvas.transform.position = originalPosition);
+        }
+        yield return new WaitForSeconds(.5f);
+
         char[] letters = sentence.ToCharArray();
         for (int i = 0; i < letters.Length; i++)
         {

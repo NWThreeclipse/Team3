@@ -148,7 +148,7 @@ public class ThermalScanner : DragZone
     {
         helpCanvasEnabled = !helpCanvasEnabled;
         Debug.Log(helpCanvasEnabled);
-        helpCanvas.transform.DOLocalMove(helpCanvasEnabled ? showPanelPos2 : hidePanelPos2, panelAnimationTime).SetEase(Ease.OutQuad);
+        helpCanvas.transform.DOLocalMove(helpCanvasEnabled ? showPanelPos2 : hidePanelPos2, panelAnimationTime).SetEase(helpCanvasEnabled ? Ease.OutQuad : Ease.InQuad);
     }
     public void DisableMiniGame()
     {

@@ -4455,7 +4455,8 @@ MonoBehaviour:
   holdTime: 0
   holdTimeRequired: 5
   itemIsStaying: 0
-  shakeStrength: 0.05
+  shakeStrength: 0.01
+  uiShakeStrength: 30
   questCanvas: {fileID: 1028662653}
   questItemPrefab: {fileID: 7998186368877099179, guid: 03168d30d759bba418d8a6c10cd33333, type: 3}
   barkManager: {fileID: 1698692891}
@@ -4673,7 +4674,7 @@ MonoBehaviour:
   trashPrefab: {fileID: 5173479532194095059, guid: efad17b957da1994b8ae3b13a0dd2baa, type: 3}
   trashSpawnrate: {x: 0.2, y: 3}
   dailyDialogues:
-  - {fileID: 11400000, guid: 3b6b7d6c87736dc4390691e1d1921748, type: 2}
+  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
@@ -9222,11 +9223,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 78049728}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 473.7, y: 191.3}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -576.3, y: 191.3}
   m_SizeDelta: {x: 180, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1028662655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15314,7 +15315,7 @@ MonoBehaviour:
   leftSupervisorText: {fileID: 1249004488}
   rightSupervisorText: {fileID: 1601155729}
   supervisorDialogue: {fileID: 11400000, guid: fa2bac31269cc264a9d90dc80040efb1, type: 2}
-  shakeStrength: 1
+  shakeStrength: 30
 --- !u!1 &1709507780
 GameObject:
   m_ObjectHideFlags: 0

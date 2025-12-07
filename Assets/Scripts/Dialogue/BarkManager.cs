@@ -87,10 +87,11 @@ public class BarkManager : MonoBehaviour
 
         if (!DOTween.IsTweening(canvas.gameObject))
         {
-            //Vector3 originalPosition = canvas.gameObject.transform.position;
-            canvas.gameObject.transform.DOShakePosition(shakeStrength, 0.1f);//.OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+            Vector3 originalPosition = canvas.gameObject.transform.position;
+            canvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, shakeStrength).OnComplete(() => canvas.transform.position = originalPosition);
         }
         textbox.text = "";
+        yield return new WaitForSeconds(.5f);
         char[] letters = sentence.ToCharArray();
         for (int i = 0; i < letters.Length; i++)
         {
