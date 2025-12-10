@@ -1,4 +1,6 @@
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class ThoughtBubble : MonoBehaviour
@@ -7,9 +9,13 @@ public class ThoughtBubble : MonoBehaviour
     [SerializeField] private Image backgroundBubble;
     [SerializeField] private Image anomalousSprite;
     [SerializeField] private Button button;
+    private MusicController musicController;
 
     public void InitializeThoughtBubble(int i, Sprite itemSprite, StatsUIController statsUIController, int index)
     {
+       
+        musicController = FindAnyObjectByType<MusicController>();
+
         Vector3 currentScale = backgroundBubble.transform.localScale;
         // flip speech bubble
         if (i % 2 == 0)
@@ -25,6 +31,7 @@ public class ThoughtBubble : MonoBehaviour
 
         anomalousSprite.sprite = itemSprite;
         button.onClick.AddListener(() => statsUIController.StartPlayerReflection(index));
+        button.onClick.AddListener(() => musicController.PlayButtonSound());
     }
 
     public void InitializeEmptyBubble()

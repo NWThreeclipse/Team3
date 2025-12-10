@@ -38,6 +38,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Node rootNode)
     {
+        //source.PlayOneShot(panelOpen);
         StopAllCoroutines();
         curNode = rootNode;
         //option node

@@ -11,6 +11,7 @@ public class StartLever : MonoBehaviour
     private bool gameStarted = false;
     private bool interactible = false;
     [SerializeField] private Sprite flippedSprite;
+    [SerializeField] private AudioSource flipSource;
 
     private SpriteRenderer spriteRenderer;
 
@@ -35,6 +36,7 @@ public class StartLever : MonoBehaviour
         Vector3 newpos = new Vector3(2.704f, 3.554f, 0f);
         transform.position = newpos;
         spriteRenderer.sprite = flippedSprite;
+        flipSource.Play();
 
         if (!DOTween.IsTweening(gameObject))
         {

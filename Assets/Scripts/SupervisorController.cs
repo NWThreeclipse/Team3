@@ -119,7 +119,7 @@ public class SupervisorController : MonoBehaviour
         // Play footsteps
         footstepAudio.Play();
         yield return new WaitForSeconds(2.5f);
-        footstepAudio.Stop();
+        //footstepAudio.Stop();
 
         // Walk to idle point
         Transform idle = idlePoints[Random.Range(0, idlePoints.Length)];

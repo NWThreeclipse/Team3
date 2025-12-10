@@ -30,6 +30,10 @@ public class Skooge : MonoBehaviour
 
     [SerializeField] private Sprite[] sortingIcons;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openClip;
+    [SerializeField] private AudioClip closeClip;
+
     public QuestInstance GetCurrentQuest()
     {
         return currentQuest;
@@ -66,6 +70,7 @@ public class Skooge : MonoBehaviour
             }
         }
         spriteRenderer.enabled = true;
+        audioSource.PlayOneShot(openClip);
         if (!DOTween.IsTweening(gameObject))
         {
             transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
@@ -117,6 +122,7 @@ public class Skooge : MonoBehaviour
             }
 
             spriteRenderer.enabled = false;
+            audioSource.PlayOneShot(closeClip);
             if (!DOTween.IsTweening(gameObject))
             {
                 transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));

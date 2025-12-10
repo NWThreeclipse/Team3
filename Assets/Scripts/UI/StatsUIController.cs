@@ -12,7 +12,7 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private TMP_Text correctItems;
     [SerializeField] private TMP_Text incorrectItems;
     [SerializeField] private TMP_Text sortSpeed;
-    [SerializeField] private TMP_Text anomalousItems;
+    //[SerializeField] private TMP_Text anomalousItems;
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private GameObject gridParent;
 
@@ -31,11 +31,16 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private float panelAnimationTime = 1;
 
     [SerializeField] private float shakeStrength;
+    [SerializeField] private MusicController musicController;
 
     private AudioSource source;
 
 
+    private void Awake()
+    {
+        musicController.FadeInMusic();
 
+    }
     private void Start()
     {
         totalItems.text = StatsController.Instance.GetItems().ToString();
@@ -48,7 +53,7 @@ public class StatsUIController : MonoBehaviour
         {
             sortSpeed.text = (150 / StatsController.Instance.GetItems()).ToString();
         }
-        anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
+        //anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
         source = GetComponent<AudioSource>();
         barkCanvas.SetActive(false);
         //statsCanvas.SetActive(true);

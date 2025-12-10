@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     private float multi = 1f;
 
     private bool anom = false;
+
+    [SerializeField] private MusicController musicController;
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -251,6 +253,7 @@ public class GameManager : MonoBehaviour
             Item item = itemInstance.GetComponent<Item>();
             item.SetItemData(itemData);
             conveyorBelt.AddItem(itemInstance);
+            AudioController.PlayItemSpawn();
 
 
             yield return new WaitForSeconds(UnityEngine.Random.Range(itemSpawnrate.x, itemSpawnrate.y));
@@ -273,6 +276,7 @@ public class GameManager : MonoBehaviour
             Trash trash = trashInstance.GetComponent<Trash>();
             trash.SetSprite(trashSprites[randomIndex]);
             conveyorBelt.AddItem(trashInstance);
+            AudioController.PlayItemSpawn();
             yield return new WaitForSeconds(UnityEngine.Random.Range(trashSpawnrate.x, trashSpawnrate.y));
         }
     }
@@ -296,6 +300,7 @@ public class GameManager : MonoBehaviour
                 {
                     isCountingDown = false;
                     AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
+                    musicController.FadeOutMusic();
                     scenefader.FadeToScene("NarrativeLossScene");
                 }
                     
@@ -304,6 +309,7 @@ public class GameManager : MonoBehaviour
             {
                 isCountingDown = false;
                 StatsController.Instance.IncrementDay();
+                musicController.FadeOutMusic();
                 scenefader.FadeToScene("BarracksScene");
 
             }
@@ -435,6 +441,7 @@ public class GameManager : MonoBehaviour
             // Trigger organic loss logic
             Debug.Log("Food loss ending");
             AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+            musicController.FadeOutMusic();
 
             scenefader.FadeToScene("LossScene");
         }
@@ -444,6 +451,7 @@ public class GameManager : MonoBehaviour
             // Trigger fuel loss logic
             Debug.Log("Fuel loss ending");
             AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+            musicController.FadeOutMusic();
 
             scenefader.FadeToScene("LossScene");
 
@@ -454,12 +462,14 @@ public class GameManager : MonoBehaviour
             // Trigger scrap loss logic
             Debug.Log("Scrap loss ending");
             AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+            musicController.FadeOutMusic();
 
             scenefader.FadeToScene("LossScene");
         }
         if (suspicionStat >= 99.5)
         {
             AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+            musicController.FadeOutMusic();
 
             scenefader.FadeToScene("LossScene");
         }

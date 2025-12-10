@@ -16,6 +16,8 @@ public class SettingsMenuController : MonoBehaviour
 
     [SerializeField] private bool turnedOn = false;
     [SerializeField] private bool onCooldown = false;
+
+    [SerializeField] private MusicController musicController;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -35,12 +37,14 @@ public class SettingsMenuController : MonoBehaviour
 
         if (turnedOn)
         {
+            musicController.FadeToPausedVolume();
             settingsMenu.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad).OnComplete(() => {ToggleItemInteractivity(!turnedOn); Time.timeScale = 0f; });
 
         }
         else
         {
             Time.timeScale = 1f;
+            musicController.FadeBackToNormal();
             settingsMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => ToggleItemInteractivity(!turnedOn));
 
         }

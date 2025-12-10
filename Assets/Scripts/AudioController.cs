@@ -1,9 +1,12 @@
+using Steamworks;
 using System.Collections;
 using UnityEngine;
 
 public class AudioController : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private StartLever startLever;
+    [SerializeField] private MusicController musicController;
     [SerializeField] private AudioSource alarmSource;
 
 
@@ -18,13 +21,12 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource binSource;
     [SerializeField] private AudioClip correctClip;
     [SerializeField] private AudioClip incorrectClip;
+    [SerializeField] private AudioClip hoverClip;
 
-    [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioClip menuClip;
-    [SerializeField] private AudioClip inGameClip;
-
+    [SerializeField] private AudioSource gameButtonSource;
 
 
+    [SerializeField] private AudioSource itemSpawnSource;
 
     private static AudioController instance;
 
@@ -39,13 +41,14 @@ public class AudioController : MonoBehaviour
 
     private void Start()
     {
-        alarmSource.playOnAwake = false;
-        alarmSource.loop = false;
-        sfxSource.playOnAwake = false;
-        sfxSource.loop = false;
         gameManager.AlarmThreshold += OnAlarmTriggered;
-        PlayBelt();
+        startLever.OnGameStart += OnGameStart;
+    }
 
+    public void OnGameStart(StartLever lever)
+    {
+        PlayBelt();
+        musicController.FadeInMusic();
     }
 
     public void PlayBelt()
@@ -83,7 +86,7 @@ public class AudioController : MonoBehaviour
     public static void PlayPickupSound()
     {
         //maybe add variation for sound effects for different types
-        instance.sfxSource.volume = Random.Range(0.5f, 1.0f);
+        //instance.sfxSource.volume = Random.Range(0.5f, 1.0f);
         instance.sfxSource.pitch = Random.Range(0.8f, 1.2f);
 
         instance?.sfxSource?.PlayOneShot(instance.pickupClip);
@@ -91,21 +94,38 @@ public class AudioController : MonoBehaviour
 
     public static void PlayDropSound()
     {
-        instance.sfxSource.volume = Random.Range(0.5f, 1.0f);
+        //instance.sfxSource.volume = Random.Range(0.5f, 1.0f);
         instance.sfxSource.pitch = Random.Range(0.8f, 1.2f);
         instance?.sfxSource?.PlayOneShot(instance.dropClip);
     }
 
     public static float PlayCorrectSound()
     {
-        instance?.sfxSource?.PlayOneShot(instance.correctClip);
+        instance?.binSource?.PlayOneShot(instance.correctClip);
         return instance.correctClip.length;
     }
 
     public static float PlayIncorrectSound()
     {
-        instance?.sfxSource?.PlayOneShot(instance.incorrectClip);
+        instance?.binSource?.PlayOneShot(instance.incorrectClip);
         return instance.incorrectClip.length;
-
     }
+
+    public static void PlayBinHoverSound()
+    {
+        instance?.binSource.PlayOneShot(instance.hoverClip);
+    }
+
+    public static void PlayItemSpawn()
+    {
+        instance?.itemSpawnSource?.Play();
+    }
+
+    public static void PlayButton()
+    {
+        instance.gameButtonSource.pitch = Random.Range(0.8f, 1.2f);
+        instance?.gameButtonSource?.PlayOneShot(instance.gameButtonSource.clip);
+    }
+
+
 }

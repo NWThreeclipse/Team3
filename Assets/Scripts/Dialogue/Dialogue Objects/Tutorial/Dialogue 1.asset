@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505153914de717d4db93aa814b8f4bf8, type: 3}
   m_Name: Dialogue 1
   m_EditorClassIdentifier: 
-  name: Xanthon
-  portrait: {fileID: 21300000, guid: 741501c93c0b0df40ada599d89fab4a0, type: 3}
-  talkingClip: {fileID: 8300000, guid: 0d7af42db5e4dfb44a6b7fb201fdc075, type: 3}
+  name: Supervisor
+  portrait: {fileID: 21300000, guid: 9c418ac197af73844aa2c7361fe49bca, type: 3}
+  talkingClip: {fileID: 8300000, guid: d566b5ab807ed734492a463e734262ee, type: 3}
   sentences:
   - There are bins for fuel, scrap, and organics.

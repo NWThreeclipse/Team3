@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,8 @@ public class CreditsController : MonoBehaviour
     [SerializeField] private Vector3 showPanelPos;
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
+
+    [SerializeField] private MusicController musicController;
 
     private void Start()
     {
@@ -41,5 +44,10 @@ public class CreditsController : MonoBehaviour
         qaImage.enabled = toggle;
         teamImage.enabled = !toggle;
 
+    }
+
+    private void Awake()
+    {
+        musicController.FadeInMusic();
     }
 }

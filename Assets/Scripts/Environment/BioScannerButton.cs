@@ -25,5 +25,7 @@ public class BioScannerButton : MonoBehaviour
         {
             transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
         }
+        AudioController.PlayButton();
+
     }
 }
