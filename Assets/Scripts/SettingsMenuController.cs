@@ -97,13 +97,27 @@ public class SettingsMenuController : MonoBehaviour
     private void LoadSettings()
     {
         if (PlayerPrefs.HasKey("MasterVolume"))
+        {
             SetMaster(PlayerPrefs.GetFloat("MasterVolume"));
+        }
         if (PlayerPrefs.HasKey("MusicVolume"))
+        {
             SetMusic(PlayerPrefs.GetFloat("MusicVolume"));
+        }
         if (PlayerPrefs.HasKey("SFXVolume"))
+        {
             SetSFX(PlayerPrefs.GetFloat("SFXVolume"));
+        }
+
         if (PlayerPrefs.HasKey("Fullscreen"))
+        {
             SetFullscreen(PlayerPrefs.GetInt("Fullscreen") == 1);
+        }
+        else
+        {
+            SetFullscreen(true);
+            PlayerPrefs.SetInt("Fullscreen", 1);
+        }
     }
 
     private void OnApplicationQuit()

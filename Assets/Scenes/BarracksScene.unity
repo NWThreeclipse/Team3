@@ -500,7 +500,6 @@ MonoBehaviour:
   correctItems: {fileID: 463723469}
   incorrectItems: {fileID: 924748500}
   sortSpeed: {fileID: 1616357035}
-  anomalousItems: {fileID: 0}
   bubblePrefab: {fileID: 2282789819336777042, guid: 14ba9870e7a5c8547bb25fa7e554a7c3, type: 3}
   gridParent: {fileID: 1806268946}
   bark: {fileID: 11400000, guid: 0b0cf5c6b2033f14e8e70f57407cc09e, type: 2}
@@ -5099,6 +5098,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.31
       objectReference: {fileID: 0}
+    - target: {fileID: 1617730428855850535, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7750299dda3984647a418b5d2a199e75, type: 3}
+    - target: {fileID: 2183964392320612861, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a49bb3816116cfe47acdb1d80bfd527d, type: 3}
     - target: {fileID: 3650149136412265774, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -5107,10 +5114,14 @@ PrefabInstance:
       propertyPath: scrollSpeed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6030411657778837756, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 456f4e6a7f910ba4c8d5605e71791943, type: 3}
     - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 72010e4842bb287478e8d04d58aa80bc, type: 3}
+      objectReference: {fileID: 21300000, guid: 02906d9a59fde0049b07a019f355b7d4, type: 3}
     - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -5123,6 +5134,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740129899511541422, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 8113348502405141365, guid: fadf0a980d3c8164197becd2765fe527, type: 3}
       propertyPath: m_Name
       value: Conveyor Belt

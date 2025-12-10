@@ -61,6 +61,9 @@ TagManager:
   - name: Text
     uniqueID: 31729669
     locked: 0
+  - name: TrashShadow
+    uniqueID: 843086511
+    locked: 0
   - name: Trash
     uniqueID: 825388839
     locked: 0
