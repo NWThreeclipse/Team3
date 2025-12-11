@@ -46,14 +46,17 @@ public class Bin : MonoBehaviour
             return;
         }
 
-        draggable.OnReleased += HandleItemRelease;
-
-        spriteRenderer.sprite = hoverSprite;
-
-        if (!DOTween.IsTweening(gameObject))
+        // highlight and shake bin only if it's the closest 
+        if (IsClosestBin(draggable.gameObject))
         {
-            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+            spriteRenderer.sprite = hoverSprite;
+
+            if (!DOTween.IsTweening(gameObject))
+            {
+                transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+            }
         }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -61,12 +64,6 @@ public class Bin : MonoBehaviour
         if (!collision.CompareTag("Item"))
         {
             return;
-        }
-
-        var draggable = collision.GetComponent<Draggable>();
-        if (draggable != null)
-        {
-            draggable.OnReleased -= HandleItemRelease;
         }
 
         spriteRenderer.sprite = defaultSprite;
@@ -77,16 +74,53 @@ public class Bin : MonoBehaviour
         }
     }
 
-    private void HandleItemRelease(Draggable draggable)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        Collider2D hit = Physics2D.OverlapBox(transform.position, GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
-
-        if (hit == null || hit.gameObject != draggable.gameObject)
+        if (!collision.CompareTag("Item"))
         {
-            draggable.ResetPosition();
             return;
         }
 
+        var draggable = collision.GetComponent<Draggable>();
+        if (draggable == null)
+        {
+            return;
+        }
+
+        bool isClosest = IsClosestBin(draggable.gameObject);
+        if (isClosest && spriteRenderer.sprite != hoverSprite)
+        {
+            spriteRenderer.sprite = hoverSprite;
+        }
+        else if (!isClosest && spriteRenderer.sprite == hoverSprite)
+        {
+            spriteRenderer.sprite = defaultSprite;
+        }
+    }
+
+    private bool IsClosestBin(GameObject item)
+    {
+        float distance = Vector3.Distance(transform.position, item.transform.position);
+
+        // check if any other bins are closer
+        foreach (var other in otherBins)
+        {
+            float otherDistance = Vector3.Distance(other.transform.position, item.transform.position);
+
+            if (otherDistance < distance)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    public void HandleItemRelease(Draggable draggable)
+    {
+
+        // checking if item is not null, is sortable, if anomalous animation is over
         Item item = draggable.GetComponent<Item>();
         if (item == null)
         {
@@ -101,19 +135,10 @@ public class Bin : MonoBehaviour
         {
             draggable.ResetPosition();
             return;
-        } 
-
-        foreach (var other in otherBins)
-        {
-            Collider2D overlap = Physics2D.OverlapBox(other.transform.position, other.GetComponent<Collider2D>().bounds.size, 0f, LayerMask.GetMask("Item"));
-
-            if (overlap != null && overlap.gameObject == draggable.gameObject)
-            {
-                draggable.ResetPosition();
-                return;
-            }
         }
-        if(item.GetItemData().Rarity == Rarity.Anomalous)
+
+        // if its an anomalous item, remove the vignette 
+        if (item.GetItemData().Rarity == Rarity.Anomalous)
         {
             vin = item.GetVignette();
 
@@ -124,7 +149,8 @@ public class Bin : MonoBehaviour
                 StartCoroutine(FadeOutVignette(vinIntensity));
             }
         }
-        
+
+        // place in bin 
         StartCoroutine(PlayEffect(item));
         StartCoroutine(ShrinkItem(draggable.gameObject));
     }
@@ -156,7 +182,7 @@ public class Bin : MonoBehaviour
         float fadeDuration = 1f;
         float startIntensity = intensity;
         float timeElapsed = 0f;
-        
+
         while (timeElapsed < fadeDuration)
         {
             timeElapsed += Time.deltaTime;
@@ -180,7 +206,7 @@ public class Bin : MonoBehaviour
         {
             gameManager.AddStat(sorting, item.GetItemData().Value);
             spriteRenderer.sprite = correctSprite;
-            
+
         }
         else
         {
@@ -194,7 +220,7 @@ public class Bin : MonoBehaviour
         {
             barkManager.StartSupervisorBark(stats[0], correct);
         }
-        
+
         StatsController.Instance.IncrementItem(correct);
         if (item.GetItemData().Rarity == Rarity.Anomalous)
         {

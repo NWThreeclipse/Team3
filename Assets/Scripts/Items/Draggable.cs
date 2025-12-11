@@ -27,7 +27,7 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseDown()
     {
-       
+
         if (!isInteractible)
         {
             return;
@@ -102,41 +102,56 @@ public class Draggable : MonoBehaviour
 
     private void CollisionDetection()
     {
-        Collider2D[] hits = Physics2D.OverlapPointAll(transform.position);
-        int binCount = 0;
+        Collider2D itemCollider = GetComponent<Collider2D>();
+        if (itemCollider == null) return;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(itemCollider.bounds.center, itemCollider.bounds.size, 0f);
+
         bool inValidZone = false;
         bool onConveyor = false;
+        Bin closestBin = null;
+        float closestDistance = float.MaxValue;
+
 
 
         foreach (Collider2D hit in hits)
         {
-            if (hit.TryGetComponent(out ConveyorBelt belt))
-            {
-                onConveyor = true;
-                break;
-            }
 
             if (hit.TryGetComponent(out Bin bin))
             {
                 inValidZone = true;
-                binCount++;
+
+                // find closest bin
+                float distance = Vector3.Distance(transform.position, bin.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestBin = bin;
+                }
             }
             else if (hit.TryGetComponent(out DragZone zone))
             {
                 inValidZone = true;
             }
+
+
+            if (hit.TryGetComponent(out ConveyorBelt belt))
+            {
+                onConveyor = true;
+            }
+
         }
 
-        // Multi-bin overlap
-        if (binCount > 1)
+        // if item dropped in bin, send to closest one
+        if (closestBin != null)
         {
-            Debug.Log("Multiple bins detected");
-            ResetPosition();
+            Debug.Log("Bin drop: " + closestBin.name);
+            closestBin.HandleItemRelease(this);
             return;
         }
 
+
         // No valid zone or conveyor
-        if (!inValidZone && !onConveyor && binCount == 0)
+        if (!inValidZone && !onConveyor)
         {
             Debug.Log("Dropped outside drag zone");
             ResetPosition();
