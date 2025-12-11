@@ -3767,7 +3767,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.8.2
+  m_text: 0.8.3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ea68a7a3ac0f5e4f9adf84a930062be, type: 2}
   m_sharedMaterial: {fileID: -1848674671872764031, guid: 4ea68a7a3ac0f5e4f9adf84a930062be, type: 2}
@@ -4642,9 +4642,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: ba89d59efadf08546ae5b39e7b0fb892, type: 2}
   settingsMenu: {fileID: 389667920}
-  audioSource: {fileID: 1516840090}
-  panelOpen: {fileID: 8300000, guid: 02933fe14f90f284096e3531c2df7119, type: 3}
-  panelClose: {fileID: 8300000, guid: 85d920c12f7e9be4db0ba9d8eecb19ca, type: 3}
   showPanelPos: {x: 0, y: 0, z: 0}
   hidePanelPos: {x: 0, y: 1080, z: 0}
   panelAnimationTime: 1
@@ -6053,6 +6050,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863862569}
   m_CullTransparentMesh: 1
+--- !u!1 &1917538252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1917538254}
+  - component: {fileID: 1917538253}
+  m_Layer: 0
+  m_Name: Cursor Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1917538253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917538252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f884366d30b3240a71a7470db52b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultCursorTexture: {fileID: 2800000, guid: 81cf22c945d66854ca193b762ae5992c, type: 3}
+  holdingCursorTexture: {fileID: 2800000, guid: 8feaaa99450a4674db0bbe493fe3c035, type: 3}
+  clickPosition: {x: 0, y: 0}
+--- !u!4 &1917538254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917538252}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1962174582
 GameObject:
   m_ObjectHideFlags: 0
@@ -6704,3 +6748,4 @@ SceneRoots:
   - {fileID: 431550238}
   - {fileID: 228614627}
   - {fileID: 1006736135}
+  - {fileID: 1917538254}

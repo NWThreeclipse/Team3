@@ -290,7 +290,14 @@ public class Magnometer : DragZone
 
     public void DisableMiniGame()
     {
-        minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad);
+        try
+        {
+            minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad);
+        }
+        catch
+        {
+            Debug.Log("Minigame canvas being weird");
+        }
         isPlaying = false;
         ResetMiniGame();
         minigameSFX.Stop();
@@ -323,6 +330,13 @@ public class Magnometer : DragZone
             currentTween.Kill();
         }
         Vector3 newPosition = spriteHeights[targetIndex];
-        currentTween = spriteObject.transform.DOLocalMove(newPosition, 0.5f);//.SetEase(Ease.OutQuad);
+        try
+        {
+            currentTween = spriteObject.transform.DOLocalMove(newPosition, 0.5f);//.SetEase(Ease.OutQuad);
+        }
+        catch
+        {
+            Debug.Log("magnet move being weird");
+        }
     }
 }

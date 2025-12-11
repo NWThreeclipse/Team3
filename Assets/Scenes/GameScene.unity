@@ -4942,7 +4942,7 @@ MonoBehaviour:
   fuelDepleteRate: 0.4
   scrapDepleteRate: 0.4
   suspicionDepleteRate: 1
-  dayCounter: 1
+  dayCounter: 0
   timer: 150
   isCountingDown: 1
   itemSpawnrate: {x: 4, y: 8}
@@ -13035,7 +13035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f94f91358323148972af71914ee916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNumber: 5
+  dayNumber: 0
   itemsSorted: 0
   correctSorted: 0
   incorrectSorted: 0
@@ -20660,6 +20660,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1274326003127142214, guid: d7df772386e04b0488064444b0376be7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2243741647437159568, guid: d7df772386e04b0488064444b0376be7, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -20881,6 +20885,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1689759004376245980, guid: ad034ad6ba5cec94295502c1a8e90564, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2827961815429675687, guid: ad034ad6ba5cec94295502c1a8e90564, type: 3}
       propertyPath: m_Name
       value: Scrap Bin
@@ -21026,6 +21034,10 @@ PrefabInstance:
       propertyPath: 'otherBins.Array.data[1]'
       value: 
       objectReference: {fileID: 1646568300}
+    - target: {fileID: 97074130942692264, guid: b5f6bb5228335d647947cd2ebe458ea6, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5081300254825247589, guid: b5f6bb5228335d647947cd2ebe458ea6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1

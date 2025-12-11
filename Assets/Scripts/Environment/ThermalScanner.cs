@@ -152,7 +152,14 @@ public class ThermalScanner : DragZone
     }
     public void DisableMiniGame()
     {
-        minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad);
+        try
+        {
+            minigameCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad);
+        }
+        catch
+        {
+            Debug.Log("Minigame canvas being weird");
+        }
         isPlaying = false;
         ResetMiniGame();
         temperatureSlider.value = -273;
