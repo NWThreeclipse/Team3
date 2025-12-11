@@ -148,6 +148,8 @@ public class Bin : MonoBehaviour
                 StopCoroutine(item.GetVignetteCoroutine());
                 StartCoroutine(FadeOutVignette(vinIntensity));
             }
+
+            barkManager.HidePlayerBark();
         }
 
         // place in bin 
