@@ -22,8 +22,6 @@ public class MusicController : MonoBehaviour
 
         float target = (sliderValue <= 0.0001f) ? -80f: Mathf.Log10(sliderValue) * 20f;
 
-        Debug.Log(target);
-
         while (t < duration)
         {
             t += Time.deltaTime;

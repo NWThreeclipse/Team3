@@ -19,6 +19,7 @@ public class Bin : MonoBehaviour
 
     [SerializeField] private BarkManager barkManager;
     [SerializeField] private SupervisorController supervisor;
+    private Coroutine scoreCoroutine;
 
 
     private Vector3 originalPosition;
@@ -188,6 +189,8 @@ public class Bin : MonoBehaviour
             gameManager.CheckLoss();
             spriteRenderer.sprite = incorrectSprite;
         }
+        StartCoroutine(gameManager.CreatePointsText(correct, item.GetItemData().Value, sorting));
+        
         bool[] stats = supervisor.GetInspecting();
 
         if (stats[1])

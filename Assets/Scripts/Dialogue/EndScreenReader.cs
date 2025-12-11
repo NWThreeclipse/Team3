@@ -13,11 +13,17 @@ public class EndScreenReader : MonoBehaviour
     [SerializeField] private Vector3 targetScale = new Vector3(0f, 0f, 1f);
     [SerializeField] private float shrinkDuration = 2f;
     [SerializeField] private Color targetGreyscaleColor = Color.grey;
+    [SerializeField] private MusicController musicController;
+    [SerializeField] private int endingType = 0;
 
     private Color initialColor;
     private Vector3 initialScale;
     private string dialogue;
 
+    private void Awake()
+    {
+        musicController.FadeInMusic();
+    }
     private void Start()
     {
         dialogue = text.text;
@@ -25,7 +31,10 @@ public class EndScreenReader : MonoBehaviour
         initialScale = img.gameObject.transform.localScale;
         initialColor = img.color;
 
-        StartCoroutine(ShrinkImage(img));
+        if (endingType == 0)
+        {
+            StartCoroutine(ShrinkImage(img));
+        }
 
         StartCoroutine(RenderSentence(dialogue, text));
 

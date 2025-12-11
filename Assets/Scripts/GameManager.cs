@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -74,11 +75,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ItemSO[] itemVariants;
     [SerializeField] private StartLever startLever;
     [SerializeField] private BarkManager barkManager;
+
+    private float pointFadeTime = 0.5f;
     private float multi = 1f;
 
     private bool anom = false;
 
     [SerializeField] private MusicController musicController;
+
+    [SerializeField] private Transform organicText;
+    [SerializeField] private Transform fuelText;
+    [SerializeField] private Transform scrapText;
+
+    [SerializeField] private GameObject textPrefab;
+
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -536,7 +546,55 @@ public class GameManager : MonoBehaviour
 
 
 
+    public IEnumerator CreatePointsText(bool correct, float score, Sorting bin)
+    {
+        GameObject pointsGO;
+        if (bin == Sorting.Organic) //organic
+        {
+          pointsGO = Instantiate(textPrefab, organicText);
+        }
+        else if (bin == Sorting.Fuel) //fuel
+        {
+            pointsGO = Instantiate(textPrefab, fuelText);
 
+        }
+        else //scrap
+        {
+            pointsGO = Instantiate(textPrefab, scrapText);
+        }
+
+        TMP_Text pointsText = pointsGO.GetComponent<TMP_Text>();
+
+        if (correct)
+        {
+            pointsText.text = "+" + score.ToString();
+            pointsText.color = new Color32(13, 164, 97, 255);
+
+        }
+        else
+        {
+            pointsText.text = "-" + score.ToString();
+            pointsText.color = new Color32(227, 22, 2, 255);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        Color startColor = pointsText.color;
+        Color endColor = startColor;
+        endColor.a = 0;
+
+        float time = 0;
+        while (time < pointFadeTime)
+        {
+            float t = time / pointFadeTime;
+            pointsText.color = Color.Lerp(startColor, endColor, t);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        pointsText.color = endColor;
+        Destroy(pointsGO);
+    }
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
