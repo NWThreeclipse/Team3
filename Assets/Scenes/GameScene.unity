@@ -4991,7 +4991,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6632a0807995e544b52ba18cbbd026a, type: 2}
   startLever: {fileID: 576231706}
   barkManager: {fileID: 1698692891}
-  musicController: {fileID: 0}
+  musicController: {fileID: 706136463}
   organicText: {fileID: 49625532}
   fuelText: {fileID: 376802497}
   scrapText: {fileID: 1004946155}
