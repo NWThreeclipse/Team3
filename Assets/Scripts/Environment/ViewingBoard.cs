@@ -94,7 +94,7 @@ public class ViewingBoard : DragZone
                     currentWeight = (Weight)(currentIndex + 1);
                     textfield.text = currentWeight.ToString();
                     nextUpdateTime = Time.time + countSpeed;
-                    minigameSFX.Play();
+                    //minigameSFX.Play();
                 }
                 else
                 {

@@ -1407,7 +1407,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 332518235014982130, guid: ba89d59efadf08546ae5b39e7b0fb892, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: b81a8c8937f2ea24083bda8f41e32538, type: 3}
+  m_Resource: {fileID: 8300000, guid: 670dc965ccdf1704c9c5abf1b750e029, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1504,11 +1504,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 332518235014982130, guid: ba89d59efadf08546ae5b39e7b0fb892, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: d608e0dd3755e5b4db4bce5ea87f8c9a, type: 3}
+  m_Resource: {fileID: 8300000, guid: 79d9f711b09e36d43b87bedc24667a7d, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2230,7 +2230,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 332518235014982130, guid: ba89d59efadf08546ae5b39e7b0fb892, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: a46dc3106ccc1bf47a338b97e8b8c4db, type: 3}
+  m_Resource: {fileID: 8300000, guid: d76bb2b1d85121147a91124cf4845622, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3609,7 +3609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.078431375, b: 0.08627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3783,7 +3783,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: fa80b510fc14b324484a94788a4e404f, type: 3}
+  m_Resource: {fileID: 8300000, guid: 116eba4c1245e7944af26a2d673e703f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6951,7 +6951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.07058824, g: 0.078431375, b: 0.08627451, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9818,7 +9818,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1113654768}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetMaster
         m_Mode: 0
@@ -10621,7 +10621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.078431375, b: 0.08627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -11576,7 +11576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.07058824, g: 0.078431375, b: 0.08627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12271,18 +12271,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1279954227}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 313240812}
   m_Father: {fileID: 1993697674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -252.4, y: 395.6}
-  m_SizeDelta: {x: 70, y: 60}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 927.50006, y: -804}
+  m_SizeDelta: {x: 505, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1279954229
 MonoBehaviour:
@@ -14531,7 +14531,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1113654768}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetMusic
         m_Mode: 0
@@ -16169,7 +16169,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1113654768}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetFullscreen
         m_Mode: 0
@@ -16588,7 +16588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.07058824, g: 0.078431375, b: 0.08627451, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17812,7 +17812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.07058824, g: 0.078431375, b: 0.08627451, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.9647059, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20312,7 +20312,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1113654768}
         m_TargetAssemblyTypeName: SettingsMenuController, Assembly-CSharp
         m_MethodName: SetSFX
         m_Mode: 0

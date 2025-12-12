@@ -17,6 +17,6 @@ MonoBehaviour:
   talkingClip: {fileID: 8300000, guid: 927ec5809a26ff94e9a9f3b3e95a1736, type: 3}
   sentences:
   - Begin Work.
-  - Where am I?
   - Who are you?
   - Who am I?
+  - Where am I?

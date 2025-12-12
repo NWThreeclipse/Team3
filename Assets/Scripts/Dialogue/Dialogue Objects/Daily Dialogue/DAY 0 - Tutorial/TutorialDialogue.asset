@@ -66,7 +66,7 @@ MonoBehaviour:
       _node: {fileID: -6245916061668441907}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: optionB
+      - fieldName: optionA
         node: {fileID: -3950422664322546476}
         reroutePoints: []
       _direction: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Name: Simple Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1672, y: -344}
+  position: {x: 1656, y: 168}
   ports:
     keys:
     - prevNode
@@ -98,7 +98,7 @@ MonoBehaviour:
       _node: {fileID: -5760620434113111271}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: optionA
+      - fieldName: optionD
         node: {fileID: 4474614365032093119}
         reroutePoints: []
       _direction: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: Dialogue Control
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1624, y: 136}
+  position: {x: 1480, y: -376}
   ports:
     keys:
     - prevNode
@@ -141,7 +141,7 @@ MonoBehaviour:
       _node: {fileID: -4394295168966023571}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: optionD
+      - fieldName: optionA
         node: {fileID: 4474614365032093119}
         reroutePoints: []
       _direction: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: 4474614365032093119}
+        node: {fileID: -6245916061668441907}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -243,7 +243,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: -6245916061668441907}
+        node: {fileID: 4474614365032093119}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -496,9 +496,6 @@ MonoBehaviour:
       _node: {fileID: 4474614365032093119}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
-      - fieldName: optionA
-        node: {fileID: -3950422664322546476}
-        reroutePoints: []
       - fieldName: nextNode
         node: {fileID: -5760620434113111271}
         reroutePoints: []
@@ -507,6 +504,9 @@ MonoBehaviour:
         reroutePoints: []
       - fieldName: nextNode
         node: {fileID: -4125741031536160218}
+        reroutePoints: []
+      - fieldName: optionB
+        node: {fileID: -3950422664322546476}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -517,7 +517,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: -5760620434113111271}
+        node: {fileID: -4394295168966023571}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -550,7 +550,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: -4394295168966023571}
+        node: {fileID: -5760620434113111271}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
