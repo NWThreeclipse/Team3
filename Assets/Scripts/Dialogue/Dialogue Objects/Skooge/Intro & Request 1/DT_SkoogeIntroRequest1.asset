@@ -75,7 +75,7 @@ MonoBehaviour:
   optionB: {fileID: 0}
   optionC: {fileID: 0}
   optionD: {fileID: 0}
---- !u!114 &-2049568055458299721
+--- !u!114 &-899758713439128451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,17 +84,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 996e6cd0690be6e4d96e72b538280422, type: 3}
-  m_Name: Dialogue Control
+  m_Script: {fileID: 11500000, guid: 3b17c899a39999b44b73cc097ff9a196, type: 3}
+  m_Name: Option Dialogue
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 2467.1838, y: 58.464985}
+  position: {x: 2408, y: 8}
   ports:
     keys:
     - prevNode
+    - optionA
+    - optionB
+    - optionC
+    - optionD
     values:
     - _fieldName: prevNode
-      _node: {fileID: -2049568055458299721}
+      _node: {fileID: -899758713439128451}
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: optionA
@@ -104,8 +108,48 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  dialogueControl: 0
+    - _fieldName: optionA
+      _node: {fileID: -899758713439128451}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: prevNode
+        node: {fileID: 4765955090154135356}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionB
+      _node: {fileID: -899758713439128451}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionC
+      _node: {fileID: -899758713439128451}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionD
+      _node: {fileID: -899758713439128451}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  speaker: {fileID: 11400000, guid: 5020e623ae7ec1643ac1ebd2511bfb96, type: 2}
+  responses: {fileID: 11400000, guid: 134ca2b05cf96944bbf5a259246b1035, type: 2}
   prevNode: {fileID: 0}
+  optionA: {fileID: 0}
+  optionB: {fileID: 0}
+  optionC: {fileID: 0}
+  optionD: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +160,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e27019d8b68a284f8bbc768797101eb, type: 3}
-  m_Name: DT_SkoogeIntro
+  m_Name: DT_SkoogeIntroRequest1
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 5101632193665376273}
@@ -125,7 +169,8 @@ MonoBehaviour:
   - {fileID: 3019412792190066431}
   - {fileID: 9137873637361787398}
   - {fileID: 5458073337549159303}
-  - {fileID: -2049568055458299721}
+  - {fileID: -899758713439128451}
+  - {fileID: 4765955090154135356}
 --- !u!114 &3019412792190066431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +321,37 @@ MonoBehaviour:
   optionB: {fileID: 0}
   optionC: {fileID: 0}
   optionD: {fileID: 0}
+--- !u!114 &4765955090154135356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996e6cd0690be6e4d96e72b538280422, type: 3}
+  m_Name: Dialogue Control
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2856, y: 88}
+  ports:
+    keys:
+    - prevNode
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: 4765955090154135356}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: optionA
+        node: {fileID: -899758713439128451}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  dialogueControl: 0
+  prevNode: {fileID: 0}
 --- !u!114 &5101632193665376273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +462,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: -2049568055458299721}
+        node: {fileID: -899758713439128451}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
