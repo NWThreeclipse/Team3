@@ -209,23 +209,24 @@ public class DialogueManager : MonoBehaviour
 
     private void AlignIcons(string name)
     {
+        Vector3 portraitPosition;
+        Vector3 portraitScale;
         if (name == "Supervisor")
         {
-            Vector3 portraitPosition = new Vector3(0, -74.7f, 0);
-            Vector3 portraitScale = new Vector3(2.7f, 2.7f, 2.7f);
-            portrait.gameObject.transform.localPosition = portraitPosition;
-            portrait.gameObject.transform.localScale = portraitScale;
+            portraitPosition = new Vector3(0, -74.7f, 0);
+            portraitScale = new Vector3(2.7f, 2.7f, 2.7f);
         }
         else if (name == "Xanthon" || name == "Unit 481202")
         {
-            Vector3 portraitPosition = new Vector3(0, -64, 0);
-            Vector3 portraitScale = new Vector3(2.5f, 2.5f, 2.5f);
-            portrait.gameObject.transform.localPosition = portraitPosition;
-            portrait.gameObject.transform.localScale = portraitScale;
+            portraitPosition = new Vector3(0, -64, 0);
+            portraitScale = new Vector3(2.5f, 2.5f, 2.5f);
         }
         else //skooge
         {
-
+            portraitPosition = new Vector3(616, -174.899994f, 0);
+            portraitScale = new Vector3(20f, 20f, 20f);
         }
+        portrait.gameObject.transform.localPosition = portraitPosition;
+        portrait.gameObject.transform.localScale = portraitScale;
     }
 }
