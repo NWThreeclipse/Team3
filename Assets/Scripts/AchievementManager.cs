@@ -5,6 +5,7 @@ using UnityEngine;
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager Instance;
+    public static bool initialized = false;
 
     private void Awake()
     {
@@ -26,29 +27,39 @@ public class AchievementManager : MonoBehaviour
             return;
         }
         Debug.Log(SteamFriends.GetPersonaName());
+        initialized = true;
     }
 
     public void UnlockAchievement(string achievementID)
     {
-
-        bool isAchieved = false;
-
-        bool success = SteamUserStats.GetAchievement(achievementID, out isAchieved);
-        if (success && !isAchieved)
+        //Early break if not connected to steam
+        if (!initialized) return;
+        
+        try
         {
-            SteamUserStats.SetAchievement(achievementID);
-            SteamUserStats.StoreStats();
-        }
-        else
-        {
-            if (isAchieved)
+            bool isAchieved = false;
+
+            bool success = SteamUserStats.GetAchievement(achievementID, out isAchieved);
+            if (success && !isAchieved)
             {
-                Debug.Log("Achievement has already been unlocked.");
+                SteamUserStats.SetAchievement(achievementID);
+                SteamUserStats.StoreStats();
             }
             else
             {
-                Debug.Log("Failed to check achievement status.");
+                if (isAchieved)
+                {
+                    Debug.Log("Achievement has already been unlocked.");
+                }
+                else
+                {
+                    Debug.Log("Failed to check achievement status.");
+                }
             }
+        }
+        catch (InvalidOperationException e)
+        {
+            Debug.Log(e.Message);
         }
     }
 }
