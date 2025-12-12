@@ -8,6 +8,10 @@ public class QuestInstance
     public bool isActive = true;
     public bool[] progress;
 
+    public string GetQuestName()
+    {
+        return questData.questName;
+    }
     public QuestInstance(SkoogeQuestSO data)
     {
         questData = data;

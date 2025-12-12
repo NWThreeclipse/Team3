@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -105,9 +106,29 @@ public class GameManager : MonoBehaviour
             commonItems = gameItems.Where(item => item.Rarity == Rarity.Common).ToList();
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
         }
-        var tree = dailyDialogues[dayCounter];
+
+        Debug.Log(dayCounter);
+        DialogueTree tree;
+        if (dayCounter <= 2)
+        {
+            tree = dailyDialogues[dayCounter];
+        }
+        else
+        {
+            if (dayCounter == 3)
+            {
+                tree = dailyDialogues[skooge.GetQuestName() == "Repairs" ? 3 : 4];
+            }
+            else if (dayCounter == 4)
+            {
+                tree = dailyDialogues[skooge.GetQuestName() == "Medicine" ? 5 : 6];
+            }
+            else
+            {
+                tree = dailyDialogues[skooge.GetQuestName() == "Weapon" ? 7 : 8];
+            }
+        }
         Debug.Log(tree.name);
-        Debug.Log(tree.nodes.Count);
         dialogueManager.StartDialogue(tree.nodes[0]);
         dialogueManager.OnDialogueEnd += HandleDialogueEnd;
 

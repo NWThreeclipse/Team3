@@ -1,4 +1,5 @@
 using DG.Tweening;
+using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using System.Linq;
@@ -250,15 +251,36 @@ public class Skooge : MonoBehaviour
         spriteRenderer.enabled = false;
         originalPosition = transform.position;
         questCanvas.SetActive(false);
+        StartDailyQuest(day);
+
 
 
 
     }
     private void HandleGameStart(StartLever lever)
     {
-        StartDailyQuest(day);
+        StartDailyQuestUI();
     }
 
+    public string GetQuestName()
+    {
+        return currentQuest.GetQuestName();
+    }
+
+    public void StartDailyQuestUI()
+    {
+        if (day < 3)
+        {
+            return;
+        }
+        questCanvas.SetActive(true);
+        if (!DOTween.IsTweening(questCanvas.gameObject))
+        {
+            Vector3 originalPosition = questCanvas.gameObject.transform.position;
+            questCanvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, uiShakeStrength).OnComplete(() => questCanvas.transform.position = originalPosition);
+        }
+
+    }
     public void StartDailyQuest(int day)
     {
         if (day < 3)
@@ -268,12 +290,7 @@ public class Skooge : MonoBehaviour
         SkoogeQuestSO[] quests = Resources.LoadAll<SkoogeQuestSO>("").Where(quests => quests.day == day).ToArray();
         SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
         questItemsIcons = new GameObject[questData.questItems.Length];
-        questCanvas.SetActive(true);
-        if (!DOTween.IsTweening(questCanvas.gameObject))
-        {
-            Vector3 originalPosition = questCanvas.gameObject.transform.position;
-            questCanvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, uiShakeStrength).OnComplete(() => questCanvas.transform.position = originalPosition);
-        }
+        
         for (int i = 0; i < questData.questItems.Length; i++)
         {
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);

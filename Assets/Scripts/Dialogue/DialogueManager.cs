@@ -56,7 +56,13 @@ public class DialogueManager : MonoBehaviour
             sentenceText.text = "";
 
             //set buttons
+            for (int i = 0; i < optionButtons.Length; i++)
+            {
+                optionButtons[i].gameObject.SetActive(false);
+            }
+
             nextButton.gameObject.SetActive(false);
+
             for (int i = 0; i < options.responses.sentences.Length; i++)
             {
                 optionButtons[i].gameObject.SetActive(true);
@@ -195,7 +201,7 @@ public class DialogueManager : MonoBehaviour
     public void EndDialogue()
     {
         StopAllCoroutines();
-        source.PlayOneShot(panelClose);
+        //source.PlayOneShot(panelClose);
         dialogueMenu.transform.DOLocalMove(hidePanelPos, panelAnimationTime);
         OnDialogueEnd?.Invoke(this);
 

@@ -4967,11 +4967,14 @@ MonoBehaviour:
   trashSpawnrate: {x: 0.2, y: 3}
   dailyDialogues:
   - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
-  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
-  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
-  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
-  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
-  - {fileID: 11400000, guid: d30381c7b008151469d09bdee373c5cf, type: 2}
+  - {fileID: 11400000, guid: d76a30ba8b9e2a44aaa261d3e9333357, type: 2}
+  - {fileID: 11400000, guid: 0b720db8f919519458d2524321e59096, type: 2}
+  - {fileID: 11400000, guid: 3b6b7d6c87736dc4390691e1d1921748, type: 2}
+  - {fileID: 11400000, guid: 538087fc4b515374c9337309caf7ba53, type: 2}
+  - {fileID: 11400000, guid: 36c7e861f1df6864b81a7beb1c846d4a, type: 2}
+  - {fileID: 11400000, guid: 5bbc86dcc214eeb45928b8a1b541c82e, type: 2}
+  - {fileID: 11400000, guid: 35359169b88727247a97599151192ef7, type: 2}
+  - {fileID: 11400000, guid: 48bf2fb248904b1478096a558291443e, type: 2}
   dialogueManager: {fileID: 594326581}
   skooge: {fileID: 546576821}
   organicWeight: 0
@@ -7565,8 +7568,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1896273466}
   - {fileID: 1770610513}
+  - {fileID: 1896273466}
   - {fileID: 323753048}
   - {fileID: 1150930883}
   m_Father: {fileID: 1993697674}
@@ -17058,7 +17061,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1003.5, y: -200}
+  m_AnchoredPosition: {x: 496.5, y: -200}
   m_SizeDelta: {x: 505, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1770610514
@@ -18354,7 +18357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 496.5, y: -200}
+  m_AnchoredPosition: {x: 1003.5, y: -200}
   m_SizeDelta: {x: 505, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1896273467
