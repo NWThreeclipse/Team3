@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: D_SkoogeRefuse1
   m_EditorClassIdentifier: 
   name: Skooge
-  portrait: {fileID: 0}
-  talkingClip: {fileID: 8300000, guid: 05711e14e9aa33b4397d04a1d59e7fc5, type: 3}
+  portrait: {fileID: 21300000, guid: 55f40fc17fcd1314eb8bb987db046e90, type: 3}
+  talkingClip: {fileID: 8300000, guid: b826b3717496f9640a06f16b9c22197f, type: 3}
   sentences:
   - I know you don't remember, but it's a friend friend of yours that needs help
     help help.
