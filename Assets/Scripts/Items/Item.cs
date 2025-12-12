@@ -52,7 +52,8 @@ public class Item : Draggable
 
         if (itemData.Rarity == Rarity.Anomalous)
         {
-            isSortable = false;
+
+            //isSortable = false;
             postprocessingVolume = FindAnyObjectByType<Volume>();
             postprocessingVolume.profile.TryGet<Vignette>(out vignette);
 
@@ -143,7 +144,7 @@ public class Item : Draggable
 
         vignette.intensity.value = targetIntensity;
         //Time.timeScale = targetTimeScale;
-        
+
         yield return new WaitForSeconds(2f);
 
         timeElapsed = 0f;
