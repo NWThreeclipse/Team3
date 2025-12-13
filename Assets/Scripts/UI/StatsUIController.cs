@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class StatsUIController : MonoBehaviour
@@ -13,7 +15,8 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private TMP_Text correctItems;
     [SerializeField] private TMP_Text incorrectItems;
     [SerializeField] private TMP_Text sortSpeed;
-    //[SerializeField] private TMP_Text anomalousItems;
+    [SerializeField] private Image anomalousItemImage;
+    [SerializeField] private Sprite[] anomalousItemSprites;
     [SerializeField] private GameObject bubblePrefab;
     [SerializeField] private GameObject gridParent;
 
@@ -39,6 +42,10 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private Image dialogueSprite;
     [SerializeField] private TMP_Text playerName;
 
+    [SerializeField] private Volume postprocessingVolume;
+    private Vignette vignette;
+    private Coroutine fadeInCoroutine;
+    private Coroutine fadeOutCoroutine;
     private AudioSource source;
 
 
@@ -60,11 +67,12 @@ public class StatsUIController : MonoBehaviour
         {
             sortSpeed.text = (150 / StatsController.Instance.GetItems()).ToString();
         }
-        //anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
         source = GetComponent<AudioSource>();
         //barkCanvas.SetActive(false);
         //statsCanvas.SetActive(true);
         statsCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad);
+        postprocessingVolume.profile.TryGet<Vignette>(out vignette);
+        anomalousItemImage.enabled = false;
 
     }
 
@@ -120,38 +128,33 @@ public class StatsUIController : MonoBehaviour
     public void StartPlayerReflection(int index)
     {
         gridParent.SetActive(false);
-        string chosenDialogue;
+        string chosenDialogue = "";
+        for (int i = 0; i < 4; i++)
+        {
+            if (index == i)
+            {
+                chosenDialogue = bark.sentences[i];
+                anomalousItemImage.sprite = anomalousItemSprites[i];
+            }
+        }
+        anomalousItemImage.enabled = true;
 
-        if (index == 0)
-        {
-            chosenDialogue = bark.sentences[0];
-        }
-        else if (index == 1)
-        {
-            chosenDialogue = bark.sentences[1];
-
-        }
-        else if (index == 2)
-        {
-            chosenDialogue = bark.sentences[2];
-        }
-        else
-        {
-            chosenDialogue = bark.sentences[3];
-        }
         barkText.text = "";
         //StopAllCoroutines();
-        barkCanvas.transform.DOLocalMove(dialogueShowPanelPos, panelAnimationTime).OnComplete(() => {StartCoroutine(RenderSentence(chosenDialogue, barkText, bark.name, bark.portrait, bark.talkingClip, barkCanvas));});
+        barkCanvas.transform.DOLocalMove(dialogueShowPanelPos, panelAnimationTime).OnComplete(() => {StartCoroutine(RenderSentence(chosenDialogue, barkText, bark.name, bark.portrait, bark.talkingClip, barkCanvas)); if (fadeOutCoroutine != null)StopCoroutine(fadeOutCoroutine); fadeInCoroutine = StartCoroutine(FadeInVignette()); });
 
     }
 
     public void EndDialogue()
     {
-        barkCanvas.transform.DOLocalMove(dialogueHidePanelPos, panelAnimationTime).OnComplete(() => gridParent.SetActive(true));
+        anomalousItemImage.enabled = false;
+        StopAllCoroutines();
+        barkCanvas.transform.DOLocalMove(dialogueHidePanelPos, panelAnimationTime).OnComplete(() => {fadeOutCoroutine = StartCoroutine(FadeOutVignette()); gridParent.SetActive(true); });
     }
 
     IEnumerator RenderSentence(string sentence, TMP_Text textbox, string speakerName, Sprite speakerIcon, AudioClip audioClip, GameObject canvas)
     {
+        
         playerName.enableAutoSizing = true;
         playerName.text = speakerName;
         dialogueSprite.sprite = speakerIcon; 
@@ -178,4 +181,42 @@ public class StatsUIController : MonoBehaviour
         }
 
     }
+
+    private IEnumerator FadeInVignette()
+    {
+        float targetIntensity = 0.6f;
+        float fadeDuration = 1f;
+        float startIntensity = vignette.intensity.value;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < fadeDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, timeElapsed / fadeDuration);
+            yield return null;
+        }
+
+        vignette.intensity.value = targetIntensity;
+
+        
+    }
+
+    private IEnumerator FadeOutVignette()
+    {
+        float targetIntensity = vignette.intensity.value;
+        float fadeDuration = 1f;
+        float timeElapsed = 0f;
+
+        timeElapsed = 0f;
+        while (timeElapsed < fadeDuration)
+        {
+            timeElapsed += Time.deltaTime;
+            vignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, timeElapsed / fadeDuration);
+
+            yield return null;
+        }
+        vignette.intensity.value = 0f;
+
+    }
+
 }
