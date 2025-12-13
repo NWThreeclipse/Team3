@@ -52,8 +52,8 @@ public class BarkManager : MonoBehaviour
         string chosenText = playerDialogue.sentences[StatsController.Instance.GetDays() - 2];
         playerText.text = "";
         //StopAllCoroutines();
-        StartCoroutine(RenderSentence(chosenText, playerText, playerDialogue.talkingClip, false, playerBarkCanvas));
         playerBarkCanvas.SetActive(true);
+        StartCoroutine(RenderSentence(chosenText, playerText, playerDialogue.talkingClip, false, playerBarkCanvas));
     }
 
     public void StartSupervisorBark(bool leftSide, bool sortOutcome)
@@ -90,15 +90,21 @@ public class BarkManager : MonoBehaviour
             Vector3 originalPosition = canvas.gameObject.transform.position;
             canvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, shakeStrength).OnComplete(() => canvas.transform.position = originalPosition);
         }
-        textbox.text = "";
+
+        textbox.enableAutoSizing = true;
+        textbox.text = sentence;
+        textbox.ForceMeshUpdate();
+        textbox.maxVisibleCharacters = 0;
+        int totalChars = textbox.textInfo.characterCount;
+
         yield return new WaitForSeconds(.5f);
-        char[] letters = sentence.ToCharArray();
-        for (int i = 0; i < letters.Length; i++)
+
+        for (int i = 0; i < totalChars; i++)
         {
-            textbox.text += letters[i];
+            textbox.maxVisibleCharacters++;
             if (i % 4 == 0)
             {
-                source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
+                //source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
                 source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
                 source.PlayOneShot(audioClip);
             }

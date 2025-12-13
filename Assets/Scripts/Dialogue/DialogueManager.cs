@@ -47,8 +47,9 @@ public class DialogueManager : MonoBehaviour
             //load node for speaker
             OptionDialogueNode options = curNode as OptionDialogueNode;
             Dialogue dialogue = options.speaker;
-            
+
             //set panel
+            nameText.enableAutoSizing = true;
             nameText.text = dialogue.name;
             portrait.sprite = dialogue.portrait;
             AlignIcons(dialogue.name);
@@ -182,14 +183,18 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator RenderSentence(string sentence)
     {
-        sentenceText.text = "";
-        char[] letters = sentence.ToCharArray();
-        for (int i = 0; i < letters.Length; i++)
+        sentenceText.enableAutoSizing = true;
+        sentenceText.text = sentence;
+        sentenceText.ForceMeshUpdate();
+        sentenceText.maxVisibleCharacters = 0;
+        int totalChars = sentenceText.textInfo.characterCount;
+
+        for (int i = 0; i < totalChars; i++)
         {
-            sentenceText.text += letters[i];
-            if(i % 4 == 0)
+            sentenceText.maxVisibleCharacters++;
+            if (i % 4 == 0)
             {
-                source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
+                //source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
                 source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
                 source.PlayOneShot(talkingClip);
             }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Supervisor
   portrait: {fileID: 0}
-  talkingClip: {fileID: 0}
+  talkingClip: {fileID: 8300000, guid: d566b5ab807ed734492a463e734262ee, type: 3}
   sentences:
   - The reeducation seems to have been effective.
   - 'Unit 481202 is performing adequately.

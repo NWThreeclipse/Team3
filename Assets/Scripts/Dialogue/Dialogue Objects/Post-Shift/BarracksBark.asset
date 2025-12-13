@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 505153914de717d4db93aa814b8f4bf8, type: 3}
   m_Name: BarracksBark
   m_EditorClassIdentifier: 
-  name: Xanthon
-  portrait: {fileID: 0}
-  talkingClip: {fileID: 0}
+  name: Unit 481202
+  portrait: {fileID: 21300000, guid: 72010e4842bb287478e8d04d58aa80bc, type: 3}
+  talkingClip: {fileID: 8300000, guid: 927ec5809a26ff94e9a9f3b3e95a1736, type: 3}
   sentences:
   - I think this is a model of the ship I'm on. It says "Generation 20". Is that
     how long it has been traveling?

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Xanthon
   portrait: {fileID: 0}
-  talkingClip: {fileID: 0}
+  talkingClip: {fileID: 8300000, guid: 927ec5809a26ff94e9a9f3b3e95a1736, type: 3}
   sentences:
   - This ship looks familiar.
   - Hmm... A Mark 24 Bioscope.  Why do I know that?

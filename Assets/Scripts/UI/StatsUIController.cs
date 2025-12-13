@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatsUIController : MonoBehaviour
 {
@@ -28,10 +29,15 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private AudioClip panelOpen, panelClose;
     [SerializeField] private Vector3 showPanelPos;
     [SerializeField] private Vector3 hidePanelPos;
+
+    [SerializeField] private Vector3 dialogueShowPanelPos;
+    [SerializeField] private Vector3 dialogueHidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
 
     [SerializeField] private float shakeStrength;
     [SerializeField] private MusicController musicController;
+    [SerializeField] private Image dialogueSprite;
+    [SerializeField] private TMP_Text playerName;
 
     private AudioSource source;
 
@@ -49,13 +55,14 @@ public class StatsUIController : MonoBehaviour
         if (StatsController.Instance.GetItems() == 0)
         {
             sortSpeed.text = "0";
-        } else
+        }
+        else
         {
             sortSpeed.text = (150 / StatsController.Instance.GetItems()).ToString();
         }
         //anomalousItems.text = StatsController.Instance.GetAnomalousItems().ToString();
         source = GetComponent<AudioSource>();
-        barkCanvas.SetActive(false);
+        //barkCanvas.SetActive(false);
         //statsCanvas.SetActive(true);
         statsCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad);
 
@@ -63,7 +70,7 @@ public class StatsUIController : MonoBehaviour
 
     public void HideStats()
     {
-        statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => { nextButton.SetActive(false); nextDayButton.SetActive(true); ShowBarks();});
+        statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => { nextButton.SetActive(false); nextDayButton.SetActive(true); ShowBarks(); });
         //statsCanvas.SetActive(false);
         //nextButton.SetActive(false);
         //nextDayButton.SetActive(true);
@@ -112,6 +119,7 @@ public class StatsUIController : MonoBehaviour
 
     public void StartPlayerReflection(int index)
     {
+        gridParent.SetActive(false);
         string chosenDialogue;
 
         if (index == 0)
@@ -133,42 +141,41 @@ public class StatsUIController : MonoBehaviour
         }
         barkText.text = "";
         //StopAllCoroutines();
-        StartCoroutine(RenderSentence(chosenDialogue, barkText, bark.talkingClip, true, barkCanvas));
-        barkCanvas.SetActive(true);
+        barkCanvas.transform.DOLocalMove(dialogueShowPanelPos, panelAnimationTime).OnComplete(() => {StartCoroutine(RenderSentence(chosenDialogue, barkText, bark.name, bark.portrait, bark.talkingClip, barkCanvas));});
 
     }
-    IEnumerator RenderSentence(string sentence, TMP_Text textbox, AudioClip audioClip, bool autoFade, GameObject canvas)
-    {
-        gridParent.SetActive(false);
-        textbox.text = "";
 
-        if (!DOTween.IsTweening(canvas.gameObject))
-        {
-            Vector3 originalPosition = canvas.gameObject.transform.position;
-            canvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, shakeStrength).OnComplete(() => canvas.transform.position = originalPosition);
-        }
+    public void EndDialogue()
+    {
+        barkCanvas.transform.DOLocalMove(dialogueHidePanelPos, panelAnimationTime).OnComplete(() => gridParent.SetActive(true));
+    }
+
+    IEnumerator RenderSentence(string sentence, TMP_Text textbox, string speakerName, Sprite speakerIcon, AudioClip audioClip, GameObject canvas)
+    {
+        playerName.enableAutoSizing = true;
+        playerName.text = speakerName;
+        dialogueSprite.sprite = speakerIcon; 
+        textbox.enableAutoSizing = true;
+        textbox.text = sentence;
+        textbox.ForceMeshUpdate();
+        textbox.maxVisibleCharacters = 0;
+        int totalChars = textbox.textInfo.characterCount;
+
+        
         yield return new WaitForSeconds(.5f);
 
-        char[] letters = sentence.ToCharArray();
-        for (int i = 0; i < letters.Length; i++)
+        for (int i = 0; i < totalChars; i++)
         {
-            textbox.text += letters[i];
+            textbox.maxVisibleCharacters++;
             if (i % 4 == 0)
             {
-                source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
-                source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+                //source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
+                source.pitch = Random.Range(0.8f, 1.2f);
                 source.PlayOneShot(audioClip);
             }
 
             yield return new WaitForSeconds(textSpeed);
         }
 
-        if (autoFade)
-        {
-            yield return new WaitForSeconds(2f);
-            canvas.SetActive(false);
-
-        }
-        gridParent.SetActive(true);
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Skooge
   portrait: {fileID: 0}
-  talkingClip: {fileID: 8300000, guid: 05711e14e9aa33b4397d04a1d59e7fc5, type: 3}
+  talkingClip: {fileID: 8300000, guid: b826b3717496f9640a06f16b9c22197f, type: 3}
   sentences:
   - Thank you thank you!
   - Good good good!

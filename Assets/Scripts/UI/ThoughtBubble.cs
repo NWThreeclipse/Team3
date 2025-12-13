@@ -13,7 +13,6 @@ public class ThoughtBubble : MonoBehaviour
 
     public void InitializeThoughtBubble(int i, Sprite itemSprite, StatsUIController statsUIController, int index)
     {
-       
         musicController = FindAnyObjectByType<MusicController>();
 
         Vector3 currentScale = backgroundBubble.transform.localScale;
