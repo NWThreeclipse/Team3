@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour
             uncommonItems = gameItems.Where(item => item.Rarity == Rarity.Uncommon).ToList();
         }
 
-        Debug.Log(dayCounter);
         DialogueTree tree;
         if (dayCounter <= 2)
         {

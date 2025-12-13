@@ -290,13 +290,15 @@ public class Skooge : MonoBehaviour
         SkoogeQuestSO[] quests = Resources.LoadAll<SkoogeQuestSO>("").Where(quests => quests.day == day).ToArray();
         SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
         questItemsIcons = new GameObject[questData.questItems.Length];
-        
+        Debug.Log("quest item count" + questData.questItems.Length);
         for (int i = 0; i < questData.questItems.Length; i++)
         {
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);
-            itemInstance.transform.SetParent(questCanvas.transform);
-            Image image = itemInstance.GetComponent<Image>();
-            Image iconImage = itemInstance.GetComponentInChildren<Image>();
+            itemInstance.transform.SetParent(questCanvas.transform, false);
+            Image image = itemInstance.transform.GetChild(0).GetComponent<Image>();
+            Image iconImage = itemInstance.transform.GetChild(1).GetComponent<Image>();
+            Debug.Log(questData.questItems[i].name + ": " + questData.questItems[i].Sorting);
+
             if (questData.questItems[i].Rarity == Rarity.Uncommon)
             {
                 if (questData.questItems[i].Sorting == Sorting.Organic)
@@ -312,7 +314,11 @@ public class Skooge : MonoBehaviour
                     iconImage.sprite = sortingIcons[2];
                 }
             }
-            image.sprite = questData.questItems[i].Sprite[0];
+            else
+            {
+                iconImage.enabled = false;
+            }
+                image.sprite = questData.questItems[i].Sprite[0];
             questItemsIcons[i] = itemInstance;
         }
         

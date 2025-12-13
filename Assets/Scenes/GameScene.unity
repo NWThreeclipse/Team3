@@ -4650,7 +4650,7 @@ MonoBehaviour:
   shakeStrength: 0.01
   uiShakeStrength: 30
   questCanvas: {fileID: 1028662653}
-  questItemPrefab: {fileID: 7998186368877099179, guid: 03168d30d759bba418d8a6c10cd33333, type: 3}
+  questItemPrefab: {fileID: 7639113703829151185, guid: 3b2cd8f25f05adb408321b0a5d2812d0, type: 3}
   barkManager: {fileID: 1698692891}
   enteredItem: {fileID: 0}
   isHoldingItem: 0
@@ -10288,10 +10288,10 @@ MonoBehaviour:
   m_Padding:
     m_Left: 50
     m_Right: 0
-    m_Top: 5
-    m_Bottom: 5
+    m_Top: 0
+    m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 5
+  m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
