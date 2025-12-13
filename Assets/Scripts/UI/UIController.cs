@@ -22,7 +22,7 @@ public class UIController : MonoBehaviour
             suspicionSlider.gameObject.SetActive(false);
             sus = false;
         }
-        dayText.text = day.ToString();
+        dayText.text = (day + 1).ToString();
     }
 
     private void FixedUpdate()

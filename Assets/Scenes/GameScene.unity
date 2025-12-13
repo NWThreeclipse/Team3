@@ -3785,7 +3785,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 116eba4c1245e7944af26a2d673e703f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.067
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5634,7 +5634,7 @@ MonoBehaviour:
   showPanelPos: {x: 0, y: -271, z: 0}
   hidePanelPos: {x: 0, y: -998, z: 0}
   panelAnimationTime: 1
-  textSpeed: 0.01
+  textSpeed: 0.016
 --- !u!4 &594326582
 Transform:
   m_ObjectHideFlags: 0
@@ -9228,19 +9228,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Thermal Reader
-
-
-    1. Place the object to read on the external plate
-    before powering on the device.
-
-
-    2. Adjust the controls to match the frequency
-    and amplitude.
-
-
-    3. When they are in phase, the temperature will be displayed
-    in Centiflops'
+  m_text: "Thermal Reader\n\nMatch the infrared waves to read the internal temperature
+    of the object. \n\nExtreme temperatures (high and low) are more likely to be
+    fuel sources. \n\nOrganic materials are often around 30 degrees."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ea68a7a3ac0f5e4f9adf84a930062be, type: 2}
   m_sharedMaterial: {fileID: -1848674671872764031, guid: 4ea68a7a3ac0f5e4f9adf84a930062be, type: 2}
@@ -11324,7 +11314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 65}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186798598
@@ -11347,11 +11337,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Magnetic Resonance Comparator\n\n1. Place the item to be measured on the
-    MRC\u2019s sensor plate.\n\n2. Power on the device by activating the red button.\n\n3.
-    Adjust the control to vary the strength of the magnetic generator, and observe
-    the item\u2019s response.\n\n4. An item that moves to the top of the display
-    is highly magnetic; one that remains at the bottom is non-magnetic."
+  m_text: "Magnetic Resonance Comparator\n\nObserve how the object reacts to increasing
+    the strength of the magnet. \n\nThe higher you must slide the magnet without
+    seeing a reaction, the weaker the magnetism of the object. \n\nHigh magnetism
+    is more likely to be scrap."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4ea68a7a3ac0f5e4f9adf84a930062be, type: 2}
   m_sharedMaterial: {fileID: -1848674671872764031, guid: 4ea68a7a3ac0f5e4f9adf84a930062be, type: 2}
@@ -16347,7 +16336,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skoogeBarkCanvas: {fileID: 945923808}
   skoogeText: {fileID: 917622109}
-  textSpeed: 0.01
+  textSpeed: 0.016
   skoogeDialogue: {fileID: 11400000, guid: 0c56fd7a238569148a9c43afebbba121, type: 2}
   playerBarkCanvas: {fileID: 1866607447}
   playerText: {fileID: 1210570749}
@@ -16358,6 +16347,7 @@ MonoBehaviour:
   rightSupervisorText: {fileID: 1601155729}
   supervisorDialogue: {fileID: 11400000, guid: fa2bac31269cc264a9d90dc80040efb1, type: 2}
   shakeStrength: 30
+  vol: 0.02
 --- !u!1 &1709507780
 GameObject:
   m_ObjectHideFlags: 0
