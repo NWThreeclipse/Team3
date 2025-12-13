@@ -5518,11 +5518,7 @@ MonoBehaviour:
   incorrectSorted: 0
   anomalousItemsRecieved: 0
   rebellionScore: 0
-  anomalousItems:
-  - Bloodied Microscope
-  - Infected Severed Arm
-  - Model Spaceship
-  - Plague Distribution Device
+  anomalousItems: []
 --- !u!4 &1394290819
 Transform:
   m_ObjectHideFlags: 0
