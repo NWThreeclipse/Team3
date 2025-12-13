@@ -137,6 +137,10 @@ public class StatsUIController : MonoBehaviour
                 anomalousItemImage.sprite = anomalousItemSprites[i];
             }
         }
+        Color currentColor = anomalousItemImage.color;
+        currentColor.a = 0;
+        anomalousItemImage.color = currentColor; 
+        
         anomalousItemImage.enabled = true;
 
         barkText.text = "";
@@ -147,7 +151,6 @@ public class StatsUIController : MonoBehaviour
 
     public void EndDialogue()
     {
-        anomalousItemImage.enabled = false;
         StopAllCoroutines();
         barkCanvas.transform.DOLocalMove(dialogueHidePanelPos, panelAnimationTime).OnComplete(() => {fadeOutCoroutine = StartCoroutine(FadeOutVignette()); gridParent.SetActive(true); });
     }
@@ -188,17 +191,27 @@ public class StatsUIController : MonoBehaviour
         float fadeDuration = 1f;
         float startIntensity = vignette.intensity.value;
         float timeElapsed = 0f;
+        float startAlpha = anomalousItemImage.color.a;
+
 
         while (timeElapsed < fadeDuration)
         {
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, timeElapsed / fadeDuration);
+            
+            Color currentColor = anomalousItemImage.color;
+            currentColor.a = Mathf.Lerp(startAlpha, 1f, timeElapsed / fadeDuration);
+            anomalousItemImage.color = currentColor;
+            
             yield return null;
         }
 
         vignette.intensity.value = targetIntensity;
 
-        
+        Color finalColor = anomalousItemImage.color;
+        finalColor.a = 1f;
+        anomalousItemImage.color = finalColor;
+
     }
 
     private IEnumerator FadeOutVignette()
@@ -206,6 +219,8 @@ public class StatsUIController : MonoBehaviour
         float targetIntensity = vignette.intensity.value;
         float fadeDuration = 1f;
         float timeElapsed = 0f;
+        float startAlpha = anomalousItemImage.color.a;
+
 
         timeElapsed = 0f;
         while (timeElapsed < fadeDuration)
@@ -213,9 +228,18 @@ public class StatsUIController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(targetIntensity, 0f, timeElapsed / fadeDuration);
 
+            Color currentColor = anomalousItemImage.color;
+            currentColor.a = Mathf.Lerp(startAlpha, 0f, timeElapsed / fadeDuration);
+            anomalousItemImage.color = currentColor;
+
             yield return null;
         }
+
         vignette.intensity.value = 0f;
+        Color finalColor = anomalousItemImage.color;
+        finalColor.a = 0f;
+        anomalousItemImage.color = finalColor;
+        anomalousItemImage.enabled = false;
 
     }
 
