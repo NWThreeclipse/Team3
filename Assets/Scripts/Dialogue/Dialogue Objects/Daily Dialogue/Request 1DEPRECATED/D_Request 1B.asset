@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: D_Request 1B
   m_EditorClassIdentifier: 
   name: Skooge
-  portrait: {fileID: 0}
-  talkingClip: {fileID: 8300000, guid: 05711e14e9aa33b4397d04a1d59e7fc5, type: 3}
+  portrait: {fileID: 21300000, guid: 55f40fc17fcd1314eb8bb987db046e90, type: 3}
+  talkingClip: {fileID: 8300000, guid: b826b3717496f9640a06f16b9c22197f, type: 3}
   sentences:
   - 'Good good good!  First things we need need is a gas canister, an antimatter
     cell, and one of those pretty plants with a fleshy part.  When you find them, 
