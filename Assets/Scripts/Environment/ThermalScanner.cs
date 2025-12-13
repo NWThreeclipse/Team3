@@ -50,6 +50,8 @@ public class ThermalScanner : DragZone
     private bool helpCanvasEnabled = false;
     [SerializeField] private Magnometer magnometer;
 
+    private bool hasWon = false;
+
     public bool GetPlaying() => isPlaying;
     protected override void OnTriggerExit2D(Collider2D collision)
     {
@@ -76,7 +78,7 @@ public class ThermalScanner : DragZone
             {
                 item.SetInteractive(false);
 
-            } 
+            }
             else
             {
                 item.SetInteractive(true);
@@ -91,15 +93,16 @@ public class ThermalScanner : DragZone
             CheckWin();
 
         }
-        
+
     }
 
     public void CheckWin()
     {
-        if(IsHoldingItem())
+        if (IsHoldingItem() && !hasWon)
         {
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
+                hasWon = true;
                 temperatureSlider.value = Mathf.Lerp(temperatureSlider.value, GetItem().TemperatureC >= 190 ? GetItem().TemperatureC : GetItem().TemperatureC + 10, .1f);
                 amplitudeSlider.interactable = false;
                 frequencySlider.interactable = false;
@@ -111,7 +114,7 @@ public class ThermalScanner : DragZone
 
     public void Draw(LineRenderer line, float amp, float freq)
     {
-        for(int i = 0; i < points; i++)
+        for (int i = 0; i < points; i++)
         {
             float progress = (float)i / (points - 1);
             float x = Mathf.Lerp(xLimits.x, xLimits.y, progress);
@@ -126,7 +129,7 @@ public class ThermalScanner : DragZone
         {
             return;
         }
-        if(IsHoldingItem())
+        if (IsHoldingItem())
         {
             minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime);
 
@@ -173,9 +176,10 @@ public class ThermalScanner : DragZone
 
     }
 
-    
+
     public void ResetMiniGame()
     {
+        hasWon = false;
         playerAmplitude = 1f;
         playerFrequency = 1f;
         amplitudeSlider.value = 1f;

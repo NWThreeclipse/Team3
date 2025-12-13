@@ -35,13 +35,57 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: -5668743378044922611}
+        node: {fileID: -7842031074796387931}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
   sentence: {fileID: 11400000, guid: fff1b308cc10b6441aed4314388d0bde, type: 2}
+  prevNode: {fileID: 0}
+  nextNode: {fileID: 0}
+--- !u!114 &-7842031074796387931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecd7cae5c0b19d14f93c2daa228cd02a, type: 3}
+  m_Name: Simple Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2092.6335, y: 303.54987}
+  ports:
+    keys:
+    - prevNode
+    - nextNode
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: -7842031074796387931}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: nextNode
+        node: {fileID: -8718594257624777207}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: nextNode
+      _node: {fileID: -7842031074796387931}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: prevNode
+        node: {fileID: -5668743378044922611}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  sentence: {fileID: 11400000, guid: a77f4da534b936e4e8f103241505ca60, type: 2}
   prevNode: {fileID: 0}
   nextNode: {fileID: 0}
 --- !u!114 &-6630047827687610086
@@ -145,7 +189,7 @@ MonoBehaviour:
   m_Name: Dialogue Control
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 1880, y: 24}
+  position: {x: 2408, y: 312}
   ports:
     keys:
     - prevNode
@@ -155,7 +199,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: nextNode
-        node: {fileID: -8718594257624777207}
+        node: {fileID: -7842031074796387931}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -222,3 +266,4 @@ MonoBehaviour:
   - {fileID: -6517371467369493766}
   - {fileID: -6630047827687610086}
   - {fileID: -8718594257624777207}
+  - {fileID: -7842031074796387931}

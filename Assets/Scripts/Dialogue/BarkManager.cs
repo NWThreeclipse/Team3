@@ -7,7 +7,7 @@ public class BarkManager : MonoBehaviour
 {
     [SerializeField] private GameObject skoogeBarkCanvas;
     [SerializeField] private TMP_Text skoogeText;
-    [SerializeField] private float textSpeed = 0.01f;
+    [SerializeField] private float textSpeed = 0.016f;
     [SerializeField] private Dialogue skoogeDialogue;
 
     [SerializeField] private GameObject playerBarkCanvas;
@@ -20,6 +20,7 @@ public class BarkManager : MonoBehaviour
     [SerializeField] private TMP_Text rightSupervisorText;
     [SerializeField] private Dialogue supervisorDialogue;
     [SerializeField] private float shakeStrength = 0.05f;
+    [SerializeField] private float vol = 0.03f;
 
 
 
@@ -104,9 +105,9 @@ public class BarkManager : MonoBehaviour
             textbox.maxVisibleCharacters++;
             if (i % 4 == 0)
             {
-                //source.volume = UnityEngine.Random.Range(0.5f, 1.0f);
+
                 source.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
-                source.PlayOneShot(audioClip);
+                source.PlayOneShot(audioClip, vol);
             }
 
             yield return new WaitForSeconds(textSpeed);

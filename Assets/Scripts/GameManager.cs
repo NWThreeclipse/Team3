@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
     public int GetDay() => dayCounter;
 
     public float GetSuspicionStat() => suspicionStat;
-   
+
 
 
     private void Start()
@@ -135,10 +135,10 @@ public class GameManager : MonoBehaviour
         //{
 
         //    if (tree == null || tree.nodes == null || tree.nodes.Count == 0 || tree.nodes[0] == null)
-         //   {
-          //      Debug.LogError("DialogueTree for day " + dayCounter + " is missing a root node!");
-         //       return;
-         //   }
+        //   {
+        //      Debug.LogError("DialogueTree for day " + dayCounter + " is missing a root node!");
+        //       return;
+        //   }
 
 
         //}
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnItem());
         StartCoroutine(SpawnTrash());
         conveyorBelt.ToggleBelt();
-       
+
 
     }
     private void HandleDialogueEnd(DialogueManager dialogueManager)
@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
         {
             ItemSO itemData;
 
-            if (dayCounter > 1)
+            if (dayCounter > 0)
             {
                 // check to spawn a quest item (must spawn item)
                 bool spawnQuestItem = dayCounter >= 3 && mustSpawnItems.Length > 0 && UnityEngine.Random.value <= 0.2f;
@@ -306,7 +306,7 @@ public class GameManager : MonoBehaviour
             Trash trash = trashInstance.GetComponent<Trash>();
             trash.SetSprite(trashSprites[randomIndex]);
             conveyorBelt.AddItem(trashInstance);
-            AudioController.PlayItemSpawn();
+            //AudioController.PlayItemSpawn();
             yield return new WaitForSeconds(UnityEngine.Random.Range(trashSpawnrate.x, trashSpawnrate.y));
         }
     }
@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
                     AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
                     scenefader.FadeToScene("NarrativeWinScene");
                     return;
-                } 
+                }
                 else
                 {
                     isCountingDown = false;
@@ -333,7 +333,7 @@ public class GameManager : MonoBehaviour
                     musicController.FadeOutMusic();
                     scenefader.FadeToScene("NarrativeLossScene");
                 }
-                    
+
             }
             else if (timer <= 0f)
             {
@@ -571,7 +571,7 @@ public class GameManager : MonoBehaviour
         GameObject pointsGO;
         if (bin == Sorting.Organic) //organic
         {
-          pointsGO = Instantiate(textPrefab, organicText);
+            pointsGO = Instantiate(textPrefab, organicText);
         }
         else if (bin == Sorting.Fuel) //fuel
         {
