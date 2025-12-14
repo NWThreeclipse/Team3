@@ -15,6 +15,7 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private TMP_Text correctItems;
     [SerializeField] private TMP_Text incorrectItems;
     [SerializeField] private TMP_Text sortSpeed;
+    [SerializeField] private TMP_Text dayText;
     [SerializeField] private Image anomalousItemImage;
     [SerializeField] private Sprite[] anomalousItemSprites;
     [SerializeField] private GameObject bubblePrefab;
@@ -56,9 +57,11 @@ public class StatsUIController : MonoBehaviour
     }
     private void Start()
     {
+        dayText.text = StatsController.Instance.GetDays().ToString();
         totalItems.text = StatsController.Instance.GetItems().ToString();
         correctItems.text = StatsController.Instance.GetCorrectItems().ToString();
         incorrectItems.text = StatsController.Instance.GetIncorrectItems().ToString();
+
         if (StatsController.Instance.GetItems() == 0)
         {
             sortSpeed.text = "0";

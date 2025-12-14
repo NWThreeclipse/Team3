@@ -106,7 +106,14 @@ public class StatsController : MonoBehaviour
         anomalousItemsRecieved = 0;
         rebellionScore = 0;
         anomalousItems.Clear();
+    }
 
+    public void ResetDailyStats()
+    {
+        itemsSorted = 0;
+        correctSorted = 0;
+        incorrectSorted = 0;
+        anomalousItemsRecieved = 0;
     }
 
     public void SetDay(float day)

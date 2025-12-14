@@ -44,8 +44,8 @@ public class BarkManager : MonoBehaviour
         string chosenText = skoogeDialogue.sentences[Random.Range(0, skoogeDialogue.sentences.Length)];
         skoogeText.text = "";
         //StopAllCoroutines();
-        StartCoroutine(RenderSentence(chosenText, skoogeText, skoogeDialogue.talkingClip, true, skoogeBarkCanvas));
         skoogeBarkCanvas.SetActive(true);
+        StartCoroutine(RenderSentence(chosenText, skoogeText, skoogeDialogue.talkingClip, true, skoogeBarkCanvas));
     }
 
     public void StartPlayerBark()
