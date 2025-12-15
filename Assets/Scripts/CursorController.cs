@@ -23,6 +23,10 @@ public class CursorController : MonoBehaviour
 
         Cursor.SetCursor(defaultCursorTexture, clickPosition, CursorMode.Auto);
     }
+    private void Start()
+    {
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+    }
 
     private void Update()
     {
