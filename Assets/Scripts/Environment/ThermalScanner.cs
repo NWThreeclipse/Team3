@@ -28,7 +28,7 @@ public class ThermalScanner : DragZone
 
     [SerializeField] private float amplitudeWinThreshold;
     [SerializeField] private float frequencyWinThreshold;
-    [SerializeField] private Slider temperatureSlider;
+    [SerializeField] private Image temperatureImage;
 
     private const float TAU = 2 * Mathf.PI;
 
@@ -64,9 +64,14 @@ public class ThermalScanner : DragZone
         goalLine.positionCount = points;
         playerLine.positionCount = points;
         ResetMiniGame();
-        temperatureSlider.value = -273;
+        temperatureImage.fillAmount = NormalizeTemp(-273f);
         //helpCanvas.SetActive(false);
 
+    }
+
+    private float NormalizeTemp(float temp)
+    {
+        return Mathf.InverseLerp(-273f, 200f, temp);
     }
 
     private void Update()
@@ -103,12 +108,15 @@ public class ThermalScanner : DragZone
             if (Mathf.Abs(playerAmplitude - goalAmplitude) < amplitudeWinThreshold && Mathf.Abs(playerFrequency - goalFrequency) < frequencyWinThreshold)
             {
                 hasWon = true;
-                temperatureSlider.value = Mathf.Lerp(temperatureSlider.value, GetItem().TemperatureC >= 190 ? GetItem().TemperatureC : GetItem().TemperatureC + 10, .1f);
                 amplitudeSlider.interactable = false;
                 frequencySlider.interactable = false;
                 minigameSFX.Stop();
                 minigameWinSFX.Play();
             }
+        }
+        if (hasWon)
+        { 
+            temperatureImage.fillAmount = Mathf.Lerp(temperatureImage.fillAmount, NormalizeTemp(GetItem().TemperatureC), 1f * Time.deltaTime);
         }
     }
 
@@ -136,7 +144,7 @@ public class ThermalScanner : DragZone
             //minigameCanvas.SetActive(true);
             isPlaying = true;
             SetGoalValues();
-            temperatureSlider.value = -273;
+            temperatureImage.fillAmount = NormalizeTemp(-273f);
             amplitudeSlider.interactable = true;
             frequencySlider.interactable = true;
             minigameSFX.Play();
@@ -165,7 +173,7 @@ public class ThermalScanner : DragZone
         }
         isPlaying = false;
         ResetMiniGame();
-        temperatureSlider.value = -273;
+        temperatureImage.fillAmount = NormalizeTemp(-273f);
         minigameSFX.Stop();
         if (helpCanvasEnabled)
         {
@@ -184,7 +192,7 @@ public class ThermalScanner : DragZone
         playerFrequency = 1f;
         amplitudeSlider.value = 1f;
         frequencySlider.value = 1f;
-        temperatureSlider.value = -273f;
+        temperatureImage.fillAmount = NormalizeTemp(-273f);
         amplitudeSlider.interactable = true;
         frequencySlider.interactable = true;
         SetGoalValues();

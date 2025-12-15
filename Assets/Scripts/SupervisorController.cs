@@ -38,7 +38,7 @@ public class SupervisorController : MonoBehaviour
 
         if (currentDay <= 1)
         {
-            supervisor.SetActive(false);
+            //supervisor.SetActive(false);
             gameObject.SetActive(false);
             return;
         }
