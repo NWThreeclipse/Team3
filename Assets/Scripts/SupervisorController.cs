@@ -42,6 +42,10 @@ public class SupervisorController : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
+        else if (currentDay >= 4)
+        {
+            supervisor.transform.position = startEndPoints[0].position;
+        }
 
         GenerateSpawnTimes(currentDay);
         isDangerousDay = currentDay >= 3;

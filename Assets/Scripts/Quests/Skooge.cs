@@ -49,6 +49,25 @@ public class Skooge : MonoBehaviour
         return stats;
     }
 
+    public void PlayOpenVent()
+    {
+        spriteRenderer.enabled = true;
+        audioSource.PlayOneShot(openClip);
+        if (!DOTween.IsTweening(this))
+        {
+            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
+        }
+    }
+    public void PlayCloseVent()
+    {
+        audioSource.PlayOneShot(closeClip);
+        if (!DOTween.IsTweening(this))
+        {
+            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => { transform.DOMove(originalPosition, 0.1f); spriteRenderer.enabled = false; });
+        }
+
+    }
+
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (currentQuest.IsComplete())
@@ -70,12 +89,7 @@ public class Skooge : MonoBehaviour
                 draggable.OnReleased += HandleItemRelease;
             }
         }
-        spriteRenderer.enabled = true;
-        audioSource.PlayOneShot(openClip);
-        if (!DOTween.IsTweening(gameObject))
-        {
-            transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
-        }
+        PlayOpenVent();
 
         isHoveringItem = true;
     }
@@ -122,12 +136,7 @@ public class Skooge : MonoBehaviour
                 draggable.OnReleased -= HandleItemRelease;
             }
 
-            spriteRenderer.enabled = false;
-            audioSource.PlayOneShot(closeClip);
-            if (!DOTween.IsTweening(gameObject))
-            {
-                transform.DOShakePosition(shakeStrength, 0.1f).OnComplete(() => transform.DOMove(originalPosition, 0.1f));
-            }
+            PlayCloseVent();
 
             enteredItem = null;
             isHoldingItem = false;
@@ -243,8 +252,8 @@ public class Skooge : MonoBehaviour
         day = StatsController.Instance.GetDays();
         if (day < 3)
         {
-            gameObject.SetActive(false);
             questCanvas.SetActive(false);
+            gameObject.SetActive(false);
         }
         startLever.OnGameStart += HandleGameStart;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -290,14 +299,12 @@ public class Skooge : MonoBehaviour
         SkoogeQuestSO[] quests = Resources.LoadAll<SkoogeQuestSO>("").Where(quests => quests.day == day).ToArray();
         SkoogeQuestSO questData = quests[UnityEngine.Random.Range(0, quests.Length)];
         questItemsIcons = new GameObject[questData.questItems.Length];
-        Debug.Log("quest item count" + questData.questItems.Length);
         for (int i = 0; i < questData.questItems.Length; i++)
         {
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);
             itemInstance.transform.SetParent(questCanvas.transform, false);
             Image image = itemInstance.transform.GetChild(0).GetComponent<Image>();
             Image iconImage = itemInstance.transform.GetChild(1).GetComponent<Image>();
-            Debug.Log(questData.questItems[i].name + ": " + questData.questItems[i].Sorting);
 
             if (questData.questItems[i].Rarity == Rarity.Uncommon)
             {

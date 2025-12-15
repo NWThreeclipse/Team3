@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 996e6cd0690be6e4d96e72b538280422, type: 3}
-  m_Name: Dialogue Control
+  m_Name: SkoogeExit
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 4579.5337, y: 349.33997}
@@ -284,10 +284,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b17c899a39999b44b73cc097ff9a196, type: 3}
-  m_Name: Option Dialogue
+  m_Name: SkoogeEnter
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 2879.3713, y: 77.779465}
+  position: {x: 2872, y: 72}
   ports:
     keys:
     - prevNode

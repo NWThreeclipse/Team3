@@ -12,7 +12,6 @@ public class MusicController : MonoBehaviour
     [SerializeField] private AudioMixer musicMixer;
     [SerializeField] private string musicParam = "MasterVolume";
 
-    private float previousVolumeDb;
     IEnumerator FadeIn(float duration)
     {
         musicMixer.SetFloat(musicParam, 0f);
@@ -64,6 +63,12 @@ public class MusicController : MonoBehaviour
     {
         return value <= 0.0001f ? -80f : Mathf.Log10(value) * 20f;
     }
+    private float GetNormalMusicDb()
+    {
+        float linear = PlayerPrefs.GetFloat(musicParam, 1f);
+        return LinearToDb(linear);
+    }
+
 
     IEnumerator FadeTo(float targetDb, float duration)
     {
@@ -82,16 +87,20 @@ public class MusicController : MonoBehaviour
     }
     public void FadeToPausedVolume()
     {
-        musicMixer.GetFloat(musicParam, out previousVolumeDb);
+        float normalLinear = PlayerPrefs.GetFloat(musicParam, 1f);
+        float pausedLinear = normalLinear * 0.15f;
 
-        float pausedDb = LinearToDb(0.15f);
+        float pausedDb = LinearToDb(pausedLinear);
         StartCoroutine(FadeTo(pausedDb, fadeDuration));
     }
 
+
     public void FadeBackToNormal()
     {
-        StartCoroutine(FadeTo(previousVolumeDb, fadeDuration));
+        float normalDb = GetNormalMusicDb();
+        StartCoroutine(FadeTo(normalDb, fadeDuration));
     }
+
 
     public void FadeOutMusic()
     {

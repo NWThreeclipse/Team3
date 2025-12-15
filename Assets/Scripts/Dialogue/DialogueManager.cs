@@ -22,6 +22,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
     [SerializeField] private float textSpeed = 0.01f;
+    [SerializeField] private Skooge skooge;
+    [SerializeField] private GameObject supervisor;
+    [SerializeField] private Transform[] showHidePositions;
 
     Node curNode;
     Queue<string> sentences = new Queue<string>();
@@ -30,6 +33,18 @@ public class DialogueManager : MonoBehaviour
 
     public event Action<DialogueManager> OnDialogueEnd;
 
+
+    private void ShowSupervisor()
+    {
+        supervisor.SetActive(true);
+        supervisor.transform.DOMove(showHidePositions[0].position, 2f);
+    }
+
+    private void HideSupervisor()
+    {
+        supervisor.SetActive(true);
+        supervisor.transform.DOMove(showHidePositions[1].position, 5f);
+    }
 
     void Start()
     {
@@ -41,6 +56,22 @@ public class DialogueManager : MonoBehaviour
         //source.PlayOneShot(panelOpen);
         StopAllCoroutines();
         curNode = rootNode;
+        if(curNode.name == "SupervisorEnter")
+        {
+            ShowSupervisor();
+        }
+        else if (curNode.name == "SupervisorExit")
+        {
+            HideSupervisor();
+        }
+        else if (curNode.name == "SkoogeEnter")
+        {
+            skooge.PlayOpenVent();
+        }
+        else if (curNode.name == "SkoogeExit")
+        {
+            skooge.PlayCloseVent();
+        }
         //option node
         if (curNode.GetType() == typeof(OptionDialogueNode))
         {
@@ -115,7 +146,7 @@ public class DialogueManager : MonoBehaviour
         {
             //load node for speaker
             DialogueControlNode control = curNode as DialogueControlNode;
-            
+
             if (control.dialogueControl == DialogueControlNode.option.endDialogue)
             {
                 EndDialogue();
