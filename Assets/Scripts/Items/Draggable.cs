@@ -31,10 +31,10 @@ public class Draggable : MonoBehaviour
         {
             return;
         }
+
         //check if playing game
         offset = gameObject.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
         held = true;
-        //maybe custom sounds for anomalous items (if itemdata.pickupsound != null) play that, else play pickupsound
         AudioController.PlayPickupSound();
         pickupPosition = transform.position;
     }
@@ -52,7 +52,7 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseUp()
     {
-        if (!held)
+        if (!held || IsResetting)
         {
             return;
         }
@@ -67,16 +67,13 @@ public class Draggable : MonoBehaviour
 
     public void ResetPosition()
     {
-        //SpriteRenderer spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
-        //int prevLayerID = spriteRenderer.sortingLayerID;
-        //spriteRenderer.sortingLayerID = SortingLayer.NameToID("Held");
+
         isInteractible = false;
         IsResetting = true;
 
 
         transform.DOLocalMove(pickupPosition, 0.5f).SetEase(Ease.OutQuad).OnComplete(() =>
             {
-                //spriteRenderer.sortingLayerID = prevLayerID;
                 isInteractible = true;
                 IsResetting = false;
                 DetectZoneAfterReset();
@@ -96,7 +93,6 @@ public class Draggable : MonoBehaviour
             }
         }
     }
-
 
 
     private void CollisionDetection()

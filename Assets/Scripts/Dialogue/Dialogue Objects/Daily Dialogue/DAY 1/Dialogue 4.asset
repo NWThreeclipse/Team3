@@ -16,5 +16,5 @@ MonoBehaviour:
   portrait: {fileID: 21300000, guid: 9c418ac197af73844aa2c7361fe49bca, type: 3}
   talkingClip: {fileID: 8300000, guid: d566b5ab807ed734492a463e734262ee, type: 3}
   sentences:
-  - 'One last thing... Be meticulous. Some items are not what they appear to be,
-    even if you have seen them before. '
+  - 'Be meticulous. Some items are not what they appear to be, even if you have seen
+    them before. '
