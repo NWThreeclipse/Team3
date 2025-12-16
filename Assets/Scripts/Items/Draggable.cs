@@ -27,8 +27,7 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseDown()
     {
-
-        if (!isInteractible || IsResetting)
+        if (!isInteractible)
         {
             return;
         }
@@ -42,7 +41,7 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseDrag()
     {
-        if (!isInteractible || IsResetting || !held)
+        if (!isInteractible || !held)
         {
             return;
         }
