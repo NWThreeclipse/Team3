@@ -27,7 +27,7 @@ public class Draggable : MonoBehaviour
 
     protected void OnMouseDown()
     {
-        if (!isInteractible)
+        if (!isInteractible || GameManager.isMinigameOpen())
         {
             return;
         }

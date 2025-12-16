@@ -108,7 +108,7 @@ public class Item : Draggable
 
     private void OnMouseDown()
     {
-        if (!isInteractible)
+        if (!isInteractible || GameManager.isMinigameOpen())
         {
             return;
         }

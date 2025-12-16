@@ -40,7 +40,16 @@ public class GameManager : MonoBehaviour
     public event Action<GameManager> AlarmThreshold;
     private bool alarmTriggered = false;
 
+    protected bool minigameOpen = false;
 
+    public static bool isMinigameOpen()
+    {
+        return FindFirstObjectByType<GameManager>().minigameOpen;
+    }
+    public static void setMinigameOpen(bool setValue)
+    {
+        FindFirstObjectByType<GameManager>().minigameOpen = setValue;
+    }
 
     [SerializeField] private List<Sprite> trashSprites;
     [SerializeField] private GameObject trashPrefab;

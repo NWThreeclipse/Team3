@@ -274,6 +274,7 @@ public class Magnometer : DragZone
         {
             minigameCanvas.transform.DOLocalMove(showPanelPos, panelAnimationTime).SetEase(Ease.OutQuad);
             isPlaying = true;
+            GameManager.setMinigameOpen(true);
             SetGoalValues();
             ResetMiniGame();
 
@@ -299,6 +300,7 @@ public class Magnometer : DragZone
             Debug.Log("Minigame canvas being weird");
         }
         isPlaying = false;
+        GameManager.setMinigameOpen(false);
         ResetMiniGame();
         minigameSFX.Stop();
         if (helpCanvasEnabled)

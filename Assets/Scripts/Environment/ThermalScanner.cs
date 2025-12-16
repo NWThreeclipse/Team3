@@ -143,6 +143,7 @@ public class ThermalScanner : DragZone
 
             //minigameCanvas.SetActive(true);
             isPlaying = true;
+            GameManager.setMinigameOpen(true);
             SetGoalValues();
             temperatureImage.fillAmount = NormalizeTemp(-273f);
             amplitudeSlider.interactable = true;
@@ -171,6 +172,7 @@ public class ThermalScanner : DragZone
         {
             Debug.Log("Minigame canvas being weird");
         }
+        GameManager.setMinigameOpen(false);
         isPlaying = false;
         ResetMiniGame();
         temperatureImage.fillAmount = NormalizeTemp(-273f);
