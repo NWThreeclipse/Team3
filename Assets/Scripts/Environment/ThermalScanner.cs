@@ -115,8 +115,8 @@ public class ThermalScanner : DragZone
             }
         }
         if (hasWon)
-        { 
-            temperatureImage.fillAmount = Mathf.Lerp(temperatureImage.fillAmount, NormalizeTemp(GetItem().TemperatureC), 1f * Time.deltaTime);
+        {
+            temperatureImage.fillAmount = Mathf.Lerp(temperatureImage.fillAmount, NormalizeTemp(GetItem().TemperatureC), 1.5f * Time.deltaTime);
         }
     }
 
