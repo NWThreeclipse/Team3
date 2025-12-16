@@ -90,6 +90,27 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject textPrefab;
 
+    [System.Serializable]
+    public struct DayDifficulty
+    {
+        public float beltSpeed;
+        public float minSpawnRate;
+        public float maxSpawnRate;
+
+        public float depleteRate;
+    }
+
+    [SerializeField]
+    private DayDifficulty[] difficultyPerDay = new DayDifficulty[]
+    {
+    new DayDifficulty { beltSpeed = 1.2f, minSpawnRate = 4f, maxSpawnRate = 8f, depleteRate = 0.4f }, // day 0
+    new DayDifficulty { beltSpeed = 1.2f, minSpawnRate = 4f, maxSpawnRate = 8f, depleteRate = 0.4f }, // day 1
+    new DayDifficulty { beltSpeed = 1.3f, minSpawnRate = 3f, maxSpawnRate = 7f, depleteRate = 0.45f }, // day 2
+    new DayDifficulty { beltSpeed = 1.3f, minSpawnRate = 3f, maxSpawnRate = 7f, depleteRate = 0.45f }, // day 3
+    new DayDifficulty { beltSpeed = 1.4f, minSpawnRate = 2f, maxSpawnRate = 6f, depleteRate = 0.5f }, // day 4
+    new DayDifficulty { beltSpeed = 1.4f, minSpawnRate = 2f, maxSpawnRate = 6f, depleteRate = 0.5f }  // day 5
+    };
+
     public float GetTime() => timer;
     public int GetDay() => dayCounter;
 
@@ -147,11 +168,10 @@ public class GameManager : MonoBehaviour
         //    HandleDialogueEnd(dialogueManager);
         //}
 
+        ApplyDayDifficulty();
         ResetItemTypeWeights();
         conveyorBelt.ToggleBelt();
     }
-
-
 
 
     private void Update()
@@ -267,10 +287,16 @@ public class GameManager : MonoBehaviour
             else
             {
                 //day 1 only spawns commons
-                int randomIndex = UnityEngine.Random.Range(0, commonItems.Count);
-                itemData = commonItems[randomIndex];
+                Sorting chosenType = GetWeightedItemType();
+
+                List<ItemSO> filtered = commonItems.Where(i => i.Sorting == chosenType).ToList();
+                itemData = filtered[UnityEngine.Random.Range(0, filtered.Count)];
+
+                AdjustWeights(chosenType);
             }
+
             itemsSpawnedToday++;
+
             if (anom)
             {
                 anom = false;
@@ -619,4 +645,16 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    private void ApplyDayDifficulty()
+    {
+        DayDifficulty difficulty = difficultyPerDay[dayCounter];
+
+        conveyorBelt.SetSpeed(difficulty.beltSpeed.ToString());
+        itemSpawnrate = new Vector2(difficulty.minSpawnRate, difficulty.maxSpawnRate);
+        organicDepleteRate = difficulty.depleteRate;
+        fuelDepleteRate = difficulty.depleteRate;
+        scrapDepleteRate = difficulty.depleteRate;
+    }
+
 }

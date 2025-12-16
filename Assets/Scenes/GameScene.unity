@@ -4997,6 +4997,31 @@ MonoBehaviour:
   fuelText: {fileID: 376802497}
   scrapText: {fileID: 1004946155}
   textPrefab: {fileID: 1386233631926831450, guid: 16b60e0f67939a849ab619b250fdcd0e, type: 3}
+  difficultyPerDay:
+  - beltSpeed: 1.2
+    minSpawnRate: 4
+    maxSpawnRate: 8
+    depleteRate: 0.4
+  - beltSpeed: 1.2
+    minSpawnRate: 4
+    maxSpawnRate: 8
+    depleteRate: 0.4
+  - beltSpeed: 1.3
+    minSpawnRate: 3
+    maxSpawnRate: 7
+    depleteRate: 0.45
+  - beltSpeed: 1.3
+    minSpawnRate: 3
+    maxSpawnRate: 7
+    depleteRate: 0.45
+  - beltSpeed: 1.4
+    minSpawnRate: 2
+    maxSpawnRate: 6
+    depleteRate: 0.5
+  - beltSpeed: 1.4
+    minSpawnRate: 2
+    maxSpawnRate: 6
+    depleteRate: 0.5
 --- !u!4 &550975239
 Transform:
   m_ObjectHideFlags: 0
