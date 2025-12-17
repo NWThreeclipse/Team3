@@ -11,9 +11,9 @@ public class SettingsUIController : MonoBehaviour
 
     private void Start()
     {
-        masterVol.value = PlayerPrefs.GetFloat("MasterVolume");
-        musicVol.value = PlayerPrefs.GetFloat("MusicVolume");
-        sfxVol.value = PlayerPrefs.GetFloat("SFXVolume");
+        masterVol.value = PlayerPrefs.GetFloat("MasterVolume", 0.5f);
+        musicVol.value = PlayerPrefs.GetFloat("MusicVolume", 0.5f);
+        sfxVol.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);
         fullscreenToggle.isOn = PlayerPrefs.GetInt("Fullscreen") == 1;
     }
 }
