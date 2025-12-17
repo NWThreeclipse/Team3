@@ -1,5 +1,80 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8836226546325071246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b17c899a39999b44b73cc097ff9a196, type: 3}
+  m_Name: Option Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2712, y: 120}
+  ports:
+    keys:
+    - prevNode
+    - optionA
+    - optionB
+    - optionC
+    - optionD
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: -8836226546325071246}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: optionA
+        node: {fileID: -899758713439128451}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionA
+      _node: {fileID: -8836226546325071246}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: prevNode
+        node: {fileID: 4765955090154135356}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionB
+      _node: {fileID: -8836226546325071246}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionC
+      _node: {fileID: -8836226546325071246}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionD
+      _node: {fileID: -8836226546325071246}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  speaker: {fileID: 11400000, guid: bcf9fe19a9d422e41b0421ec1a03ef6f, type: 2}
+  responses: {fileID: 11400000, guid: 1de09c04154f04c4ca70e544e84ac901, type: 2}
+  prevNode: {fileID: 0}
+  optionA: {fileID: 0}
+  optionB: {fileID: 0}
+  optionC: {fileID: 0}
+  optionD: {fileID: 0}
 --- !u!114 &-7267043705611964708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,7 +317,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: 4765955090154135356}
+        node: {fileID: -8836226546325071246}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -303,6 +378,7 @@ MonoBehaviour:
   - {fileID: 4765955090154135356}
   - {fileID: -7267043705611964708}
   - {fileID: -7232882126437596452}
+  - {fileID: -8836226546325071246}
 --- !u!114 &3019412792190066431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +542,7 @@ MonoBehaviour:
   m_Name: SkoogeExit
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 2856, y: 88}
+  position: {x: 2952, y: 88}
   ports:
     keys:
     - prevNode
@@ -476,7 +552,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: optionA
-        node: {fileID: -899758713439128451}
+        node: {fileID: -8836226546325071246}
         reroutePoints: []
       _direction: 0
       _connectionType: 0

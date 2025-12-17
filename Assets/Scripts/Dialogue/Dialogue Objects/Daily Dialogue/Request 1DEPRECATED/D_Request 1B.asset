@@ -17,6 +17,4 @@ MonoBehaviour:
   talkingClip: {fileID: 8300000, guid: b826b3717496f9640a06f16b9c22197f, type: 3}
   sentences:
   - 'Good good good!  First things we need need is a gas canister, an antimatter
-    cell, and one of those pretty plants with a fleshy part.  When you find them, 
-    drop them to me in here.  And don''t let the Supervisor see!  They won''t approve. 
-    Nope nope nope. '
+    cell, and one of those pretty plants with a fleshy part. '

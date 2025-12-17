@@ -214,7 +214,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator RenderSentence(string sentence)
     {
-        sentenceText.enableAutoSizing = true;
+        //sentenceText.enableAutoSizing = true;
         sentenceText.text = sentence;
         sentenceText.ForceMeshUpdate();
         sentenceText.maxVisibleCharacters = 0;

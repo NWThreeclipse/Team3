@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: SkoogeExit
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: 3074.7537, y: 206.58714}
+  position: {x: 3160, y: 200}
   ports:
     keys:
     - prevNode
@@ -139,7 +139,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: optionA
-        node: {fileID: 3549811040127851315}
+        node: {fileID: 3207447333905470052}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   - {fileID: -4275016200247497777}
   - {fileID: 5124407189470232520}
   - {fileID: 5141999690448169211}
+  - {fileID: 3207447333905470052}
 --- !u!114 &3019412792190066431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +247,81 @@ MonoBehaviour:
   optionB: {fileID: 0}
   optionC: {fileID: 0}
   optionD: {fileID: 0}
+--- !u!114 &3207447333905470052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b17c899a39999b44b73cc097ff9a196, type: 3}
+  m_Name: Option Dialogue
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 2987.21, y: 347.60947}
+  ports:
+    keys:
+    - prevNode
+    - optionA
+    - optionB
+    - optionC
+    - optionD
+    values:
+    - _fieldName: prevNode
+      _node: {fileID: 3207447333905470052}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: optionA
+        node: {fileID: 3549811040127851315}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionA
+      _node: {fileID: 3207447333905470052}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: prevNode
+        node: {fileID: -4275016200247497777}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionB
+      _node: {fileID: 3207447333905470052}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionC
+      _node: {fileID: 3207447333905470052}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: optionD
+      _node: {fileID: 3207447333905470052}
+      _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  speaker: {fileID: 11400000, guid: bcf9fe19a9d422e41b0421ec1a03ef6f, type: 2}
+  responses: {fileID: 11400000, guid: 1de09c04154f04c4ca70e544e84ac901, type: 2}
+  prevNode: {fileID: 0}
+  optionA: {fileID: 0}
+  optionB: {fileID: 0}
+  optionC: {fileID: 0}
+  optionD: {fileID: 0}
 --- !u!114 &3549811040127851315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +360,7 @@ MonoBehaviour:
       _typeQualifiedName: XNode.Node, XNode, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       connections:
       - fieldName: prevNode
-        node: {fileID: -4275016200247497777}
+        node: {fileID: 3207447333905470052}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
