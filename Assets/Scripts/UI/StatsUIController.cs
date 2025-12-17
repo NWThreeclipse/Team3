@@ -14,7 +14,7 @@ public class StatsUIController : MonoBehaviour
     [SerializeField] private TMP_Text totalItems;
     [SerializeField] private TMP_Text correctItems;
     [SerializeField] private TMP_Text incorrectItems;
-    [SerializeField] private TMP_Text sortSpeed;
+    //[SerializeField] private TMP_Text sortSpeed;
     [SerializeField] private TMP_Text dayText;
     [SerializeField] private Image anomalousItemImage;
     [SerializeField] private Sprite[] anomalousItemSprites;
@@ -64,11 +64,11 @@ public class StatsUIController : MonoBehaviour
 
         if (StatsController.Instance.GetItems() == 0)
         {
-            sortSpeed.text = "0";
+            //sortSpeed.text = "0";
         }
         else
         {
-            sortSpeed.text = (150 / StatsController.Instance.GetItems()).ToString();
+            //sortSpeed.text = (150 / StatsController.Instance.GetItems()).ToString();
         }
         source = GetComponent<AudioSource>();
         //barkCanvas.SetActive(false);
@@ -146,35 +146,35 @@ public class StatsUIController : MonoBehaviour
         }
         Color currentColor = anomalousItemImage.color;
         currentColor.a = 0;
-        anomalousItemImage.color = currentColor; 
-        
+        anomalousItemImage.color = currentColor;
+
         anomalousItemImage.enabled = true;
 
         barkText.text = "";
         //StopAllCoroutines();
-        barkCanvas.transform.DOLocalMove(dialogueShowPanelPos, panelAnimationTime).OnComplete(() => {StartCoroutine(RenderSentence(chosenDialogue, barkText, bark.name, bark.portrait, bark.talkingClip, barkCanvas)); if (fadeOutCoroutine != null)StopCoroutine(fadeOutCoroutine); fadeInCoroutine = StartCoroutine(FadeInVignette()); });
+        barkCanvas.transform.DOLocalMove(dialogueShowPanelPos, panelAnimationTime).OnComplete(() => { StartCoroutine(RenderSentence(chosenDialogue, barkText, bark.name, bark.portrait, bark.talkingClip, barkCanvas)); if (fadeOutCoroutine != null) StopCoroutine(fadeOutCoroutine); fadeInCoroutine = StartCoroutine(FadeInVignette()); });
 
     }
 
     public void EndDialogue()
     {
         StopAllCoroutines();
-        barkCanvas.transform.DOLocalMove(dialogueHidePanelPos, panelAnimationTime).OnComplete(() => {fadeOutCoroutine = StartCoroutine(FadeOutVignette()); gridParent.SetActive(true); });
+        barkCanvas.transform.DOLocalMove(dialogueHidePanelPos, panelAnimationTime).OnComplete(() => { fadeOutCoroutine = StartCoroutine(FadeOutVignette()); gridParent.SetActive(true); });
     }
 
     IEnumerator RenderSentence(string sentence, TMP_Text textbox, string speakerName, Sprite speakerIcon, AudioClip audioClip, GameObject canvas)
     {
-        
+
         playerName.enableAutoSizing = true;
         playerName.text = speakerName;
-        dialogueSprite.sprite = speakerIcon; 
+        dialogueSprite.sprite = speakerIcon;
         //textbox.enableAutoSizing = true;
         textbox.text = sentence;
         textbox.ForceMeshUpdate();
         textbox.maxVisibleCharacters = 0;
         int totalChars = textbox.textInfo.characterCount;
 
-        
+
         yield return new WaitForSeconds(.5f);
 
         for (int i = 0; i < totalChars; i++)
@@ -205,11 +205,11 @@ public class StatsUIController : MonoBehaviour
         {
             timeElapsed += Time.deltaTime;
             vignette.intensity.value = Mathf.Lerp(startIntensity, targetIntensity, timeElapsed / fadeDuration);
-            
+
             Color currentColor = anomalousItemImage.color;
             currentColor.a = Mathf.Lerp(startAlpha, 1f, timeElapsed / fadeDuration);
             anomalousItemImage.color = currentColor;
-            
+
             yield return null;
         }
 
