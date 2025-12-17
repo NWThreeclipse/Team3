@@ -533,16 +533,14 @@ public class GameManager : MonoBehaviour
         }
         if (suspicionStat >= 99.5)
         {
-            AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
-            musicController.FadeOutMusic();
-
-            scenefader.FadeToScene("LossScene");
+            SuspicionLoss();
         }
     }
 
     public void SuspicionLoss()
     {
         AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_GAME_LOSS");
+        musicController.FadeOutMusic();
         scenefader.FadeToScene("LossScene");
     }
 

@@ -4742,7 +4742,7 @@ MonoBehaviour:
   organicDepleteRate: 0.4
   fuelDepleteRate: 0.4
   scrapDepleteRate: 0.4
-  suspicionDepleteRate: 1
+  suspicionDepleteRate: 5
   dayCounter: 0
   timer: 150
   isCountingDown: 1
@@ -11528,7 +11528,7 @@ MonoBehaviour:
   walkSpeeds: {x: 5, y: 8}
   inspectionTimes: {x: 5, y: 8}
   suspicionDamage: 7
-  viewingBoardDamage: 3
+  supervisorViewingDamage: 100
   startLever: {fileID: 576231706}
 --- !u!82 &1324595932
 AudioSource:
@@ -11939,7 +11939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f94f91358323148972af71914ee916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNumber: 0
+  dayNumber: 4
   itemsSorted: 0
   correctSorted: 0
   incorrectSorted: 0

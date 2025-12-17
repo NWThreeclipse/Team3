@@ -304,6 +304,9 @@ public class Skooge : MonoBehaviour
             GameObject itemInstance = Instantiate(questItemPrefab, questCanvas.transform.position, Quaternion.identity);
             itemInstance.transform.SetParent(questCanvas.transform, false);
             Image image = itemInstance.transform.GetChild(0).GetComponent<Image>();
+            Material itemMaterial = new Material(image.material);
+            image.material = itemMaterial;
+
             Image iconImage = itemInstance.transform.GetChild(1).GetComponent<Image>();
 
             if (questData.questItems[i].Rarity == Rarity.Uncommon)
@@ -325,7 +328,12 @@ public class Skooge : MonoBehaviour
             {
                 iconImage.enabled = false;
             }
-                image.sprite = questData.questItems[i].Sprite[0];
+            image.sprite = questData.questItems[i].Sprite[0];
+            itemMaterial.SetTexture("_MainTex", questData.questItems[i].Sprite[0].texture);
+            itemMaterial.SetFloat("_IsEnabled", questData.questItems[i].Rarity == Rarity.Common ? 0f : 1f);
+            itemMaterial.SetFloat("_IsAnomalous", questData.questItems[i].Rarity == Rarity.Anomalous ? 1f : 0f);
+
+
             questItemsIcons[i] = itemInstance;
         }
         

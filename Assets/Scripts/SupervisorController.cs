@@ -20,8 +20,9 @@ public class SupervisorController : MonoBehaviour
 
     [SerializeField] private Vector2 walkSpeeds;
     [SerializeField] private Vector2 inspectionTimes;
-    [SerializeField] private float suspicionDamage; 
-    [SerializeField] private float viewingBoardDamage;
+    [SerializeField] private float suspicionDamage;
+    //[SerializeField] private float viewingBoardDamage;
+    [SerializeField] private float supervisorViewingDamage;
     [SerializeField] private StartLever startLever;
 
 
@@ -66,18 +67,18 @@ public class SupervisorController : MonoBehaviour
                 gameManager.AddSuspicion(suspicionDamage * Time.deltaTime);
             }
         }
-        if (isDangerousDay)
-        {
-            foreach (DragZone dz in dragzones)
-            {
-                if (dz.IsHoldingItem() && dz.GetItem().Rarity == Rarity.Anomalous)
-                {
-                    Debug.Log("viewing damage");
-                    gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
-
-                }
-            }
-        }
+        //if (isDangerousDay)
+        //{
+        //    foreach (DragZone dz in dragzones)
+        //    {
+        //        if (dz.IsHoldingItem() && dz.GetItem().Rarity == Rarity.Anomalous)
+        //        {
+        //            Debug.Log("viewing damage");
+        //            gameManager.AddSuspicion(viewingBoardDamage * Time.deltaTime);
+        //
+        //        }
+        //   }
+        //}
     }
 
     private void GenerateSpawnTimes(int day)
@@ -147,7 +148,8 @@ public class SupervisorController : MonoBehaviour
 
             if (isDangerousDay && skooge.GetIsItemStaying())
             {
-                gameManager.SuspicionLoss();
+                gameManager.AddSuspicion(supervisorViewingDamage * Time.deltaTime);
+                //gameManager.SuspicionLoss();
             }
             yield return null;
         }
