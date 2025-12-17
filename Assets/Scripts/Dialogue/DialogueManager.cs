@@ -17,7 +17,6 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TMP_Text[] optionButtonsText;
 
     [SerializeField] private Image portrait;
-    [SerializeField] private AudioClip panelOpen, panelClose;
     [SerializeField] private Vector3 showPanelPos;
     [SerializeField] private Vector3 hidePanelPos;
     [SerializeField] private float panelAnimationTime = 1;
@@ -28,7 +27,8 @@ public class DialogueManager : MonoBehaviour
 
     Node curNode;
     Queue<string> sentences = new Queue<string>();
-    AudioSource source;
+    [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource footstepSource;
     AudioClip talkingClip;
 
     private Coroutine typingCoroutine;
@@ -39,19 +39,17 @@ public class DialogueManager : MonoBehaviour
     private void ShowSupervisor()
     {
         supervisor.SetActive(true);
-        supervisor.transform.DOMove(showHidePositions[0].position, 2f);
+        footstepSource.Play();
+        supervisor.transform.DOMove(showHidePositions[0].position, 4f).OnComplete(() => footstepSource.Stop());
     }
 
     private void HideSupervisor()
     {
         supervisor.SetActive(true);
-        supervisor.transform.DOMove(showHidePositions[1].position, 5f);
+        footstepSource.Play();
+        supervisor.transform.DOMove(showHidePositions[1].position, 5f).OnComplete(() => footstepSource.Stop());
     }
 
-    void Start()
-    {
-        source = GetComponent<AudioSource>();
-    }
 
     public void StartDialogue(Node rootNode)
     {
