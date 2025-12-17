@@ -27,7 +27,6 @@ public class EndScreenReader : MonoBehaviour
     private void Start()
     {
         dialogue = text.text;
-        text.text = "";
         initialScale = img.gameObject.transform.localScale;
         initialColor = img.color;
 
@@ -43,12 +42,14 @@ public class EndScreenReader : MonoBehaviour
 
     IEnumerator RenderSentence(string sentence, TMP_Text textbox)
     {
-        textbox.text = "";
-        char[] letters = sentence.ToCharArray();
-        for (int i = 0; i < letters.Length; i++)
+        textbox.text = sentence;
+        textbox.ForceMeshUpdate();
+        textbox.maxVisibleCharacters = 0;
+        int totalChars = textbox.textInfo.characterCount;
+
+        for (int i = 0; i < totalChars; i++)
         {
-            textbox.text += letters[i];
-            
+            textbox.maxVisibleCharacters++;
 
             yield return new WaitForSeconds(textSpeed);
         }
