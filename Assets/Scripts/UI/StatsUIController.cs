@@ -164,7 +164,7 @@ public class StatsUIController : MonoBehaviour
         playerName.enableAutoSizing = true;
         playerName.text = speakerName;
         dialogueSprite.sprite = speakerIcon; 
-        textbox.enableAutoSizing = true;
+        //textbox.enableAutoSizing = true;
         textbox.text = sentence;
         textbox.ForceMeshUpdate();
         textbox.maxVisibleCharacters = 0;

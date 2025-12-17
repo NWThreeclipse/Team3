@@ -417,7 +417,7 @@ MonoBehaviour:
   bubblePrefab: {fileID: 2282789819336777042, guid: 14ba9870e7a5c8547bb25fa7e554a7c3, type: 3}
   gridParent: {fileID: 1806268946}
   bark: {fileID: 11400000, guid: 0b0cf5c6b2033f14e8e70f57407cc09e, type: 2}
-  textSpeed: 0.01
+  textSpeed: 0.02
   barkCanvas: {fileID: 560067838}
   barkText: {fileID: 316037621}
   nextButton: {fileID: 158624820}
@@ -1140,8 +1140,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 51
+  m_fontSizeBase: 51
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

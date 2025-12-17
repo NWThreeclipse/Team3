@@ -92,7 +92,7 @@ public class BarkManager : MonoBehaviour
             canvas.GetComponent<RectTransform>().DOShakeAnchorPos(0.1f, shakeStrength).OnComplete(() => canvas.transform.position = originalPosition);
         }
 
-        textbox.enableAutoSizing = true;
+        //textbox.enableAutoSizing = true;
         textbox.text = sentence;
         textbox.ForceMeshUpdate();
         textbox.maxVisibleCharacters = 0;
