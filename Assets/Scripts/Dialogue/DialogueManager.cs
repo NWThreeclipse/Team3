@@ -33,6 +33,8 @@ public class DialogueManager : MonoBehaviour
 
     private Coroutine typingCoroutine;
     private bool isTyping;
+    private bool dialogueOpen;
+
 
     public event Action<DialogueManager> OnDialogueEnd;
 
@@ -98,9 +100,8 @@ public class DialogueManager : MonoBehaviour
             foreach (var s in dialogue.sentences)
                 sentences.Enqueue(s);
 
-            dialogueMenu.transform
-                .DOLocalMove(showPanelPos, panelAnimationTime)
-                .OnComplete(DisplaySentence);
+            ShowDialoguePanel();
+
         }
         else if (curNode.GetType() == typeof(SimpleDialogueNode))
         {
@@ -122,9 +123,8 @@ public class DialogueManager : MonoBehaviour
             foreach (var s in dialogue.sentences)
                 sentences.Enqueue(s);
 
-            dialogueMenu.transform
-                .DOLocalMove(showPanelPos, panelAnimationTime)
-                .OnComplete(DisplaySentence);
+            ShowDialoguePanel();
+
         }
         else
         {
@@ -134,6 +134,21 @@ public class DialogueManager : MonoBehaviour
                 EndDialogue();
         }
     }
+    private void ShowDialoguePanel()
+    {
+        if (dialogueOpen)
+        {
+            DisplaySentence();
+            return;
+        }
+
+        dialogueOpen = true;
+
+        dialogueMenu.transform
+            .DOLocalMove(showPanelPos, panelAnimationTime)
+            .OnComplete(DisplaySentence);
+    }
+
 
     public void DisplayNextOption(string option)
     {
@@ -158,15 +173,28 @@ public class DialogueManager : MonoBehaviour
             StartDialogue(curNode);
         }
     }
+    private void SkipTyping()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        isTyping = false;
+        sentenceText.maxVisibleCharacters = sentenceText.textInfo.characterCount;
+
+        source.Stop();
+    }
 
     public void DisplayNextSimple()
     {
         if (isTyping)
         {
-            sentenceText.maxVisibleCharacters = sentenceText.textInfo.characterCount;
-            isTyping = false;
+            SkipTyping();
             return;
         }
+
 
         SimpleDialogueNode simpleNode = curNode as SimpleDialogueNode;
         NodePort port = simpleNode.GetOutputPort("nextNode").Connection;
