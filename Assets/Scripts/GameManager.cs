@@ -48,7 +48,14 @@ public class GameManager : MonoBehaviour
     }
     public static void setMinigameOpen(bool setValue)
     {
-        FindFirstObjectByType<GameManager>().minigameOpen = setValue;
+        try
+        {
+            FindFirstObjectByType<GameManager>().minigameOpen = setValue;
+        }
+        catch
+        {
+            Debug.Log("FAILED SETMINIGAME OPEN");
+        }
     }
 
     [SerializeField] private List<Sprite> trashSprites;
@@ -357,16 +364,16 @@ public class GameManager : MonoBehaviour
                 {
                     isCountingDown = false;
                     //rebellion ending
-                    AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
-                    scenefader.FadeToScene("NarrativeWinScene");
+                    //AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_WIN");
+                    scenefader.FadeToScene("WinBarracks");
                     return;
                 }
                 else
                 {
                     isCountingDown = false;
-                    AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
+                    //AchievementManager.Instance.UnlockAchievement("RECYCLAMATION_NARRATIVE_LOSS");
                     musicController.FadeOutMusic();
-                    scenefader.FadeToScene("NarrativeLossScene");
+                    scenefader.FadeToScene("LoseBarracks");
                 }
 
             }

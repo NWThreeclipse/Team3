@@ -79,6 +79,10 @@ public class StatsUIController : MonoBehaviour
 
     }
 
+    public void ResetPlayerStats()
+    {
+        FindAnyObjectByType<StatsController>().ResetDailyStats();
+    }
     public void HideStats()
     {
         statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => { nextButton.SetActive(false); nextDayButton.SetActive(true); ShowBarks(); });

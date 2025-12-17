@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/NarrativeWinScene.unity
     guid: 96fef979623d99e488ebd0cbe6633aea
+  - enabled: 1
+    path: Assets/Scenes/LoseBarracks.unity
+    guid: 2ce6da42bf2c4fc4e87107366e03d04b
+  - enabled: 1
+    path: Assets/Scenes/WinBarracks.unity
+    guid: 9b561261c19260c43b6f988535e8833f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

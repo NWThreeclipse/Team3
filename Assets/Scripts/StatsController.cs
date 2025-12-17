@@ -108,6 +108,11 @@ public class StatsController : MonoBehaviour
         anomalousItems.Clear();
     }
 
+    public void ResetDays()
+    {
+        dayNumber = 0;
+    }
+
     public void ResetDailyStats()
     {
         itemsSorted = 0;

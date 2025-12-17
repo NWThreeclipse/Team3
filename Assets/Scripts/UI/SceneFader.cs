@@ -27,6 +27,7 @@ public class SceneFader : MonoBehaviour
     public void ExitToMenu()
     {
         Time.timeScale = 1f;
+        Destroy(FindAnyObjectByType<StatsController>().gameObject);
         StartCoroutine(FadeOut("MainMenu"));
 
     }
