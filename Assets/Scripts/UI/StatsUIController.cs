@@ -85,6 +85,7 @@ public class StatsUIController : MonoBehaviour
     }
     public void HideStats()
     {
+        nextButton.GetComponent<Button>().interactable = false;
         statsCanvas.transform.DOLocalMove(hidePanelPos, panelAnimationTime).SetEase(Ease.InQuad).OnComplete(() => { nextButton.SetActive(false); nextDayButton.SetActive(true); ShowBarks(); });
         //statsCanvas.SetActive(false);
         //nextButton.SetActive(false);

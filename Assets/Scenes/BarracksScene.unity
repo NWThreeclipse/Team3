@@ -406,7 +406,6 @@ MonoBehaviour:
   totalItems: {fileID: 294142091}
   correctItems: {fileID: 463723469}
   incorrectItems: {fileID: 924748500}
-  sortSpeed: {fileID: 0}
   dayText: {fileID: 2011822612}
   anomalousItemImage: {fileID: 1028934658}
   anomalousItemSprites:
@@ -610,7 +609,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.22352941, g: 0.40392157, b: 0.40392157, a: 1}
     m_PressedColor: {r: 0, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.007843138, g: 0.0627451, b: 0.078431375, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.007843138, g: 0.0627451, b: 0.078431375, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

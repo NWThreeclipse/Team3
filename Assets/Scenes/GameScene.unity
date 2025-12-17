@@ -11664,7 +11664,7 @@ MonoBehaviour:
   - {fileID: 80892436}
   walkSpeeds: {x: 5, y: 8}
   inspectionTimes: {x: 5, y: 8}
-  suspicionDamage: 7
+  suspicionDamage: 10
   supervisorViewingDamage: 100
   startLever: {fileID: 576231706}
 --- !u!82 &1324595932
@@ -12076,17 +12076,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22f94f91358323148972af71914ee916, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayNumber: 3
+  dayNumber: 0
   itemsSorted: 0
   correctSorted: 0
   incorrectSorted: 0
   anomalousItemsRecieved: 0
   rebellionScore: 0
-  anomalousItems:
-  - Bloodied Microscope
-  - Infected Severed Arm
-  - Model Spaceship
-  - Plague Distribution Device
+  anomalousItems: []
 --- !u!4 &1351908952
 Transform:
   m_ObjectHideFlags: 0
